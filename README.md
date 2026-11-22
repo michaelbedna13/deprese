@@ -1,6 +1,6 @@
 # Začarovaný kruh
 
-Kulatá galerie o depresi. Webová „hra“ v prohlížeči: sedíš u kruhového stolu uprostřed kulaté místnosti, kolem tebe prázdné židle, na stole poznámky, na stěnách plakáty. A jedny dveře.
+Kulatá galerie o depresi. Webová „hra“ v prohlížeči: stojíš uprostřed tmavé kulaté místnosti, točíš se dokola a plakáty se rozsvěcují, když se na ně podíváš. Za zády jsou dveře, nahoře světlo.
 
 Je to umělecké dílo pro dva druhy návštěvníků:
 - pro ty, kdo depresi nemají, aby ji mohli aspoň trochu nacítit,
