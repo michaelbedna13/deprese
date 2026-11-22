@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Začarovaný kruh</title>
+  <meta name="description" content="Kulatá galerie o depresi. Místo, kde se dá pochopit, a místo, kde nejsi sám.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="viewport" aria-label="Kulatá místnost. Rozhlížej se tažením nebo šipkami.">
+    <div id="scene"></div>
+  </div>
+
+  <div id="vignette" aria-hidden="true"></div>
+  <div id="fog" aria-hidden="true"></div>
+  <p id="whisper" aria-live="polite"></p>
+
+  <div id="hud">
+    <button id="soundBtn" type="button" aria-pressed="false">zvuk: vyp.</button>
+    <button id="helpBtn" type="button">Potřebuješ pomoc?</button>
+  </div>
+
+  <!-- Úvod -->
+  <section id="intro" class="overlay show" role="dialog" aria-modal="true" aria-labelledby="introTitle">
+    <div class="card">
+      <h1 id="introTitle"></h1>
+      <div id="introText"></div>
+      <button id="enterBtn" type="button" class="primary"></button>
+    </div>
+  </section>
+
+  <!-- Detail plakátu / poznámky -->
+  <section id="modal" class="overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="card">
+      <button class="close" type="button" aria-label="Zavřít">×</button>
+      <div id="modalBody"></div>
+    </div>
+  </section>
+
+  <!-- Pomoc -->
+  <section id="help" class="overlay" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+    <div class="card">
+      <button class="close" type="button" aria-label="Zavřít">×</button>
+      <h2 id="helpTitle"></h2>
+      <div id="helpText"></div>
+    </div>
+  </section>
+
+  <!-- Nadhled (za dveřmi) -->
+  <div id="beyond" aria-live="polite">
+    <div id="beyondText"></div>
+    <button id="returnBtn" type="button">Vrátit se</button>
+  </div>
+
+  <script src="content.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
