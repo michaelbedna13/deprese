@@ -1,12 +1,14 @@
 :root {
-  --bg: #0b0a0a;
-  --ink: #e8e2d6;
-  --ink-dim: #a39b8d;
-  --paper: #e9e1cf;
-  --paper-ink: #2b2620;
-  --wall: #3a352f;
-  --accent: #c9a96a;
-  --gloom: 0.35;
+  --bg: #030404;
+  --ink: #e6dfd2;
+  --ink-dim: #9b958a;
+  --amber: #f2c27a;
+  --amber-soft: rgba(242, 194, 122, .9);
+  --patina: #3f7a6a;
+  --patina-glow: #6fe0bf;
+  --wood: #24180f;
+  --noise: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .09 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  --brush: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='800'><filter id='b'><feTurbulence type='fractalNoise' baseFrequency='.012 .02' numOctaves='4' seed='7'/><feColorMatrix values='0 0 0 0 .2  0 0 0 0 .45  0 0 0 0 .4  0 0 0 .16 -.03'/></filter><rect width='100%' height='100%' filter='url(%23b)'/></svg>");
 }
 
 * { box-sizing: border-box; }
@@ -20,10 +22,9 @@ html, body {
   font-family: "EB Garamond", Georgia, serif;
   -webkit-font-smoothing: antialiased;
 }
-
 button { font: inherit; color: inherit; }
 
-/* ---------- 3D místnost ---------- */
+/* ---------- 3D ---------- */
 #viewport {
   position: fixed;
   inset: 0;
@@ -32,25 +33,14 @@ button { font: inherit; color: inherit; }
   touch-action: none;
   user-select: none;
   -webkit-user-select: none;
-  background: #050404;
+  background: var(--bg);
 }
 #viewport.dragging { cursor: grabbing; }
+#viewport.has-target { cursor: pointer; }
 
-#scene {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 0;
-  height: 0;
-}
-.group {
-  position: absolute;
-  left: 0;
-  top: 0;
-  transform-style: preserve-3d;
-}
+#scene { position: absolute; left: 50%; top: 50%; width: 0; height: 0; }
+.group { position: absolute; left: 0; top: 0; transform-style: preserve-3d; }
 .group.flying { transition: transform 4.5s cubic-bezier(.6, 0, .25, 1); }
-
 .group > * {
   position: absolute;
   left: 0;
@@ -59,163 +49,249 @@ button { font: inherit; color: inherit; }
   backface-visibility: hidden;
 }
 
+/* Stěny: téměř černé, malované tahy s nádechem zeleně */
 .wall {
   background:
-    linear-gradient(180deg, rgba(0,0,0,.6) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 86%, rgba(0,0,0,.45) 96%, #0d0b09 96.5%),
-    linear-gradient(90deg, rgba(255,255,255,.02), rgba(0,0,0,.06)),
-    var(--wall);
+    linear-gradient(180deg, rgba(0,0,0,.85) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,0) 80%, rgba(0,0,0,.7) 100%),
+    var(--noise),
+    var(--brush),
+    #0b0e0d;
 }
-.wall.alt { background-color: #36312b; }
 
 .floor {
   border-radius: 50%;
   background:
-    radial-gradient(circle, rgba(0,0,0,0) 20%, rgba(0,0,0,.75) 100%),
-    repeating-radial-gradient(circle, #1d1814 0 22px, #1a1511 22px 44px);
-  box-shadow: inset 0 0 0 6px #120f0c;
+    radial-gradient(circle, rgba(242,194,122,.10) 0 9%, transparent 22%),
+    radial-gradient(circle, transparent 44%, rgba(160,150,130,.07) 47%, rgba(160,150,130,.11) 50%, rgba(160,150,130,.06) 53%, transparent 57%),
+    var(--noise),
+    radial-gradient(circle, #0d0f0e 0%, #050606 80%);
 }
 .ceiling {
   border-radius: 50%;
-  background: radial-gradient(circle, #1a1714 0%, #0a0908 70%);
-}
-.lamp {
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,230,180,.55) 0%, rgba(255,210,150,.12) 35%, rgba(0,0,0,0) 70%);
+  background:
+    radial-gradient(circle, #fffaf0 0 9%, rgba(255,230,180,.9) 10.5%, rgba(255,214,150,.35) 16%, rgba(255,200,140,.08) 30%, transparent 45%),
+    var(--noise),
+    #070808;
 }
 
-.table {
-  border-radius: 50%;
-  background:
-    radial-gradient(circle, transparent 0 34%, #120d0a 34.3% 35.5%, #4a3829 36% 92%, #2a1f17 93% 100%);
+/* Kužel světla a světelná skvrna na zdi */
+.pool {
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 40%, rgba(242,194,122,.6) 0%, rgba(242,194,122,.2) 36%, rgba(242,194,122,0) 68%);
+  opacity: .06;
+  transition: opacity 1.1s ease;
 }
-.chair svg { display: block; width: 100%; height: 100%; }
-.chair { pointer-events: none; }
+.beam {
+  pointer-events: none;
+  background: radial-gradient(ellipse 50% 100% at 50% 100%, rgba(255,226,170,.2) 0%, rgba(255,226,170,.07) 45%, rgba(255,226,170,0) 100%);
+  opacity: 0;
+  transition: opacity 1.1s ease;
+}
+.lit-pool { opacity: 1; }
+.lit-beam { opacity: 1; }
 
 /* Plakáty */
 .poster {
   border: 0;
   padding: 0;
   cursor: pointer;
-  background: var(--paper);
-  color: var(--paper-ink);
-  box-shadow: 0 0 0 10px #15110e, 0 30px 60px rgba(0,0,0,.6);
+  background: #13110f;
+  box-shadow:
+    0 0 0 3px #0a0705,
+    0 0 0 13px var(--wood),
+    0 0 0 15px var(--patina),
+    0 0 0 17px #0a0705,
+    0 40px 70px rgba(0,0,0,.8);
+  overflow: hidden;
+  text-align: left;
+}
+.poster .inner {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  text-align: left;
-  overflow: hidden;
+  padding: 8% 9%;
+  background:
+    var(--noise),
+    radial-gradient(ellipse at 50% 30%, #2a2520 0%, #15120f 75%);
+  color: var(--ink);
 }
-.poster .inner { padding: 38px 34px; height: 100%; display: flex; flex-direction: column; }
-.poster .num { font-size: 18px; letter-spacing: .2em; opacity: .55; }
+.poster .num {
+  font-family: "Cormorant Garamond", serif;
+  letter-spacing: .3em;
+  color: var(--amber);
+  opacity: .8;
+}
 .poster h3 {
-  font-size: 58px;
-  line-height: 1;
-  margin: auto 0 22px;
+  font-family: "Cormorant Garamond", serif;
   font-weight: 600;
-  letter-spacing: -.01em;
+  line-height: .95;
+  margin: auto 0 .35em;
 }
-.poster p { font-size: 25px; line-height: 1.25; margin: 0; font-style: italic; transition: opacity 1.2s; }
-.poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.poster:hover, .poster:focus-visible { outline: 4px solid var(--accent); outline-offset: 14px; }
+.poster p { margin: 0; font-style: italic; color: var(--ink-dim); line-height: 1.25; }
+.poster .slot {
+  position: absolute;
+  inset: 14% 12% 38%;
+  border: 1px dashed rgba(230,223,210,.15);
+  display: grid;
+  place-items: center;
+  font-size: .75em;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: rgba(230,223,210,.22);
+}
+.poster.main .inner { font-size: 26px; }
+.poster.main h3 { font-size: 64px; }
+.poster.triplet .inner { font-size: 17px; }
+.poster.triplet h3 { font-size: 38px; }
+.poster img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.poster .shade, .door .shade, .board .shade {
+  position: absolute;
+  inset: -20px;
+  background: #000;
+  opacity: .8;
+  transition: opacity 1.1s ease;
+  pointer-events: none;
+}
+.lit .shade { opacity: 0; }
+.poster.lit {
+  box-shadow:
+    0 0 0 3px #0a0705,
+    0 0 0 13px #3a2818,
+    0 0 0 15px var(--patina-glow),
+    0 0 0 17px #0a0705,
+    0 0 60px rgba(111,224,191,.12),
+    0 40px 70px rgba(0,0,0,.8);
+}
+.poster:focus-visible, .door:focus-visible, .board:focus-visible, .card-pin:focus-visible { outline: 3px solid var(--amber); outline-offset: 22px; }
 
 /* Dveře */
 .door {
   border: 0;
   padding: 0;
   cursor: pointer;
+  overflow: visible;
   background:
-    linear-gradient(90deg, rgba(0,0,0,.25), rgba(255,255,255,.03) 50%, rgba(0,0,0,.3)),
-    #3b2e23;
-  box-shadow: 0 0 0 14px #17120e, inset 0 0 0 18px rgba(0,0,0,.18);
-  color: var(--ink-dim);
-  font-size: 22px;
-  letter-spacing: .3em;
-  text-transform: uppercase;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: 70px;
+    var(--noise),
+    repeating-linear-gradient(90deg, rgba(0,0,0,.25) 0 2px, transparent 2px 38px),
+    linear-gradient(90deg, #120c08, #23170f 50%, #110b07);
+  box-shadow: 0 0 0 12px #0a0705, 0 0 0 14px rgba(63,122,106,.6), 0 0 0 16px #0a0705;
 }
 .door::after {
   content: "";
   position: absolute;
-  right: 34px;
+  right: 26px;
   top: 52%;
-  width: 18px;
-  height: 18px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
-  background: #8e7550;
+  background: var(--patina);
 }
-.door::before {
-  content: "";
+.door .crack {
   position: absolute;
-  inset: -4px;
-  pointer-events: none;
-  box-shadow: 0 0 0 0 rgba(255,236,200,0);
-  transition: box-shadow 3s;
-}
-.door.ajar::before { box-shadow: 0 0 40px 6px rgba(255,236,200,.35), inset 0 0 0 3px rgba(255,236,200,.5); }
-.door:hover, .door:focus-visible { outline: 4px solid var(--accent); outline-offset: 18px; }
-
-/* Poznámky na stole */
-.note {
-  border: 0;
-  padding: 10px 9px;
-  cursor: pointer;
-  background: var(--paper);
-  color: var(--paper-ink);
-  font-family: "Caveat", cursive;
-  font-size: 13px;
-  line-height: 1.1;
-  text-align: left;
-  white-space: pre-line;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0,0,0,.5);
-}
-.note:hover, .note:focus-visible { outline: 3px solid var(--accent); }
-
-/* Skryté šepoty u podlahy */
-.scrawl {
-  border: 0;
-  background: none;
-  padding: 4px 8px;
-  cursor: pointer;
-  font-family: "Caveat", cursive;
-  font-size: 30px;
-  color: rgba(220, 210, 190, .38);
-  white-space: nowrap;
-}
-.scrawl:hover, .scrawl:focus-visible { color: rgba(240, 230, 210, .8); outline: none; }
-
-/* ---------- Překryvy ---------- */
-#vignette, #fog {
-  position: fixed;
   inset: 0;
   pointer-events: none;
+  box-shadow: inset 0 0 0 0 rgba(111,224,191,0), 0 0 0 0 rgba(111,224,191,0);
+  transition: box-shadow 3s ease;
 }
+.door.ready .crack { box-shadow: inset 0 0 0 3px rgba(150,255,220,.55), 0 0 50px 6px rgba(111,224,191,.28); }
+.door.ready .shade { opacity: .55; }
+.door.ready.lit .shade { opacity: 0; }
+
+/* Nástěnka */
+.board {
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  background:
+    var(--noise),
+    radial-gradient(ellipse at 50% 40%, #3b2a1c 0%, #20160e 80%);
+  box-shadow: 0 0 0 12px var(--wood), 0 0 0 14px var(--patina), 0 0 0 16px #0a0705, 0 40px 70px rgba(0,0,0,.8);
+}
+.board h4 {
+  position: absolute;
+  left: 0; right: 0; top: 14px;
+  margin: 0;
+  text-align: center;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 400;
+  font-size: 24px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: rgba(230,223,210,.55);
+}
+.card-pin {
+  position: absolute;
+  width: 150px;
+  height: 104px;
+  border: 0;
+  padding: 18px 12px 8px;
+  background: #e4dccb;
+  color: #2a231c;
+  font-family: "Caveat", cursive;
+  font-size: 22px;
+  line-height: 1.05;
+  text-align: left;
+  box-shadow: 0 6px 14px rgba(0,0,0,.55);
+  cursor: pointer;
+}
+.card-pin::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 6px;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ff9b84, #8a2618);
+}
+
+/* ---------- Překryvy ---------- */
+#dust, #vignette { position: fixed; inset: 0; pointer-events: none; }
+#dust { width: 100%; height: 100%; }
 #vignette {
-  background: radial-gradient(ellipse at center, rgba(0,0,0,0) 35%, rgba(0,0,0,1) 100%);
-  opacity: var(--gloom);
-  transition: opacity 4s;
+  background:
+    radial-gradient(ellipse at center, rgba(0,0,0,0) 30%, rgba(1,6,6,.75) 80%, rgba(0,4,4,.98) 100%);
 }
-#fog {
+
+#target {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: max(28px, env(safe-area-inset-bottom));
+  text-align: center;
+  pointer-events: none;
   opacity: 0;
-  background: rgba(10, 8, 6, .35);
-  backdrop-filter: blur(0px);
-  -webkit-backdrop-filter: blur(0px);
-  transition: opacity 3s, backdrop-filter 3s;
+  transform: translateY(6px);
+  transition: opacity .6s, transform .6s;
+  text-shadow: 0 2px 14px #000;
 }
+#target.show { opacity: 1; transform: none; }
+#targetNum {
+  display: block;
+  font-family: "Cormorant Garamond", serif;
+  letter-spacing: .35em;
+  color: var(--amber);
+  font-size: 14px;
+}
+#targetTitle {
+  display: block;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(26px, 4vw, 38px);
+  line-height: 1.1;
+}
+#targetHint { display: block; font-size: 14px; color: var(--ink-dim); margin-top: 4px; font-style: italic; }
 
 #whisper {
   position: fixed;
   left: 16px;
   right: 16px;
-  bottom: 9vh;
+  top: 9vh;
   margin: 0;
   text-align: center;
   font-style: italic;
   font-size: clamp(18px, 2.4vw, 26px);
-  color: var(--ink);
   text-shadow: 0 2px 12px #000;
   opacity: 0;
   transition: opacity 1.6s;
@@ -232,15 +308,15 @@ button { font: inherit; color: inherit; }
   z-index: 20;
 }
 #hud button {
-  background: rgba(15, 12, 10, .72);
-  border: 1px solid rgba(232, 226, 214, .25);
+  background: rgba(8, 10, 10, .72);
+  border: 1px solid rgba(230, 223, 210, .2);
   border-radius: 999px;
   padding: 8px 14px;
   font-size: 15px;
   cursor: pointer;
   backdrop-filter: blur(4px);
 }
-#hud button:hover, #hud button:focus-visible { border-color: var(--accent); outline: none; }
+#hud button:hover, #hud button:focus-visible { border-color: var(--amber); outline: none; }
 #helpBtn { color: #f3d9a6; }
 
 .overlay {
@@ -250,7 +326,7 @@ button { font: inherit; color: inherit; }
   align-items: center;
   justify-content: center;
   padding: 16px;
-  background: rgba(5, 4, 3, .82);
+  background: rgba(2, 4, 4, .84);
   z-index: 30;
 }
 .overlay.show { display: flex; animation: fade .6s ease; }
@@ -262,17 +338,27 @@ button { font: inherit; color: inherit; }
   width: 100%;
   max-height: calc(100vh - 32px);
   overflow-y: auto;
-  padding: 36px 32px 30px;
-  background: #15120f;
-  border: 1px solid rgba(232, 226, 214, .14);
+  padding: 36px 30px 30px;
+  background: var(--noise), #0e1110;
+  border: 1px solid rgba(111, 224, 191, .18);
   font-size: 20px;
   line-height: 1.5;
 }
-.card h1, .card h2 { font-weight: 400; margin: 0 0 18px; line-height: 1.1; }
-.card h1 { font-size: clamp(34px, 6vw, 48px); }
-.card h2 { font-size: 30px; }
+.card h1, .card h2 {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 400;
+  margin: 0 0 16px;
+  line-height: 1.05;
+}
+.card h1 { font-size: clamp(36px, 7vw, 52px); }
+.card h2 { font-size: 40px; }
+.card .kicker { font-family: "Cormorant Garamond", serif; letter-spacing: .3em; color: var(--amber); font-size: 14px; margin: 0 0 6px; text-transform: uppercase; }
 .card p { margin: 0 0 14px; }
+.card .lead { font-style: italic; font-size: 22px; }
+.card .todo { font-size: 15px; color: var(--ink-dim); border-top: 1px solid rgba(230,223,210,.12); padding-top: 12px; margin-top: 18px; }
+.card .crisis { font-size: 17px; color: #f3d9a6; }
 .card a { color: #f3d9a6; }
+.card img { max-width: 100%; display: block; margin: 0 0 16px; }
 .card .close {
   position: absolute;
   top: 8px;
@@ -286,31 +372,30 @@ button { font: inherit; color: inherit; }
   color: var(--ink-dim);
 }
 .card .close:hover, .card .close:focus-visible { color: var(--ink); outline: none; }
-.card img { max-width: 100%; display: block; margin: 0 0 16px; }
-
-.card.paper {
-  background: var(--paper);
-  color: var(--paper-ink);
+.card .cards { display: grid; gap: 10px; margin-top: 8px; }
+.card .cards button {
+  text-align: left;
+  background: #e4dccb;
+  color: #2a231c;
+  border: 0;
+  padding: 10px 14px;
   font-family: "Caveat", cursive;
-  font-size: 28px;
-  line-height: 1.25;
-  white-space: pre-line;
-  transform: rotate(-1deg);
+  font-size: 24px;
+  cursor: pointer;
 }
-.card.paper .close { color: #6d6253; }
+.card .cards button span { display: block; font-family: "EB Garamond", serif; font-size: 16px; }
 
 button.primary {
   margin-top: 10px;
   padding: 12px 28px;
   background: none;
-  border: 1px solid rgba(232, 226, 214, .45);
+  border: 1px solid rgba(230, 223, 210, .45);
   cursor: pointer;
   font-size: 20px;
   letter-spacing: .08em;
 }
-button.primary:hover, button.primary:focus-visible { border-color: var(--accent); color: #f3d9a6; outline: none; }
+button.primary:hover, button.primary:focus-visible { border-color: var(--amber); color: #f3d9a6; outline: none; }
 
-/* Nadhled */
 #beyond {
   position: fixed;
   inset: 0;
@@ -318,7 +403,7 @@ button.primary:hover, button.primary:focus-visible { border-color: var(--accent)
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  padding: 0 16px 10vh;
+  padding: 0 16px 8vh;
   pointer-events: none;
   opacity: 0;
   transition: opacity 2s;
@@ -339,16 +424,16 @@ button.primary:hover, button.primary:focus-visible { border-color: var(--accent)
   pointer-events: auto;
   margin-top: 18px;
   padding: 10px 24px;
-  background: rgba(15, 12, 10, .6);
-  border: 1px solid rgba(232, 226, 214, .4);
+  background: rgba(8, 10, 10, .6);
+  border: 1px solid rgba(230, 223, 210, .4);
   cursor: pointer;
   opacity: 0;
   visibility: hidden;
   transition: opacity 1.5s;
 }
 #returnBtn.on { opacity: 1; visibility: visible; }
-
-body.away #viewport { cursor: default; }
+body.away .group .shade { opacity: .35; }
+body.away .pool { opacity: .5; }
 
 @media (prefers-reduced-motion: reduce) {
   .group.flying { transition-duration: .01s; }

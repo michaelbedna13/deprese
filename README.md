@@ -8,22 +8,21 @@ Je to umělecké dílo pro dva druhy návštěvníků:
 
 ## Jak to funguje
 
-- **Rozhlížení:** tažení myší/prstem, kolečko myši, šipky (Shift = rychleji). Tab prochází plakáty, poznámky a dveře.
-- **Plakáty:** po kliknutí se otevře delší text.
-- **Poznámky na stole:** podívej se dolů.
-- **Šepoty:** drobné nápisy nízko na stěně u podlahy, pro ty, kdo hledají.
-- **Kruh:** po každém obejití celé místnosti se ozve šepot, místnost ztmavne a některé plakáty změní text.
-- **Dveře (Únik):** přelet nad místnost, tedy doslovný *nadhled*. Poprvé ostrý a dlouhý, po návratu zůstane kolem dveří světlo. Každý další průchod je kratší, mlhavější a místnost po návratu ztmavne.
+- **Černá kulatá místnost**, inspirovaná malovaným světlem a atmosférou animovaných seriálů typu Arcane.
+- **Rozhlížení:** tažení myší/prstem, kolečko myši, šipky (Shift = rychleji). Tab prochází plakáty, dveře a nástěnku.
+- **Na co namíříš, to se rozsvítí** (kužel světla, prach). Klik/ťuknutí = detail.
+- **13 plakátů:** 4 hlavní (po 90°) + 3 trojice (Já, Mechanismus, Druzí). Čtvrtá čtvrtina je **nástěnka** s menšími tématy.
+- **Dveře** za zády na začátku, nad nimi plakát *Nemám se rád*. Otevřou se po obejití kruhu a vedou k **nadhledu** (pohled shora).
+- **Světlo nahoře** (podívej se vzhůru) = *Smysl*.
 - **Pomoc:** tlačítko „Potřebuješ pomoc?“ je vždy vpravo nahoře.
-- **Zvuk:** volitelný, syntetizovaný přímo v prohlížeči (hluboký dron a tikání hodin).
 
 ## Jak upravovat obsah
 
 Všechny texty jsou v souboru **`content.js`**. Kód není potřeba měnit.
 
-- Plakát přidáš zkopírováním jednoho bloku v `posters` a změnou `angle` (kde na stěně visí, 0–360°).
-- Vlastní grafiku plakátu nahraješ do složky `posters/` a doplníš `image: "posters/nazev.jpg"`. Doporučený poměr je 380 × 540 (např. 1140 × 1620 px).
-- Dveře mají v `door.visits` jednotlivé návštěvy: texty, délku a ostrost.
+- Každý plakát má v `posters` svůj blok: název, krátký text, úhel na stěně.
+- Vlastní grafiku nahraješ do složky `posters/` a doplníš `image: "posters/nazev.jpg"`. Poměr stran 5 : 7 (např. 1500 × 2100 px).
+- Karty na nástěnce jsou v `board.cards`, světlo nahoře v `light`, dveře v `door`.
 
 Texty v `content.js` jsou zatím jen **návrhy**. Přepiš je svými.
 
@@ -42,7 +41,7 @@ Stačí otevřít `index.html` v prohlížeči. Nic se neinstaluje.
 ```
 index.html   – kostra stránky
 style.css    – vzhled
-app.js       – 3D místnost, ovládání, kruh, dveře, zvuk
+app.js       – 3D místnost, míření a světlo, dveře, zvuk
 content.js   – VŠECHNY TEXTY (tady tvoříš)
 posters/     – (volitelně) obrázky plakátů
 ```

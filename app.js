@@ -5,37 +5,34 @@
   const $ = (s) => document.querySelector(s);
   const scene = $("#scene");
   const viewport = $("#viewport");
-  // Dvě samostatné 3D vrstvy: místnost (stěny, podlaha) a střed (stůl, židle, poznámky).
-  // Stůl je vždy blíž než stěny, takže se kreslí navrch – předejde to chybám řazení v prohlížeči.
+
+  // Dvě 3D vrstvy: místnost (stěny, podlaha, strop) a předměty na stěnách.
+  // Oddělení zabrání chybám v řazení 3D ploch v prohlížeči.
   const room = document.createElement("div");
-  const center = document.createElement("div");
-  room.className = center.className = "group";
-  scene.append(room, center);
-  const groups = [room, center];
+  const wallItems = document.createElement("div");
+  room.className = wallItems.className = "group";
+  scene.append(room, wallItems);
+  const groups = [room, wallItems];
   const setCamera = (t) => groups.forEach((g) => (g.style.transform = t));
 
-  /* ---------- Rozměry místnosti (v px 3D prostoru) ---------- */
-  const R = 1000;            // poloměr místnosti
-  const WALL_TOP = -720;     // strop (y míří dolů)
-  const FLOOR = 320;         // podlaha – oko je v y = 0 (sedíš)
-  const TABLE_Y = 130;       // deska stolu
-  const TABLE_R = 430;       // vnější poloměr kruhového stolu
-  const SEGMENTS = 36;
+  /* ---------- Rozměry (px v 3D prostoru; oko je v y = 0, y míří dolů) ---------- */
+  const R = 1000;
+  const CEIL = -950;
+  const FLOOR = 560;
+  const SEGMENTS = 40;
+  const PITCH_MIN = -55, PITCH_MAX = 78;
+  const LIGHT_PITCH = 46;      // od tohoto úhlu nahoru se díváš do světla
 
   /* ---------- Stav ---------- */
-  let P = 700;               // perspektiva
-  let yaw = 0, pitch = -6;   // aktuální pohled (stupně)
-  let tYaw = 0, tPitch = -6; // cílový pohled
-  let travelled = 0;         // kolik stupňů se celkem otočilo
-  let loops = 0;
-  let doorVisits = 0;
-  let gloom = 0.35;
-  let away = false;          // jsme za dveřmi
-  let started = false;
-  const posterEls = [];
+  let P = 700;
+  let yaw = 180, pitch = 4, tYaw = 180, tPitch = 4;
+  let travelled = 0, doorReady = false, moved = false;
+  let away = false, started = false;
+  const targets = [];          // na co se dá zamířit
+  let current = null;
 
   /* ---------- Pomocníci ---------- */
-  function el(tag, cls, parent = room) {
+  function el(tag, cls, parent = wallItems) {
     const e = document.createElement(tag);
     if (cls) e.className = cls;
     parent.appendChild(e);
@@ -47,129 +44,121 @@
     e.style.marginLeft = -w / 2 + "px";
     e.style.marginTop = -h / 2 + "px";
   }
-  // Předmět na stěně / stojící: úhel, vzdálenost od středu, svislá poloha středu
-  function standing(e, angle, r, y) {
-    e.style.transform = `rotateY(${-angle}deg) translateZ(${-r}px) translateY(${y}px)`;
-  }
-  // Předmět ležící naplocho (podlaha, stůl)
-  function flat(e, angle, r, y, spin = 0) {
-    e.style.transform =
-      `translateY(${y}px) rotateY(${-angle}deg) translateZ(${-r}px) rotateX(90deg) rotateZ(${spin}deg)`;
+  const standing = (e, a, r, y) =>
+    (e.style.transform = `rotateY(${-a}deg) translateZ(${-r}px) translateY(${y}px)`);
+  const flat = (e, y, up = true) =>
+    (e.style.transform = `translateY(${y}px) rotateX(${up ? 90 : -90}deg)`);
+  const angDiff = (a, b) => ((a - b) % 360 + 540) % 360 - 180;
+
+  // Světelná skvrna na zdi + kužel shora pro předmět
+  function addLight(angle, w, h, cy) {
+    const pool = el("div", "pool", room);
+    const ph = Math.min(h * 1.7, (FLOOR - cy) * 2 - 20);
+    size(pool, w * 2.3, ph);
+    standing(pool, angle, R - 2, cy);
+    const top = CEIL + 60, bottom = cy - h / 2;
+    const beam = el("div", "beam");
+    size(beam, w * 1.5, bottom - top);
+    standing(beam, angle, R - 90, (top + bottom) / 2);
+    return [pool, beam];
   }
 
-  /* ---------- Stavba místnosti ---------- */
+  /* ---------- Stavba ---------- */
   function build() {
     const segW = 2 * R * Math.tan(Math.PI / SEGMENTS) + 1;
-    const wallH = FLOOR - WALL_TOP;
     for (let i = 0; i < SEGMENTS; i++) {
-      const w = el("div", "wall" + (i % 2 ? " alt" : ""));
-      size(w, segW, wallH);
-      standing(w, (i * 360) / SEGMENTS, R, (FLOOR + WALL_TOP) / 2);
+      const w = el("div", "wall", room);
+      size(w, segW, FLOOR - CEIL);
+      w.style.backgroundPosition = `0 0, ${i * 97}px 0, ${i * 173}px 0, 0 0`;
+      standing(w, (i * 360) / SEGMENTS, R, (FLOOR + CEIL) / 2);
     }
-
-    const floor = el("div", "floor");
+    const floor = el("div", "floor", room);
     size(floor, 2 * R, 2 * R);
-    flat(floor, 0, 0, FLOOR);
-
-    const ceil = el("div", "ceiling");
+    flat(floor, FLOOR);
+    const ceil = el("div", "ceiling", room);
     ceil.id = "ceiling";
     size(ceil, 2 * R, 2 * R);
-    flat(ceil, 0, 0, WALL_TOP);
-
-    const lamp = el("div", "lamp");
-    size(lamp, 900, 900);
-    flat(lamp, 0, 0, FLOOR - 2);
-
-    const table = el("div", "table", center);
-    size(table, TABLE_R * 2, TABLE_R * 2);
-    flat(table, 0, 0, TABLE_Y);
-
-    // Prázdné židle kolem stolu, všechny otočené k tobě
-    const chairAngles = [30, 90, 150, 210, 270, 330];
-    chairAngles.forEach((a) => {
-      const c = el("div", "chair", center);
-      size(c, 150, 260);
-      standing(c, a, TABLE_R + 90, FLOOR - 130);
-      c.innerHTML = chairSVG();
-    });
+    flat(ceil, CEIL, false);
 
     // Plakáty
-    G.posters.forEach((p, i) => {
-      const b = el("button", "poster");
+    G.posters.forEach((p) => {
+      const main = p.type === "main";
+      const w = p.aboveDoor ? 330 : main ? 400 : 250;
+      const h = Math.round(w * 1.4);
+      const cy = p.aboveDoor ? -250 : main ? -110 : -70;
+      const b = el("button", `poster ${main ? "main" : "triplet"}`);
       b.type = "button";
-      size(b, 380, 540);
-      standing(b, p.angle, R - 40, -150);
-      if (p.image) {
-        b.innerHTML = `<img src="${p.image}" alt="">`;
-      } else {
-        b.innerHTML =
-          `<span class="inner"><span class="num">${String(i + 1).padStart(2, "0")}</span>` +
-          `<h3>${p.title}</h3><p>${p.tagline || ""}</p></span>`;
-      }
-      b.setAttribute("aria-label", `Plakát: ${p.title}`);
-      b.addEventListener("click", () => openPoster(p));
-      b.addEventListener("focus", () => lookAt(p.angle, -8));
-      posterEls.push({ data: p, el: b });
+      size(b, w, h);
+      standing(b, p.angle, R - 45, cy);
+      b.innerHTML = p.image
+        ? `<img src="${p.image}" alt="">`
+        : `<span class="inner"><span class="num">${String(p.number).padStart(2, "0")}</span>` +
+          `<span class="slot">obraz</span><h3>${p.title}</h3><p>${p.line || ""}</p></span>`;
+      b.insertAdjacentHTML("beforeend", '<span class="shade"></span>');
+      if (p.aboveDoor && b.querySelector("h3")) b.querySelector("h3").style.fontSize = "50px";
+      b.setAttribute("aria-label", `${p.number}. ${p.title}`);
+      const lights = addLight(p.angle, w, h, cy);
+      const t = {
+        kind: "poster", data: p, el: b, lights, angle: p.angle,
+        half: main ? 11 : 7.5,
+        pitch: p.aboveDoor ? [-2, LIGHT_PITCH] : null,
+        label: [String(p.number).padStart(2, "0") + (p.group ? " · " + p.group : ""), p.title]
+      };
+      targets.push(t);
+      b.addEventListener("click", (e) => { e.stopPropagation(); if (!wasDrag()) openPoster(p); });
+      b.addEventListener("focus", () => lookAt(p.angle, p.aboveDoor ? 14 : 6));
     });
 
     // Dveře
-    const d = G.door;
     const door = el("button", "door");
     door.id = "door";
     door.type = "button";
-    size(door, 280, 560);
-    standing(door, d.angle, R - 30, FLOOR - 280);
-    door.textContent = d.label;
-    door.setAttribute("aria-label", `Dveře: ${d.label}`);
-    door.addEventListener("click", goThroughDoor);
-    door.addEventListener("focus", () => lookAt(d.angle, -4));
-
-    // Poznámky na stole
-    G.notes.forEach((n, i) => {
-      const b = el("button", "note", center);
-      b.type = "button";
-      size(b, 80, 102);
-      flat(b, n.angle, TABLE_R * 0.7, TABLE_Y - 1, (i % 3 - 1) * 9);
-      b.textContent = n.text;
-      b.setAttribute("aria-label", "Poznámka na stole");
-      b.addEventListener("click", () => openNote(n));
-      b.addEventListener("focus", () => lookAt(n.angle, -55));
+    size(door, 250, 470);
+    standing(door, 0, R - 30, FLOOR - 235);
+    door.innerHTML = '<span class="crack"></span><span class="shade"></span>';
+    door.setAttribute("aria-label", "Dveře");
+    targets.push({
+      kind: "door", el: door, lights: addLight(0, 250, 470, FLOOR - 235), angle: 0, half: 9,
+      pitch: [PITCH_MIN, -2], label: ["", "Dveře"]
     });
+    door.addEventListener("click", (e) => { e.stopPropagation(); if (!wasDrag()) useDoor(); });
+    door.addEventListener("focus", () => lookAt(0, -16));
 
-    // Skryté šepoty nízko na stěně
-    (G.whispers || []).forEach((w) => {
-      const b = el("button", "scrawl");
-      b.type = "button";
-      b.textContent = w.text;
-      size(b, 320, 50);
-      standing(b, w.angle, R - 25, FLOOR - 40);
-      b.addEventListener("click", () => whisper(w.text));
+    // Nástěnka
+    const B = G.board;
+    const board = el("button", "board");
+    board.type = "button";
+    size(board, 540, 380);
+    standing(board, B.angle, R - 70, -60);
+    board.innerHTML = `<h4>${B.title}</h4>`;
+    const spots = [[40, 70, -4], [205, 60, 3], [365, 80, -2], [90, 215, 2], [270, 225, -3], [420, 230, 4]];
+    B.cards.slice(0, spots.length).forEach((c, i) => {
+      const k = document.createElement("span");
+      k.className = "card-pin";
+      const [x, y, r] = spots[i];
+      k.style.left = x + "px";
+      k.style.top = y + "px";
+      k.style.transform = `rotate(${r}deg)`;
+      k.textContent = c.title;
+      board.appendChild(k);
     });
-  }
-
-  function chairSVG() {
-    return `<svg viewBox="0 0 150 260" aria-hidden="true">
-      <g fill="#2c2119" stroke="#120d09" stroke-width="3">
-        <rect x="22" y="6" width="106" height="120" rx="6"/>
-        <rect x="14" y="126" width="122" height="22" rx="4" fill="#3a2b20"/>
-        <rect x="20" y="148" width="12" height="108"/>
-        <rect x="118" y="148" width="12" height="108"/>
-      </g>
-      <g stroke="#120d09" stroke-width="3" fill="none" opacity=".6">
-        <line x1="48" y1="20" x2="48" y2="112"/><line x1="75" y1="20" x2="75" y2="112"/><line x1="102" y1="20" x2="102" y2="112"/>
-      </g>
-    </svg>`;
+    board.insertAdjacentHTML("beforeend", '<span class="shade"></span>');
+    board.setAttribute("aria-label", B.title);
+    targets.push({
+      kind: "board", el: board, lights: addLight(B.angle, 540, 380, -60), angle: B.angle, half: 15,
+      label: ["", B.title]
+    });
+    board.addEventListener("click", (e) => { e.stopPropagation(); if (!wasDrag()) openBoard(); });
+    board.addEventListener("focus", () => lookAt(B.angle, 4));
   }
 
   /* ---------- Kamera ---------- */
   function fitPerspective() {
-    const w = innerWidth, h = innerHeight;
-    P = Math.round(Math.max(w * 0.5, h * 0.55));
+    P = Math.round(Math.max(innerWidth * 0.5, innerHeight * 0.55));
     scene.style.perspective = P + "px";
   }
-  function cameraTransform(z, p, y) {
-    return `translateZ(${z}px) rotateX(${p}deg) rotateY(${y}deg)`;
-  }
+  const cam = (z, p, y) => `translateZ(${z}px) rotateX(${p}deg) rotateY(${y}deg)`;
+
   function render() {
     if (!away) {
       const k = 0.12;
@@ -177,46 +166,75 @@
       yaw += dy;
       pitch += (tPitch - pitch) * k;
       if (started) countTravel(dy);
-      setCamera(cameraTransform(P, pitch, yaw));
+      setCamera(cam(P, pitch, yaw));
+      if (moved) updateTarget();
     }
     requestAnimationFrame(render);
   }
   function lookAt(angle, p) {
-    // nejkratší cestou k danému úhlu
-    let diff = ((angle - tYaw) % 360 + 540) % 360 - 180;
-    tYaw += diff;
+    tYaw += angDiff(angle, tYaw);
     if (p !== undefined) tPitch = p;
+    moved = true;
+  }
+
+  /* ---------- Míření a rozsvěcení ---------- */
+  function updateTarget() {
+    let best = null;
+    if (pitch > LIGHT_PITCH) {
+      best = { kind: "light", label: ["", G.light.title] };
+    } else {
+      let bestD = Infinity;
+      for (const t of targets) {
+        const d = Math.abs(angDiff(t.angle, yaw));
+        if (d > t.half || d >= bestD) continue;
+        if (t.pitch && (pitch < t.pitch[0] || pitch > t.pitch[1])) continue;
+        best = t; bestD = d;
+      }
+    }
+    if (best === current || (best && current && best.kind === "light" && current.kind === "light")) return;
+    if (current && current.el) {
+      current.el.classList.remove("lit");
+      current.lights.forEach((l) => l.classList.remove("lit-pool", "lit-beam"));
+    }
+    current = best;
+    viewport.classList.toggle("has-target", !!best);
+    const box = $("#target");
+    if (!best) { box.classList.remove("show"); return; }
+    if (best.el) {
+      best.el.classList.add("lit");
+      best.lights[0].classList.add("lit-pool");
+      best.lights[1].classList.add("lit-beam");
+      sound.chime();
+    }
+    $("#targetNum").textContent = best.label[0];
+    $("#targetTitle").textContent = best.label[1];
+    $("#targetHint").textContent =
+      best.kind === "door" && !doorReady ? G.door.closedText
+        : (matchMedia("(pointer: coarse)").matches ? "ťukni pro detail" : "klikni pro detail");
+    box.classList.add("show");
+  }
+  function activate() {
+    if (!current) return;
+    if (current.kind === "poster") openPoster(current.data);
+    else if (current.kind === "door") useDoor();
+    else if (current.kind === "board") openBoard();
+    else if (current.kind === "light") openLight();
   }
 
   /* ---------- Kolečka v kruhu ---------- */
   function countTravel(d) {
     travelled += Math.abs(d);
-    const n = Math.floor(travelled / 360);
-    if (n > loops) {
-      loops = n;
-      onLoop();
+    if (!doorReady && travelled >= 360) {
+      doorReady = true;
+      $("#door").classList.add("ready");
+      whisper(G.door.loopText);
+      current = null; // přepočítat popisek
     }
-  }
-  function onLoop() {
-    const msgs = G.loopMessages || [];
-    whisper(msgs[Math.min(loops - 1, msgs.length - 1)]);
-    setGloom(gloom + 0.08);
-    posterEls.forEach(({ data, el }) => {
-      if (!data.loops || data.image) return;
-      const t = data.loops[Math.min(loops - 1, data.loops.length - 1)];
-      const p = el.querySelector("p");
-      p.style.opacity = 0;
-      setTimeout(() => { p.textContent = t; p.style.opacity = 1; }, 1200);
-    });
-    sound.darken(loops);
-  }
-  function setGloom(v) {
-    gloom = Math.max(0.15, Math.min(0.85, v));
-    document.documentElement.style.setProperty("--gloom", gloom);
   }
 
   /* ---------- Ovládání ---------- */
   let drag = null, dragged = false;
+  const wasDrag = () => { const d = dragged; dragged = false; return d; };
   viewport.addEventListener("pointerdown", (e) => {
     if (away) return;
     drag = { x: e.clientX, y: e.clientY, yaw: tYaw, pitch: tPitch, id: e.pointerId };
@@ -225,69 +243,78 @@
   addEventListener("pointermove", (e) => {
     if (!drag || e.pointerId !== drag.id) return;
     const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
-    if (!dragged && Math.hypot(dx, dy) > 6) {
-      dragged = true;
-      viewport.classList.add("dragging");
-    }
+    if (!dragged && Math.hypot(dx, dy) > 6) { dragged = true; viewport.classList.add("dragging"); }
     if (dragged) {
-      const s = 90 / P; // citlivost podle zorného pole
+      const s = 90 / P;
       tYaw = drag.yaw - dx * s;
-      tPitch = Math.max(-70, Math.min(30, drag.pitch + dy * s));
+      tPitch = Math.max(PITCH_MIN, Math.min(PITCH_MAX, drag.pitch + dy * s));
+      moved = true;
     }
   });
   const endDrag = () => { drag = null; viewport.classList.remove("dragging"); };
   addEventListener("pointerup", endDrag);
   addEventListener("pointercancel", endDrag);
-  // Po tažení nespouštět kliknutí na plakát
-  viewport.addEventListener("click", (e) => {
-    if (dragged) { e.stopPropagation(); e.preventDefault(); dragged = false; }
-  }, true);
+  viewport.addEventListener("click", () => {
+    if (away || wasDrag()) return;
+    activate();
+  });
 
   addEventListener("keydown", (e) => {
     if (e.key === "Escape") return closeAll();
     if (away || document.querySelector(".overlay.show")) return;
     const step = e.shiftKey ? 45 : 15;
-    if (e.key === "ArrowLeft") { tYaw -= step; e.preventDefault(); }
-    if (e.key === "ArrowRight") { tYaw += step; e.preventDefault(); }
-    if (e.key === "ArrowUp") { tPitch = Math.min(30, tPitch + 10); e.preventDefault(); }
-    if (e.key === "ArrowDown") { tPitch = Math.max(-70, tPitch - 10); e.preventDefault(); }
+    const keys = {
+      ArrowLeft: () => (tYaw -= step), ArrowRight: () => (tYaw += step),
+      ArrowUp: () => (tPitch = Math.min(PITCH_MAX, tPitch + 12)),
+      ArrowDown: () => (tPitch = Math.max(PITCH_MIN, tPitch - 12))
+    };
+    if (keys[e.key]) { keys[e.key](); moved = true; e.preventDefault(); }
+    if (e.key === "Enter" && document.activeElement === document.body) activate();
   });
   viewport.addEventListener("wheel", (e) => {
     if (away) return;
-    tYaw += e.deltaY * 0.15 + e.deltaX * 0.15;
+    tYaw += (e.deltaY + e.deltaX) * 0.15;
+    moved = true;
     e.preventDefault();
   }, { passive: false });
 
-  /* ---------- Detail ---------- */
+  /* ---------- Detaily ---------- */
   function openOverlay(id) {
     $(id).classList.add("show");
     const btn = $(id).querySelector(".close, .primary");
     if (btn) btn.focus();
   }
   function closeAll() {
-    document.querySelectorAll(".overlay.show").forEach((o) => {
-      if (o.id !== "intro") o.classList.remove("show");
-    });
+    document.querySelectorAll(".overlay.show").forEach((o) => { if (o.id !== "intro") o.classList.remove("show"); });
   }
   document.querySelectorAll(".overlay .close").forEach((b) => b.addEventListener("click", closeAll));
   document.querySelectorAll(".overlay").forEach((o) =>
-    o.addEventListener("click", (e) => { if (e.target === o && o.id !== "intro") closeAll(); })
-  );
+    o.addEventListener("click", (e) => { if (e.target === o && o.id !== "intro") closeAll(); }));
+
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
   function openPoster(p) {
-    const card = $("#modal .card");
-    card.classList.remove("paper");
     $("#modalBody").innerHTML =
+      `<p class="kicker">${String(p.number).padStart(2, "0")}${p.group ? " · " + esc(p.group) : ""}</p>` +
       (p.image ? `<img src="${p.image}" alt="">` : "") +
-      `<h2 id="modalTitle">${p.title}</h2>` +
-      (p.text || []).map((t) => `<p>${t}</p>`).join("");
+      `<h2 id="modalTitle">${esc(p.title)}</h2>` +
+      `<p class="lead">${esc(p.line || "")}</p>` +
+      (p.text || []).map((t) => `<p>${esc(t)}</p>`).join("") +
+      (p.help ? `<p class="crisis">Pokud tyhle myšlenky máš, nejsi v tom sám. Linka první psychické pomoci <a href="tel:116123">116 123</a>, nonstop.</p>` : "") +
+      (p.text ? "" : `<p class="todo">Obraz a text připravuje autor.</p>`);
     openOverlay("#modal");
   }
-  function openNote(n) {
-    const card = $("#modal .card");
-    card.classList.add("paper");
-    $("#modalBody").innerHTML = `<span id="modalTitle" hidden>Poznámka</span>`;
-    $("#modalBody").append(document.createTextNode(n.text));
+  function openBoard() {
+    const B = G.board;
+    $("#modalBody").innerHTML =
+      `<h2 id="modalTitle">${esc(B.title)}</h2>` +
+      `<div class="cards">${B.cards.map((c) => `<button type="button">${esc(c.title)}<span>${esc(c.text)}</span></button>`).join("")}</div>`;
+    openOverlay("#modal");
+  }
+  function openLight() {
+    const L = G.light;
+    $("#modalBody").innerHTML =
+      `<h2 id="modalTitle">${esc(L.title)}</h2>` + L.lines.map((t, i) => `<p class="${i ? "" : "lead"}">${esc(t)}</p>`).join("");
     openOverlay("#modal");
   }
 
@@ -301,109 +328,105 @@
     whisperTimer = setTimeout(() => w.classList.remove("show"), 4200);
   }
 
-  /* ---------- Dveře: únik a nadhled ---------- */
-  function goThroughDoor() {
+  /* ---------- Dveře → nadhled ---------- */
+  function useDoor() {
     if (away) return;
-    const visits = G.door.visits;
-    const v = visits[Math.min(doorVisits, visits.length - 1)];
-    doorVisits++;
+    if (!doorReady) { whisper(G.door.closedText); return; }
     away = true;
     document.body.classList.add("away");
-    sound.door();
-
-    // plynulý přelet nad místnost
+    $("#target").classList.remove("show");
     yaw = tYaw; pitch = tPitch;
     groups.forEach((g) => g.classList.add("flying"));
     $("#ceiling").style.opacity = 0;
     void scene.offsetWidth;
-    setCamera(cameraTransform(P - 3000, -90, yaw + 90));
-    setGloom(gloom - 0.25 * v.clarity);
+    setCamera(cam(P - 3200, -90, yaw + 90));
 
-    const fog = $("#fog");
-    const blur = (1 - v.clarity) * 6;
-    fog.style.opacity = 1 - v.clarity;
-    fog.style.backdropFilter = fog.style.webkitBackdropFilter = `blur(${blur}px)`;
-
-    // texty
     const box = $("#beyondText");
     box.innerHTML = "";
     $("#beyond").classList.add("show");
-    const gap = (v.seconds * 1000) / (v.inside.length + 1);
-    v.inside.forEach((t, i) => {
+    G.door.beyond.forEach((t, i) => {
       const p = document.createElement("p");
       p.textContent = t;
       box.appendChild(p);
-      setTimeout(() => p.classList.add("on"), 2500 + i * gap);
+      setTimeout(() => p.classList.add("on"), 3000 + i * 3200);
     });
-    setTimeout(() => {
-      const b = $("#returnBtn");
-      b.classList.add("on");
-      b.focus();
-    }, 2500 + v.seconds * 1000 - gap * 0.5);
-
-    $("#returnBtn").onclick = () => comeBack(v);
+    setTimeout(() => { $("#returnBtn").classList.add("on"); $("#returnBtn").focus(); },
+      3000 + G.door.beyond.length * 3200);
   }
-
-  function comeBack(v) {
+  $("#returnBtn").addEventListener("click", () => {
     $("#returnBtn").classList.remove("on");
     $("#beyond").classList.remove("show");
-    $("#fog").style.opacity = 0;
-    setCamera(cameraTransform(P, pitch, yaw));
+    setCamera(cam(P, pitch, yaw));
     setTimeout(() => {
       $("#ceiling").style.opacity = 1;
       groups.forEach((g) => g.classList.remove("flying"));
       away = false;
       document.body.classList.remove("away");
-      // první návštěva nechá světlo kolem dveří; další ztmaví místnost
-      if (doorVisits === 1) {
-        $("#door").classList.add("ajar");
-        setGloom(gloom - 0.05);
-      } else {
-        setGloom(gloom + 0.12 + 0.25 * v.clarity);
-      }
-      whisper(v.back);
+      current = null;
+      whisper(G.door.back);
     }, 4600);
-  }
+  });
 
-  /* ---------- Zvuk (syntetizovaný, bez souborů) ---------- */
+  /* ---------- Prach ve světle ---------- */
+  (function dust() {
+    const c = $("#dust"), x = c.getContext("2d");
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let W, H, parts = [];
+    const resize = () => {
+      W = c.width = innerWidth * devicePixelRatio;
+      H = c.height = innerHeight * devicePixelRatio;
+      parts = Array.from({ length: 70 }, () => ({
+        x: W / 2 + (Math.random() - .5) * W * .5, y: Math.random() * H,
+        r: (Math.random() * 1.6 + .4) * devicePixelRatio, v: Math.random() * .25 + .05,
+        d: Math.random() * Math.PI * 2, a: Math.random() * .5 + .15
+      }));
+    };
+    resize();
+    addEventListener("resize", resize);
+    (function tick(t) {
+      x.clearRect(0, 0, W, H);
+      const lit = current && current.el ? 1 : current ? 1.4 : .35;
+      for (const p of parts) {
+        p.y -= p.v * devicePixelRatio;
+        p.x += Math.sin(t / 2400 + p.d) * .25 * devicePixelRatio;
+        if (p.y < -10) { p.y = H + 10; p.x = W / 2 + (Math.random() - .5) * W * .5; }
+        const fall = 1 - Math.min(1, Math.abs(p.x - W / 2) / (W * .28));
+        x.globalAlpha = p.a * fall * lit * (.6 + .4 * Math.sin(t / 700 + p.d));
+        x.fillStyle = "#ffe2b0";
+        x.beginPath();
+        x.arc(p.x, p.y, p.r, 0, 7);
+        x.fill();
+      }
+      requestAnimationFrame(tick);
+    })(0);
+  })();
+
+  /* ---------- Zvuk ---------- */
   const sound = (() => {
-    let ctx, master, filter, on = false, tick;
+    let ctx, master, filter, on = false;
     function init() {
       ctx = new (window.AudioContext || window.webkitAudioContext)();
       master = ctx.createGain();
       master.gain.value = 0;
       filter = ctx.createBiquadFilter();
       filter.type = "lowpass";
-      filter.frequency.value = 420;
+      filter.frequency.value = 380;
       filter.connect(master);
       master.connect(ctx.destination);
-      [55, 55.4, 82.4].forEach((f, i) => {
+      [55, 55.3, 82.4, 110.2].forEach((f, i) => {
         const o = ctx.createOscillator();
-        o.type = i === 2 ? "sine" : "sawtooth";
+        o.type = i < 2 ? "sawtooth" : "sine";
         o.frequency.value = f;
         const g = ctx.createGain();
-        g.gain.value = i === 2 ? 0.05 : 0.025;
+        g.gain.value = i < 2 ? 0.022 : 0.04;
         o.connect(g).connect(filter);
         o.start();
       });
-      const lfo = ctx.createOscillator();
-      const lg = ctx.createGain();
-      lfo.frequency.value = 0.07;
-      lg.gain.value = 120;
+      const lfo = ctx.createOscillator(), lg = ctx.createGain();
+      lfo.frequency.value = 0.06;
+      lg.gain.value = 110;
       lfo.connect(lg).connect(filter.frequency);
       lfo.start();
-    }
-    function clock() {
-      if (!on) return;
-      const t = ctx.currentTime;
-      const o = ctx.createOscillator();
-      const g = ctx.createGain();
-      o.frequency.value = 1800;
-      g.gain.setValueAtTime(0.03, t);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.04);
-      o.connect(g).connect(ctx.destination);
-      o.start(t);
-      o.stop(t + 0.05);
     }
     return {
       toggle() {
@@ -411,21 +434,22 @@
         on = !on;
         ctx.resume();
         master.gain.linearRampToValueAtTime(on ? 0.9 : 0, ctx.currentTime + 1.5);
-        clearInterval(tick);
-        if (on) tick = setInterval(clock, 1000);
         return on;
       },
-      darken(n) {
-        if (ctx) filter.frequency.linearRampToValueAtTime(Math.max(160, 420 - n * 50), ctx.currentTime + 3);
-      },
-      door() {
-        if (!ctx || !on) return;
-        master.gain.linearRampToValueAtTime(0.25, ctx.currentTime + 2);
-        setTimeout(() => on && master.gain.linearRampToValueAtTime(0.9, ctx.currentTime + 3), 9000);
+      chime() {
+        if (!on) return;
+        const t = ctx.currentTime, o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = "sine";
+        o.frequency.value = 660;
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(0.025, t + 0.05);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + 1.6);
+        o.connect(g).connect(ctx.destination);
+        o.start(t);
+        o.stop(t + 1.7);
       }
     };
   })();
-
   $("#soundBtn").addEventListener("click", (e) => {
     const on = sound.toggle();
     e.currentTarget.textContent = on ? "zvuk: zap." : "zvuk: vyp.";
@@ -439,7 +463,6 @@
   $("#enterBtn").addEventListener("click", () => {
     $("#intro").classList.remove("show");
     started = true;
-    viewport.focus();
   });
   $("#helpTitle").textContent = G.help.title;
   $("#helpText").innerHTML = G.help.lines.map((l) => `<p>${l}</p>`).join("");
@@ -449,8 +472,7 @@
   fitPerspective();
   addEventListener("resize", fitPerspective);
   build();
-  setGloom(gloom);
-  setCamera(cameraTransform(P, pitch, yaw));
+  setCamera(cam(P, pitch, yaw));
   requestAnimationFrame(render);
   $("#enterBtn").focus();
 })();
