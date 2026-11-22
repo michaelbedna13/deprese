@@ -26,7 +26,7 @@ body {
   color: var(--off-white);
   font-family: var(--body);
   font-size: 17.5px;
-  line-height: 1.62;
+  line-height: 1.64;
   -webkit-font-smoothing: antialiased;
 }
 body::before {
@@ -46,7 +46,6 @@ body::before {
   padding-right: max(16px, env(safe-area-inset-right, 0px));
 }
 
-/* Hlavička */
 .hero {
   background: radial-gradient(120% 90% at 50% 0%, var(--deep-2) 0%, var(--deep) 45%, var(--off-black) 100%);
   margin-top: calc(-1 * env(safe-area-inset-top, 0px));
@@ -68,13 +67,12 @@ h1 {
   margin: 0 0 1rem;
   text-wrap: balance;
 }
-.lede { font-size: 19px; color: var(--off-white); margin: 0 0 1.2rem; max-width: 34em; }
+.lede { font-size: 19px; margin: 0 0 1.2rem; max-width: 34em; }
 .note { font-size: 15px; color: var(--muted); margin: 0; }
 
 .map { margin: 1.8rem auto 0; max-width: 360px; }
 .map svg { display: block; width: 100%; height: auto; }
 
-/* Navigace */
 nav {
   position: sticky;
   top: env(safe-area-inset-top, 0px);
@@ -105,7 +103,6 @@ nav a:hover, nav a:focus-visible { border-color: var(--green); color: var(--gree
 
 main { padding-block: 1rem 4rem; }
 
-/* Sekce a skupiny */
 .part { padding-block: 2.6rem 0; }
 .part > h2 {
   font-family: var(--display);
@@ -117,7 +114,7 @@ main { padding-block: 1rem 4rem; }
 }
 .part > .intro { color: var(--muted); margin: 0 0 1.4rem; }
 
-.lens { display: grid; gap: 1.1rem; margin-top: 1.2rem; }
+.lens { display: grid; gap: 1.3rem; margin-top: 1.2rem; }
 .lens h3 {
   font-family: var(--display);
   font-weight: 600;
@@ -125,9 +122,9 @@ main { padding-block: 1rem 4rem; }
   margin: 0 0 .25rem;
   color: var(--green);
 }
-.lens p { margin: 0; }
+.lens p { margin: 0 0 .7rem; }
+.lens p:last-child { margin-bottom: 0; }
 
-/* Téma */
 .topic {
   margin-top: 1.6rem;
   padding: 1.6rem 0 0;
@@ -159,14 +156,24 @@ main { padding-block: 1rem 4rem; }
   color: var(--green);
   margin: 0 0 1.2rem;
 }
-.block { margin: 0 0 1.15rem; }
-.label { display: block; font-size: 11.5px; color: var(--muted); margin-bottom: .3rem; }
-.block p { margin: 0 0 .7rem; }
+.block { margin: 0 0 1.25rem; }
+.label { display: block; font-size: 11.5px; color: var(--muted); margin-bottom: .35rem; }
+.block p { margin: 0 0 .75rem; }
 .block p:last-child { margin-bottom: 0; }
-.block ul { margin: 0; padding-left: 1.1em; }
-.block li { margin-bottom: .45rem; }
+.block ul, .block ol { margin: 0; padding-left: 1.15em; }
+.block li { margin-bottom: .5rem; }
 .block li::marker { color: var(--green-dim); }
-.src { font-size: 14px; color: var(--muted); }
+
+.inside {
+  font-family: var(--display);
+  font-size: 21px;
+  line-height: 1.45;
+  font-style: italic;
+  color: var(--off-white);
+  border-left: 1px solid var(--green-dim);
+  padding-left: 1rem;
+}
+.inside .label { font-family: var(--label); font-style: normal; }
 
 .insight {
   background: var(--deep);
@@ -174,13 +181,14 @@ main { padding-block: 1rem 4rem; }
   padding: 1rem 1.1rem;
 }
 .insight .label { color: var(--green); }
-.question {
-  font-family: var(--display);
-  font-size: 23px;
-  line-height: 1.3;
-  font-style: italic;
+
+.prompts {
+  background: var(--deep);
+  padding: 1rem 1.1rem;
 }
-.question .label { font-family: var(--label); font-style: normal; }
+.prompts ol { font-family: var(--display); font-size: 20.5px; line-height: 1.35; font-style: italic; }
+.prompts li { margin-bottom: .55rem; }
+
 .links { display: flex; flex-wrap: wrap; gap: 6px; }
 .links a {
   font-family: var(--label);
@@ -195,7 +203,7 @@ main { padding-block: 1rem 4rem; }
 .links a:hover, .links a:focus-visible { border-color: var(--green); color: var(--green); outline: none; }
 
 .care {
-  margin-top: 1rem;
+  margin: 0 0 1.25rem;
   padding: 1rem 1.1rem;
   border: 1px solid var(--green-dim);
   font-size: 16px;
@@ -211,29 +219,26 @@ a { color: var(--green); }
   <div class="wrap">
     <p class="eyebrow">Začarovaný kruh · rozbor témat</p>
     <h1>Mapa kruhu</h1>
-    <p class="lede">Třináct obrazů, nástěnka, dveře a světlo nahoře. Ke každému tématu: co se děje, jak ho vidí Jung, Adler a Fromm, co k němu říká výzkum a co z toho plyne pro galerii.</p>
-    <p class="note">Pracovní text pro autora galerie. Jména, studie a citáty jsou uvedené zpaměti. Než se cokoli objeví v galerii jako citát nebo fakt, ověříme přesné znění.</p>
+    <p class="lede">Třináct obrazů, nástěnka, dveře, světlo nahoře a místnost, která se točí. Ke každému tématu: co se děje, jak to vypadá zevnitř a zvenku, jak ho vidí Jung, Adler a Fromm, co říká výzkum, co pomáhá, a otázky, ze kterých můžeš psát.</p>
+    <p class="note">Pracovní text pro autora galerie. Jména, studie a citáty jsou uvedené zpaměti. Než se cokoli objeví v galerii jako citát nebo fakt, ověříme přesné znění. Krátké pasáže „Zevnitř“ jsou ilustrace, ne tvoje slova. Tvoje slova napíšeš ty.</p>
 
     <figure class="map" aria-label="Rozložení galerie: čtyři hlavní plakáty na světových stranách, tři trojice mezi nimi, nástěnka a dveře.">
       <svg viewBox="0 0 360 360" role="img">
         <title>Rozložení galerie</title>
         <circle cx="180" cy="180" r="128" fill="none" stroke="#3f7a62" stroke-width="2"/>
+        <circle cx="180" cy="180" r="100" fill="none" stroke="#3f7a62" stroke-width="1" stroke-dasharray="3 6"/>
         <circle cx="180" cy="180" r="34" fill="#163127" stroke="#6fbf98" stroke-width="1"/>
         <text x="180" y="184" text-anchor="middle" fill="#ebe6da" font-family="IBM Plex Sans Condensed, sans-serif" font-size="10" letter-spacing="1.5">DIVÁK</text>
-        <!-- dveře -->
         <rect x="168" y="40" width="24" height="16" fill="#0c100e" stroke="#6fbf98" stroke-width="1.5"/>
-        <!-- hlavní -->
         <circle cx="180" cy="52" r="8" fill="#6fbf98"/>
         <circle cx="308" cy="180" r="8" fill="#6fbf98"/>
         <circle cx="180" cy="308" r="8" fill="#6fbf98"/>
         <circle cx="52" cy="180" r="8" fill="#6fbf98"/>
-        <!-- trojice: Já (45°), Mechanismus (135°), Druzí (225°) -->
         <g fill="#ebe6da">
           <circle cx="241.9" cy="67.7" r="4"/><circle cx="270.5" cy="89.5" r="4"/><circle cx="292.3" cy="118.1" r="4"/>
           <circle cx="292.3" cy="241.9" r="4"/><circle cx="270.5" cy="270.5" r="4"/><circle cx="241.9" cy="292.3" r="4"/>
           <circle cx="118.1" cy="292.3" r="4"/><circle cx="89.5" cy="270.5" r="4"/><circle cx="67.7" cy="241.9" r="4"/>
         </g>
-        <!-- nástěnka (315°) -->
         <rect x="76" y="76" width="34" height="22" transform="rotate(-45 93 87)" fill="#163127" stroke="#a9b4ac" stroke-width="1"/>
         <g font-family="IBM Plex Sans Condensed, sans-serif" font-size="11" fill="#ebe6da">
           <text x="180" y="24" text-anchor="middle">NEMÁM SE RÁD · DVEŘE</text>
@@ -248,6 +253,7 @@ a { color: var(--green); }
           <text x="248" y="246" text-anchor="middle">MECHANISMUS</text>
           <text x="112" y="246" text-anchor="middle">DRUZÍ</text>
           <text x="118" y="122" text-anchor="middle">NÁSTĚNKA</text>
+          <text x="180" y="228" text-anchor="middle" fill="#a9b4ac">RUMINACE</text>
         </g>
       </svg>
     </figure>
@@ -257,6 +263,7 @@ a { color: var(--green); }
 <nav aria-label="Části">
   <div class="wrap">
     <a href="#celek">Celek</a>
+    <a href="#ruminace">Ruminace</a>
     <a href="#nemam-se-rad">Nemám se rád</a>
     <a href="#ja">Já</a>
     <a href="#zvykova-energie">Zvyková energie</a>
@@ -267,6 +274,7 @@ a { color: var(--green); }
     <a href="#inteligence">Nástěnka</a>
     <a href="#dvere">Dveře</a>
     <a href="#smysl">Světlo</a>
+    <a href="#psani">Jak psát</a>
   </div>
 </nav>
 
@@ -275,19 +283,29 @@ a { color: var(--green); }
 <!-- ================= CELEK ================= -->
 <section class="part" id="celek">
   <h2>Celek</h2>
-  <p class="intro">Pět pohledů na to, co třináct témat říká dohromady.</p>
+  <p class="intro">Sedm pohledů na to, co třináct témat říká dohromady.</p>
   <div class="lens">
     <div>
       <h3>Kruh jako mandala</h3>
-      <p>Jung prošel v letech 1913 až 1918 hlubokou krizí. Kreslil tehdy kruhové obrazy, mandaly, a pochopil je jako obraz psychiky, která má střed. Ve <em>Vzpomínkách, snech, myšlenkách</em> píše zhruba toto: neexistuje přímočarý vývoj, jen obcházení kolem bytostného Já. Zevnitř je kruh past. Shora je to cesta kolem středu. Ve středu galerie stojí divák. Nadhled pak neznamená z kruhu utéct, ale uvidět, že kruh má střed.</p>
+      <p>Jung prošel v letech 1913 až 1918 hlubokou krizí, kterou později popsal jako konfrontaci s nevědomím. Kreslil tehdy každé ráno malý kruhový obraz, mandalu, a podle ní poznával, v jakém stavu je jeho psychika. Pochopil, že mandala je obraz celistvosti, která má střed.</p>
+      <p>Ve <em>Vzpomínkách, snech, myšlenkách</em> píše zhruba toto: neexistuje přímočarý vývoj, jen obcházení kolem bytostného Já. Zevnitř je kruh past. Shora je to cesta kolem středu. Ve středu galerie stojí divák. Nadhled pak neznamená z kruhu utéct, ale uvidět, že kruh má střed, a že tím středem je člověk sám.</p>
     </div>
     <div>
       <h3>Čtyři světové strany</h3>
-      <p>Pro Junga je čtveřice symbolem celistvosti. Čtyři hlavní plakáty tvoří kříž v kruhu, tedy základní tvar mandaly. Osa sever–jih spojuje <em>Nemám se rád</em> a <em>Sebevraždu</em>: jak se na sebe dívám, a kam vede pohled, který jen soudí. Osa východ–západ spojuje <em>Zvykovou energii</em> a <em>Osamělost</em>: vnitřní setrvačnost a vnější odpojení.</p>
+      <p>Pro Junga je čtveřice symbolem celistvosti: čtyři funkce vědomí, čtyři světové strany, kříž v kruhu. Čtyři hlavní plakáty tvoří právě takový kříž, tedy základní tvar mandaly.</p>
+      <p>Osa sever–jih spojuje <em>Nemám se rád</em> a <em>Sebevraždu</em>: jak se na sebe dívám, a kam vede pohled, který jen soudí. Osa východ–západ spojuje <em>Zvykovou energii</em> a <em>Osamělost</em>: vnitřní setrvačnost a vnější odpojení. Na průsečíku os stojí divák.</p>
+    </div>
+    <div>
+      <h3>Beckova triáda</h3>
+      <p>Psychiatr Aaron Beck, zakladatel kognitivní terapie, popsal depresi jako negativní pohled na tři věci najednou: na <strong>sebe</strong>, na <strong>svět</strong> a na <strong>budoucnost</strong>. Tvoje trojice ji kopírují téměř přesně. Trojice <em>Já</em> je pohled na sebe, trojice <em>Druzí</em> pohled na svět a lidi, a <em>Čas</em> v trojici Mechanismus je pohled na budoucnost.</p>
     </div>
     <div>
       <h3>Tři trojice a tři životní úkoly</h3>
-      <p>Adler tvrdil, že každý člověk řeší tři úkoly: práci, lásku a společenství. Trojice <em>Mechanismus</em> odpovídá fungování v čase a práci, trojice <em>Já</em> vztahu a lásce, i k sobě samému, trojice <em>Druzí</em> společenství. Deprese zasahuje všechny tři najednou, proto je tak vyčerpávající.</p>
+      <p>Adler tvrdil, že každý člověk řeší tři úkoly: práci, lásku a společenství. Trojice <em>Mechanismus</em> odpovídá fungování v čase a práci, trojice <em>Já</em> vztahu a lásce, i k sobě samému, trojice <em>Druzí</em> společenství. Deprese zasahuje všechny tři najednou, a proto je tak vyčerpávající: nejde si odpočinout v jedné oblasti od druhé.</p>
+    </div>
+    <div>
+      <h3>Spirála, která se točí dolů</h3>
+      <p>Peter Lewinsohn v sedmdesátých letech popsal behaviorální model deprese. Když ubude věcí, které člověka odměňují, stáhne se. Když se stáhne, ubude jich ještě víc. Nálada klesá, aktivita klesá, a kruh se utahuje. Na tom staví behaviorální aktivace, jedna z nejlépe ověřených terapií: kruh se dá roztočit i opačným směrem, malými kroky.</p>
     </div>
     <div>
       <h3>Mít, nebo být</h3>
@@ -300,6 +318,74 @@ a { color: var(--green); }
   </div>
 </section>
 
+<!-- ================= RUMINACE ================= -->
+<article class="topic main" id="ruminace">
+  <p class="pos">Místnost sama · pohyb, kterým se kruh točí</p>
+  <h3>Ruminace</h3>
+  <p class="thesis">Přemýšlení, které se tváří jako řešení, ale je to další kolo.</p>
+
+  <div class="block">
+    <span class="label">Co se děje</span>
+    <p>Slovo ruminace pochází z latiny a znamená přežvykování, jako kráva, která vrací potravu z žaludku a žvýká ji znovu. Mysl se vrací ke stejným myšlenkám, otázkám a vzpomínkám a žvýká je dokola. Nejčastěji ve formě otázek „proč“: proč se cítím takhle, proč zrovna já, proč jsem to tehdy udělal, co je se mnou špatně.</p>
+    <p>Zrádné je, že ruminace se tváří jako přemýšlení o problému. Člověk má pocit, že když na to bude myslet ještě chvíli, konečně to pochopí a vyřeší. Ale ruminace problém neřeší. Jen ho opakuje.</p>
+  </div>
+  <div class="block inside">
+    <span class="label">Zevnitř</span>
+    Je jedna ráno a ty ležíš a projíždíš ten rozhovor potřetí. Co jsi řekl, co jsi měl říct, co si o tobě asi myslí. Pak se to stočí: proč tě to vůbec tak bere, proč nejsi normální. Nevšimneš si, že už jsou tři.
+  </div>
+  <div class="block">
+    <span class="label">Co vidí okolí</span>
+    <p>Nic. Ruminace je neviditelná. Člověk sedí, kouká, je „nějaký zamyšlený“. Okolí nevidí, že uvnitř běží stroj, který spotřebovává obrovské množství energie. Proto je člověk s depresí unavený, i když „nic nedělal“.</p>
+  </div>
+  <div class="block">
+    <span class="label">Výzkum</span>
+    <ul>
+      <li><strong>Susan Nolen-Hoeksemová</strong> vytvořila teorii stylů reakce (1991). Lidé, kteří na smutek reagují ruminací, mají delší a hlubší deprese. Ruminace předpovídá i vznik nových depresivních epizod.</li>
+      <li><strong>Dva druhy přemýšlení</strong> (Treynor a kol., 2003). <em>Hloubání</em> (brooding) je pasivní srovnávání toho, jak to je, s tím, jak by to mělo být. Škodí. <em>Reflexe</em> je zvídavé zkoumání s cílem pochopit. Může pomáhat. Stejná mysl, jiný režim.</li>
+      <li><strong>Proč vs. jak</strong> (Edward Watkins). Abstraktní otázky „proč“ ruminaci živí. Konkrétní otázky „jak se to stalo“, „co teď“ a „jaký je první krok“ ji přerušují. Na tom stojí terapie zaměřená přímo na ruminaci (RFCBT).</li>
+      <li><strong>Iluze vhledu</strong> (Lyubomirsky a Nolen-Hoeksemová). Lidé, kteří ruminují, mají pocit, že získávají vhled do svých problémů. Ve skutečnosti řeší problémy hůř a navrhují horší řešení.</li>
+      <li><strong>Zvyk, ne volba</strong> (Watkins a Nolen-Hoeksemová, 2014). Ruminace se spouští automaticky podněty: nálada, místo, čas, myšlenka. Proto ji nejde vypnout rozhodnutím.</li>
+      <li><strong>Pozornost, která se neumí odlepit</strong> (Jutta Joormannová). Lidé s depresí nemají problém si negativní věci všimnout, ale pustit je. Pozornost na nich ulpívá.</li>
+    </ul>
+  </div>
+  <div class="block">
+    <span class="label">Jung</span>
+    <p>Jung by v ruminaci viděl ego, které se snaží rozumem ovládnout něco, co patří citu a nevědomí. Myšlení se točí, protože odpověď, kterou hledá, nejde vymyslet. Musí se prožít.</p>
+  </div>
+  <div class="block">
+    <span class="label">Co pomáhá</span>
+    <ul>
+      <li><strong>Přepnout z proč na jak.</strong> Místo „proč se mi to děje“ se zeptat „co by teď pomohlo o pět procent“.</li>
+      <li><strong>Všimnout si a pojmenovat.</strong> „Teď ruminuju.“ Už samotné pojmenování přepne pozorovatele z účastníka na svědka. Na tom stojí MBCT.</li>
+      <li><strong>Tělo a smysly.</strong> Pohyb, studená voda, konkrétní činnost s rukama. Ruminace žije v abstrakci, tělo je vždy konkrétní.</li>
+      <li><strong>Vyhrazený čas.</strong> Některé terapie doporučují „čas na starosti“: 15 minut denně, kdy se smí přemýšlet, a mimo něj se myšlenka odloží na později.</li>
+      <li><strong>Ohraničené psaní.</strong> Napsat to, místo točit v hlavě. Ale s časovým limitem a s koncem.</li>
+    </ul>
+  </div>
+  <div class="block insight">
+    <span class="label">Náhled</span>
+    <p>Ruminace není jedno z témat. Je to <strong>pohyb, kterým se kruh točí</strong>. Proto by v galerii neměla být plakátem, ale místností. Divák ji dělá sám: točí se dokola, vrací se ke stejným obrazům. Zvyková energie na východě vysvětluje, proč se kruh točí. Místnost ukazuje, jak to vypadá.</p>
+    <p>A pozorovatel nad dveřmi je klíč: hloubání a reflexe jsou stejná mysl ve dvou režimech, soudce a svědek. Výstup z ruminace nevede přes to, přestat myslet, ale přes to, myslet jinak.</p>
+  </div>
+  <div class="block">
+    <span class="label">Pro galerii</span>
+    <p>Útržky myšlenek kroužící ve tmě kolem diváka, na vyšlapaném kruhu v podlaze nebo ve vzduchu. „Proč zase.“ „Co je se mnou špatně.“ „Kdybych tehdy…“ Když se divák točí bezcílně, zrychlují. Když se zastaví u plakátu nebo se podívá nahoru, ztiší se. Na úvod nebo na nástěnce věta: <em>Tahle místnost se jmenuje ruminace.</em></p>
+  </div>
+  <div class="block prompts">
+    <span class="label">Otázky k psaní</span>
+    <ol>
+      <li>Jaké tři myšlenky ti v hlavě běží nejčastěji? Napiš je doslova, tak jak znějí.</li>
+      <li>Kdy a kde ruminace přichází? Ráno v posteli, v autě, po tréninku, večer?</li>
+      <li>Kolik tvých myšlenek začíná slovem „proč“? Zkus jednu přepsat na „jak“.</li>
+      <li>Jak by vypadala tvoje ruminace, kdyby to byl zvuk nebo pohyb?</li>
+    </ol>
+  </div>
+  <div class="block">
+    <span class="label">Souvisí s</span>
+    <div class="links"><a href="#zvykova-energie">Zvyková energie</a><a href="#nemam-se-rad">Nemám se rád</a><a href="#inteligence">Inteligence</a><a href="#cas">Čas</a></div>
+  </div>
+</article>
+
 <!-- ================= NEMÁM SE RÁD ================= -->
 <article class="topic main" id="nemam-se-rad">
   <p class="pos">Hlavní plakát · sever · nad dveřmi</p>
@@ -308,52 +394,77 @@ a { color: var(--green); }
 
   <div class="block">
     <span class="label">Co se děje</span>
-    <p>Člověk se rozdvojí. Jedna část jede na autopilotu, druhá se dívá zvenku. Ta pozice pozorovatele vzniká jako ochrana: když je prožívání nesnesitelné, mysl ustoupí o krok dozadu. Jenže z odstupu se snadno stane tribunál. Pozorovatel vidí přesně, co se děje, a vynese rozsudek.</p>
-    <p>Soudit někoho, kdo je vyčerpaný, je jako křičet na zraněného běžce, ať zrychlí. A ten zraněný běžec jsi ty sám.</p>
+    <p>Člověk se rozdvojí. Jedna část jede na autopilotu, druhá se dívá zvenku. Ta pozice pozorovatele vzniká jako ochrana: když je prožívání nesnesitelné, mysl ustoupí o krok dozadu, aby to vydržela. Jenže z odstupu se snadno stane tribunál. Pozorovatel vidí přesně, co se děje, a vynese rozsudek: slabý, líný, k ničemu.</p>
+    <p>Soudit někoho, kdo je vyčerpaný, je jako křičet na zraněného běžce, ať zrychlí. Nepomůže to, jen to přidá další bolest. A ten zraněný běžec jsi ty sám. Vzniká tak smyčka: deprese vede k nenávisti k sobě a nenávist k sobě prohlubuje depresi.</p>
+  </div>
+  <div class="block inside">
+    <span class="label">Zevnitř</span>
+    Díváš se na sebe, jak sedíš na gauči tři hodiny s telefonem v ruce. Víš přesně, co bys měl dělat. Vidíš toho člověka a je ti z něj zle. A pak si uvědomíš, že ten, na koho se díváš, jsi ty.
+  </div>
+  <div class="block">
+    <span class="label">Co vidí okolí</span>
+    <p>Okolí často nevidí nic, nebo vidí přísnost, perfekcionismus, sebeironii. Vtipy na vlastní účet, které nejsou tak docela vtipy. Lidé kolem mohou mít člověka mnohem raději, než on sám sebe, a nechápou, proč jejich láska nepřichází na adresu.</p>
   </div>
   <div class="block">
     <span class="label">Jung</span>
-    <p>To, co pozorovatel na „tom druhém“ nesnáší, je kus vlastního stínu: slabost, potřebnost, únava. Jung opakovaně říká, že co nepřijmeme, to se nezmění, a odmítnutý stín jen sílí. Individuace, tedy cesta k celistvosti, začíná větou: „Tohle jsem taky já.“</p>
+    <p>To, co pozorovatel na „tom druhém“ nesnáší, je kus vlastního stínu: slabost, potřebnost, únava, závislost na druhých. Hodnoty, které si člověk vybudoval (výkon, síla, kontrola), mají svůj rub, a ten je teď vidět. Jung opakovaně říká, že co nepřijmeme, to se nezmění, a odmítnutý stín jen sílí.</p>
+    <p>Individuace, tedy cesta k celistvosti, nezačíná tím, že se stín zničí, ale větou: „Tohle jsem taky já.“</p>
   </div>
   <div class="block">
     <span class="label">Fromm</span>
-    <p>V <em>Umění milovat</em> píše, že láska k sobě a sobectví nejsou totéž. Sobecký člověk se podle Fromma nemá rád příliš, ale málo. Láska má podle něj čtyři složky: péči, odpovědnost, respekt a poznání. Tvůj pozorovatel má poznání, vidí naprosto přesně. Chybí mu péče a respekt.</p>
+    <p>V <em>Umění milovat</em> píše, že láska k sobě a sobectví nejsou totéž. Sobecký člověk se podle Fromma nemá rád příliš, ale málo, a snaží se ten nedostatek zaplnit. Kdo nemá rád sebe, těžko plně miluje druhé.</p>
+    <p>Láska má podle něj čtyři složky: péči, odpovědnost, respekt a poznání. Tvůj pozorovatel má poznání, vidí naprosto přesně. Chybí mu péče a respekt.</p>
   </div>
   <div class="block">
     <span class="label">Adler</span>
-    <p>V adleriánském čtení vnitřní kritik často chrání. Když se odsoudím jako první, nikdo mě už nepřekvapí, a pořád mám aspoň kontrolu nad tím, jak špatný jsem. Je to bezpečnější než riskovat naději.</p>
+    <p>V adleriánském čtení vnitřní kritik často chrání. Když se odsoudím jako první, nikdo mě už nepřekvapí. A pořád mám aspoň kontrolu nad tím, jak špatný jsem. Je to bezpečnější než riskovat naději a znovu se zklamat.</p>
   </div>
   <div class="block">
     <span class="label">Výzkum</span>
     <ul>
-      <li>Psychiatr Sidney Blatt popsal dva typy deprese. Jeden se točí kolem ztráty vztahů, druhý kolem <strong>sebekritiky a výkonu</strong>. Ten druhý se častěji objevuje u lidí s vysokými nároky na sebe, u perfekcionistů a výkonově zaměřených lidí.</li>
-      <li>Paul Gilbert (terapie zaměřená na soucit) ukazuje, že sebekritika aktivuje stejný systém ohrožení jako vnější útok. Tělo reaguje, jako by tě napadl někdo cizí.</li>
-      <li>Terapie MBCT učí to, co popisuješ, jen bez soudu: odstoupit od myšlenek a dívat se na ně jako na události v mysli. Metaanalýza (Kuyken a kol., 2016) ukázala, že snižuje riziko návratu deprese.</li>
-      <li>Terapie ACT používá obraz: ty jsi nebe, myšlenky a pocity jsou počasí. Pozorovatel je nebe, ne bouřka.</li>
+      <li><strong>Sidney Blatt</strong> popsal dva typy deprese. Jeden se točí kolem ztráty vztahů a opuštění, druhý kolem <strong>sebekritiky, selhání a výkonu</strong>. Ten druhý se častěji objevuje u lidí s vysokými nároky na sebe a bývá na léčbu odolnější.</li>
+      <li><strong>Teorie sebe-rozporu</strong> (E. Tory Higgins, 1987). Mezera mezi tím, jaký jsem, a jaký bych chtěl být (ideál), vede ke sklíčenosti a smutku. Mezera mezi tím, jaký jsem, a jaký bych měl být (povinnost), vede k úzkosti. Čím vyšší nároky, tím větší mezera.</li>
+      <li><strong>Paul Gilbert</strong> (terapie zaměřená na soucit) ukazuje, že sebekritika aktivuje stejný systém ohrožení jako vnější útok. Tělo reaguje stresem, jako by tě napadl někdo cizí. Lék popisuje jako budování „soucitného já“, které aktivuje systém uklidnění.</li>
+      <li><strong>MBCT</strong> učí odstoupit od myšlenek a dívat se na ně jako na události v mysli, ne jako na pravdu. Metaanalýza (Kuyken a kol., 2016) ukázala, že snižuje riziko návratu deprese.</li>
+      <li><strong>ACT</strong> používá obraz: ty jsi nebe, myšlenky a pocity jsou počasí. Pozorovatel je nebe, ne bouřka.</li>
+    </ul>
+  </div>
+  <div class="block">
+    <span class="label">Co pomáhá</span>
+    <ul>
+      <li>Mluvit o sobě jako o kamarádovi. Ne lhát si, jen změnit tón.</li>
+      <li>Rozlišit hodnocení činu („tohle se nepovedlo“) a hodnocení osoby („jsem k ničemu“).</li>
+      <li>Všimnout si, čí hlas ten kritik má. Často zní jako někdo z minulosti.</li>
     </ul>
   </div>
   <div class="block insight">
     <span class="label">Náhled</span>
-    <p>Ve tvé formulaci je klíč. Nepíšeš jen „nemám se rád“. Píšeš, že nemáš rád toho, kdo je v depresi a jede na autopilotu. Pozorovatel se od té části oddělil. To oddělení je rána, ale i otvor. Stejný odstup, který umožňuje pohrdání, umožňuje i soucit. Z <strong>soudce</strong> se může stát <strong>svědek</strong>: ten, kdo vidí a nevynáší rozsudek.</p>
-  </div>
-  <div class="block question">
-    <span class="label">Otázka pro tebe</span>
-    Kdybys toho „někoho na autopilotu“ viděl u svého nejlepšího kamaráda, co bys mu řekl?
+    <p>Ve tvé formulaci je klíč. Nepíšeš jen „nemám se rád“. Píšeš, že nemáš rád toho, kdo je v depresi a jede na autopilotu, a že jsi v poloze pozorovatele. Pozorovatel se od té části oddělil. To oddělení je rána, ale i otvor.</p>
+    <p>Stejný odstup, který umožňuje pohrdání, umožňuje i soucit. Z <strong>soudce</strong> se může stát <strong>svědek</strong>: ten, kdo vidí všechno přesně a nevynáší rozsudek. Svědek řekne: „Vidím tě. Je to těžké. Jsem tu.“ To je celá proměna a nevyžaduje nic jiného než změnit oči.</p>
   </div>
   <div class="block">
     <span class="label">Pro galerii</span>
-    <p>Plakát visí nad dveřmi, protože východ hlídá pozorovatel. Obraz může pracovat s dvojím pohledem: stejná postava viděná zezadu, jednou ve studeném světle soudu, jednou v teplém světle svědka.</p>
+    <p>Plakát visí nad dveřmi, protože východ hlídá pozorovatel. Obraz může pracovat s dvojím pohledem: stejná postava viděná zezadu, jednou ve studeném světle soudu, jednou v teplém světle svědka. Nebo oko, ve kterém se odráží postava na autopilotu.</p>
+  </div>
+  <div class="block prompts">
+    <span class="label">Otázky k psaní</span>
+    <ol>
+      <li>Kdybys toho „někoho na autopilotu“ viděl u svého nejlepšího kamaráda, co bys mu řekl?</li>
+      <li>Co přesně na tom člověku nesnášíš? Napiš to bez cenzury. A pak se zeptej, čeho se ta nenávist bojí.</li>
+      <li>Čí hlas má tvůj vnitřní kritik?</li>
+      <li>Jak by zněla jedna věta od svědka místo od soudce?</li>
+    </ol>
   </div>
   <div class="block">
     <span class="label">Souvisí s</span>
-    <div class="links"><a href="#ego">Ego</a><a href="#stud">Stud</a><a href="#autopilot">Autopilot</a><a href="#smysl">Smysl</a></div>
+    <div class="links"><a href="#ego">Ego</a><a href="#stud">Stud</a><a href="#autopilot">Autopilot</a><a href="#ruminace">Ruminace</a><a href="#smysl">Smysl</a></div>
   </div>
 </article>
 
 <!-- ================= TROJICE JÁ ================= -->
 <section class="part" id="ja">
   <h2>Trojice Já</h2>
-  <p class="intro">Vztah k sobě. Uvěznění v hlavě, pak zaseknutí, pak skrývání.</p>
+  <p class="intro">Vztah k sobě. Beckův negativní pohled na sebe. Uvěznění v hlavě, pak zaseknutí, pak skrývání.</p>
 
   <article class="topic" id="ego">
     <p class="pos">Trojice Já · 1 ze 3</p>
@@ -361,41 +472,64 @@ a { color: var(--green); }
     <p class="thesis">Ego není pýcha. Je to místnost bez oken.</p>
     <div class="block">
       <span class="label">Co se děje</span>
-      <p>V depresi se pozornost stáčí dovnitř. Jak se cítím, co je se mnou špatně, co si o mně myslí ostatní. Není to sobectví. Je to bolest, která si bere veškerou pozornost, podobně jako když bolí zub a nic jiného neexistuje. Svět se zmenší na velikost hlavy.</p>
-      <p>Paradox: i věta „jsem ten nejhorší“ má uprostřed pořád „já“.</p>
+      <p>V depresi se pozornost stáčí dovnitř. Jak se cítím, co je se mnou špatně, co si o mně myslí ostatní, proč nejsem jako dřív. Není to sobectví. Je to bolest, která si bere veškerou pozornost, podobně jako když bolí zub a nic jiného neexistuje. Svět se zmenší na velikost hlavy.</p>
+      <p>Paradox: i věta „jsem ten nejhorší“ má uprostřed pořád „já“. Deprese neničí ego, jen ho obrací naruby. Místo „jsem skvělý“ říká „jsem nic“, ale pořád mluví jen o sobě. A to je vyčerpávající, protože ego musí neustále hlídat, hodnotit a srovnávat.</p>
+    </div>
+    <div class="block inside">
+      <span class="label">Zevnitř</span>
+      Kamarád ti vypráví o svém víkendu a ty posloucháš jen napůl. Druhou polovinou hlídáš, jak se tváříš, jestli na tobě něco nepozná, a srovnáváš jeho víkend se svým.
+    </div>
+    <div class="block">
+      <span class="label">Co vidí okolí</span>
+      <p>Někdy roztržitost, nezájem, zahleděnost do sebe. Okolí to může číst jako sobectví nebo aroganci. Ve skutečnosti je to člověk, který nemá kapacitu na nic jiného než přežít ve vlastní hlavě.</p>
     </div>
     <div class="block">
       <span class="label">Jung</span>
-      <p>Ego je pro Junga jen střed vědomí. Pod ním leží mnohem větší bytostné Já (Selbst), zdroj energie a smyslu. Jeho žák Edward Edinger mluví o ose ego–Já: když se přeruší, ego zůstane samo, odříznuté od zdroje. Ego může buď nabobtnat (pocit velikosti), nebo splasknout (pocit nicotnosti). Deprese je splasknutí, ale pořád je to ego, kdo stojí uprostřed.</p>
+      <p>Ego je pro Junga jen střed vědomí, ne celá psychika. Pod ním leží mnohem větší bytostné Já (Selbst), zdroj energie, smyslu a celistvosti. Jeho žák Edward Edinger mluví o ose ego–Já: zdravé ego je s Já propojené, čerpá z něj a zároveň ho nezaměňuje za sebe. Když se osa přeruší, ego zůstane samo, odříznuté od zdroje, a zažívá odcizení a prázdnotu.</p>
+      <p>Ego může buď nabobtnat (inflace, pocit velikosti), nebo splasknout (deflace, pocit nicotnosti). Deprese je splasknutí. Ale v obou případech zůstává ego ve středu a zakrývá to, co je pod ním.</p>
     </div>
     <div class="block">
       <span class="label">Fromm</span>
-      <p>V režimu mít je identita majetek: mám výkon, image, pověst, názor na sebe. Majetek se musí hlídat, takže ego je neustále ve střehu. V režimu být není co bránit.</p>
+      <p>V režimu mít je identita majetek: mám výkon, image, pověst, názor na sebe. Majetek se dá ztratit, takže se musí hlídat, a ego je neustále ve střehu. Fromm píše, že kdo jsem tím, co mám, a pak to ztratím, kdo jsem? V režimu být není co bránit, protože bytí se nedá ukrást.</p>
     </div>
     <div class="block">
       <span class="label">Adler</span>
-      <p>Pocit méněcennosti má podle Adlera každý. Problém nastane, když z něj vznikne komplex a člověk ho kompenzuje buď snahou o nadřazenost, nebo stažením se. Adlerovým lékem je obrátit pozornost ven, k přispění druhým.</p>
+      <p>Pocit méněcennosti má podle Adlera každý, je to motor vývoje. Problém nastane, když z něj vznikne komplex a člověk ho kompenzuje buď snahou o nadřazenost, nebo stažením se a vzdáním. Adlerovým lékem je obrátit pozornost ven, k přispění druhým. Ne proto, že by na sobě nezáleželo, ale protože ego se uzdravuje, když na chvíli přestane být středem.</p>
     </div>
     <div class="block">
       <span class="label">Výzkum</span>
       <ul>
-        <li>Metaanalýza (Mor a Winquist, 2002): zaměření pozornosti na sebe souvisí s depresí i úzkostí.</li>
-        <li>Mozková síť pro přemýšlení o sobě (default mode network) bývá v depresi přetížená a propojená s ruminací (Sheline a kol., 2009; Hamilton a kol., 2015).</li>
-        <li>Psychedelika tuto síť dočasně utlumí, odtud zážitek „rozpuštění ega“ (Carhart-Harris a kol.).</li>
-        <li>Výzkum úžasu (Dacher Keltner a kol.): úžas, třeba z přírody, hudby nebo hvězd, vytváří zážitek „malého já“. Člověk se cítí menší a zároveň víc propojený.</li>
+        <li><strong>Metaanalýza</strong> (Mor a Winquist, 2002): zaměření pozornosti na sebe souvisí s depresí i úzkostí, a to hlavně, když je to soustředění na negativní stránky.</li>
+        <li><strong>Mozková síť pro přemýšlení o sobě</strong> (default mode network) bývá v depresi přetížená a propojená s ruminací (Sheline a kol., 2009; Hamilton a kol., 2015).</li>
+        <li><strong>Psychedelika</strong> tuto síť dočasně utlumí, odtud zážitek „rozpuštění ega“ (Carhart-Harris a kol.).</li>
+        <li><strong>Výzkum úžasu</strong> (Dacher Keltner a kol.): úžas, třeba z přírody, hudby, hvězd nebo velkého výkonu, vytváří zážitek „malého já“. Člověk se cítí menší a zároveň víc propojený s ostatními a štědřejší.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <span class="label">Co pomáhá</span>
+      <ul>
+        <li>Úžas a velké věci: hory, moře, noční obloha, hudba.</li>
+        <li>Plné soustředění na něco mimo sebe: řemeslo, sport ve flow, péče o někoho.</li>
+        <li>Pomoc druhým v malém, bez očekávání.</li>
       </ul>
     </div>
     <div class="block insight">
       <span class="label">Náhled</span>
       <p>Cesta ven nevede přes zničení ega, ale přes jeho <strong>zmenšení</strong>. Úžas, pohyb, hudba, druhý člověk. Momenty, kdy zapomeneš sám na sebe. To je i jádro nadhledu ve tvé galerii: shora je ego malé a kruh je vidět celý.</p>
-    </div>
-    <div class="block question">
-      <span class="label">Otázka pro tebe</span>
-      Kdy jsi naposledy úplně zapomněl sám na sebe? Co tě tehdy pohltilo?
+      <p>Proto dává smysl, že dveře (únik) a ego patří k sobě. Látky, které „rozpouštějí ego“, nabízejí to samé zmenšení, jen chemicky a na chvíli. Úžas a vztahy ho nabízejí pomaleji, ale trvaleji.</p>
     </div>
     <div class="block">
       <span class="label">Pro galerii</span>
-      <p>Místnost bez oken, zrcadla, která odrážejí jen tvář. Nebo hlava jako uzavřený prostor.</p>
+      <p>Místnost bez oken. Zrcadla, která odrážejí jen tvář. Hlava jako uzavřený prostor, ve kterém sedí malá postava.</p>
+    </div>
+    <div class="block prompts">
+      <span class="label">Otázky k psaní</span>
+      <ol>
+        <li>Kdy jsi naposledy úplně zapomněl sám na sebe? Co tě tehdy pohltilo?</li>
+        <li>O čem tvoje hlava mluví, když je ticho? Jak často se v tom objevuje „já“?</li>
+        <li>Co máš a bojíš se, že ztratíš? Výkon, image, pověst?</li>
+        <li>Jak bys vypadal, kdybys nemusel nic bránit?</li>
+      </ol>
     </div>
     <div class="block">
       <span class="label">Souvisí s</span>
@@ -409,46 +543,71 @@ a { color: var(--green); }
     <p class="thesis">Soucit se sebou, který se zasekl.</p>
     <div class="block">
       <span class="label">Co se děje</span>
-      <p>Sebelítost má špatnou pověst, ale vzniká z oprávněné potřeby uznat, že je to těžké. Zasekne se, když zůstane u otázky „proč zrovna já“ a nepokračuje k „co teď potřebuju“. Pak přijde druhá vlna: stud, že se lituju. Dvojitá rána.</p>
+      <p>Sebelítost má špatnou pověst, ale vzniká z oprávněné potřeby uznat, že je to těžké. Ta potřeba je zdravá. Zasekne se, když zůstane u otázky „proč zrovna já“ a nepokračuje k „co teď potřebuju“.</p>
+      <p>Pak přijde druhá vlna: stud, že se lituju. „Ostatní to mají horší, nemám právo.“ Dvojitá rána. Člověk se lituje, za lítost se odsoudí, a z odsouzení se lituje víc. Další malý kruh uvnitř velkého.</p>
+    </div>
+    <div class="block inside">
+      <span class="label">Zevnitř</span>
+      Ležíš a v hlavě ti běží seznam všeho, co je nespravedlivé. Pak si vzpomeneš na někoho, kdo má opravdu těžký život, a přijde vlna studu. A pak lítost, že se ani litovat nesmíš.
+    </div>
+    <div class="block">
+      <span class="label">Co vidí okolí</span>
+      <p>Okolí sebelítost často pozná a reaguje netrpělivě: „Přestaň se litovat.“ Je to pochopitelné, ale nepomáhá. Pod sebelítostí je skutečná bolest, která nebyla uznaná. Když ji někdo uzná, sebelítost často povolí sama.</p>
     </div>
     <div class="block">
       <span class="label">Kristin Neffová</span>
-      <p>Psycholožka, která zkoumá soucit se sebou, popisuje tři složky: laskavost k sobě, sdílené lidství („i jiní trpí“) a všímavost. Sebelítost podle ní izoluje a přehání. Chybí jí právě sdílené lidství. Říká „jen já“.</p>
+      <p>Psycholožka, která zkoumá soucit se sebou, popisuje tři složky. <strong>Laskavost</strong> k sobě místo soudu. <strong>Sdílené lidství</strong>, vědomí, že utrpení patří k životu všech lidí. A <strong>všímavost</strong>, vidět bolest jasně, bez přehánění i bez potlačení.</p>
+      <p>Sebelítost podle ní izoluje („jen já“) a přehání (bolest zaplní celý obraz). Chybí jí právě sdílené lidství a všímavost.</p>
     </div>
     <div class="block">
       <span class="label">Jung</span>
-      <p>„Neuróza je vždy náhražkou oprávněného utrpení.“ Sebelítost může být náhražka za skutečný smutek nad tím, co deprese vzala: čas, vztahy, verzi sebe. Truchlení se pohybuje a jednou skončí. Sebelítost krouží.</p>
+      <p>„Neuróza je vždy náhražkou oprávněného utrpení.“ Sebelítost může být náhražka za skutečný smutek nad tím, co deprese vzala: čas, vztahy, verzi sebe, plány. Truchlení se pohybuje a jednou skončí. Sebelítost krouží, protože neví, nad čím truchlí.</p>
     </div>
     <div class="block">
       <span class="label">Adler</span>
-      <p>Adler se neptal „proč“, ale „k čemu“. Utrpení může nevědomky plnit funkci, třeba chránit před rizikem, že se zkusím a selžu. Není to výčitka. Je to otázka, kterou si může položit jen ten, kdo trpí.</p>
+      <p>Adler se neptal „proč“, ale „k čemu“. Každé chování má podle něj cíl. Utrpení může nevědomky plnit funkci, třeba chránit před rizikem, že se zkusím a selžu, nebo udržet blízkost lidí, kteří se starají. Není to výčitka. Je to otázka, kterou si poctivě může položit jen ten, kdo trpí.</p>
     </div>
     <div class="block">
       <span class="label">Fromm</span>
-      <p>Fromm popisuje receptivní orientaci: člověk čeká, že dobro přijde zvenčí. Sebelítost je k ní blízko. Opakem je produktivní orientace, kdy člověk sám tvoří a dává.</p>
+      <p>Fromm popisuje receptivní orientaci: člověk čeká, že dobro přijde zvenčí, a když nepřichází, cítí se okradený. Sebelítost je k ní blízko. Opakem je produktivní orientace, kdy člověk sám tvoří a dává. Tvoje galerie je produktivní odpověď.</p>
     </div>
     <div class="block">
       <span class="label">Výzkum</span>
       <ul>
-        <li>Stöber (2003) vytvořil škálu sebelítosti. Ta souvisí s neuroticismem a depresí.</li>
-        <li>Metaanalýza (MacBeth a Gumley, 2012): vyšší soucit se sebou souvisí výrazně s nižší depresí, úzkostí a stresem.</li>
+        <li><strong>Stöber</strong> (2003) vytvořil škálu sebelítosti. Souvisí s neuroticismem a depresí.</li>
+        <li><strong>Metaanalýza</strong> (MacBeth a Gumley, 2012): vyšší soucit se sebou souvisí výrazně s nižší depresí, úzkostí a stresem.</li>
+        <li><strong>Trénink soucitu se sebou</strong> (Neffová a Germer) snižuje depresi a zvyšuje životní spokojenost.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <span class="label">Co pomáhá</span>
+      <ul>
+        <li>Dovolit si smutek, ale s objektem: nad čím přesně truchlím?</li>
+        <li>Neffova krátká pauza: „Teď je mi těžko. Těžké chvíle patří k životu. Co teď potřebuju?“</li>
+        <li>Přidat „i“: nejen já, i jiní.</li>
       </ul>
     </div>
     <div class="block insight">
       <span class="label">Náhled</span>
-      <p>Rozdíl mezi sebelítostí a truchlením je ve směru. Truchlení ví, co ztratilo. Sebelítost to neví, jen bolí. Celá galerie je protilék, protože dodává tu chybějící složku: <strong>nejsi sám</strong>.</p>
-    </div>
-    <div class="block question">
-      <span class="label">Otázka pro tebe</span>
-      Co přesně ti deprese vzala? Pojmenovat ztrátu je první krok od sebelítosti k truchlení.
+      <p>Rozdíl mezi sebelítostí a truchlením je ve směru. Truchlení ví, co ztratilo, a proto se jednou může rozloučit. Sebelítost to neví, jen bolí. Pojmenovat ztrátu je proto první krok ven.</p>
+      <p>Celá galerie je protilék na sebelítost, protože dodává chybějící složku Neffové: sdílené lidství. Každý, kdo vejde a pozná se, je důkaz, že to „jen já“ není pravda.</p>
     </div>
     <div class="block">
       <span class="label">Pro galerii</span>
-      <p>Schoulená postava, na kterou dopadá světlo zvenčí, které nevidí.</p>
+      <p>Schoulená postava, na kterou dopadá světlo zvenčí, které nevidí. Nebo postava, která drží vlastní ruku.</p>
+    </div>
+    <div class="block prompts">
+      <span class="label">Otázky k psaní</span>
+      <ol>
+        <li>Co přesně ti deprese vzala? Napiš seznam ztrát.</li>
+        <li>Nad čím z toho seznamu jsi ještě netruchlil?</li>
+        <li>K čemu ti sebelítost slouží? Co by se stalo, kdyby zmizela?</li>
+        <li>Co bys potřeboval slyšet, aby ses nemusel litovat sám?</li>
+      </ol>
     </div>
     <div class="block">
       <span class="label">Souvisí s</span>
-      <div class="links"><a href="#stud">Stud</a><a href="#osamelost">Osamělost</a><a href="#cas">Čas</a></div>
+      <div class="links"><a href="#stud">Stud</a><a href="#osamelost">Osamělost</a><a href="#cas">Čas</a><a href="#ztracena-duse">Ztracená duše</a></div>
     </div>
   </article>
 
@@ -458,39 +617,62 @@ a { color: var(--green); }
     <p class="thesis">Blízcí znají schránku, ne mě.</p>
     <div class="block">
       <span class="label">Co se děje</span>
-      <p>Stud za depresi znamená, že deprese bere i tvou podobu v očích druhých. Lidé, které máš nejradši, vidí verzi, kterou nechceš, aby viděli. A ty to musíš pozorovat a reflektovat. Je to stud ve dvou patrech.</p>
+      <p>Stud za depresi znamená, že deprese bere i tvou podobu v očích druhých. Lidé, které máš nejradši, vidí verzi, kterou nechceš, aby viděli: unavenou, nepřítomnou, podrážděnou, prázdnou. A zdravou verzi tebe, tu, kterou považuješ za skutečnou, vídají čím dál méně.</p>
+      <p>A ty to musíš pozorovat a reflektovat. Je to stud ve dvou patrech: stydíš se za to, jaký jsi, a zároveň vidíš, že se stydíš.</p>
+    </div>
+    <div class="block inside">
+      <span class="label">Zevnitř</span>
+      Sedíš u stolu s rodinou a vidíš sám sebe jejich očima. Ten unavený člověk, co nemluví. Chceš jim říct, že tohle nejsi ty. Ale nevíš, jestli by ti uvěřili. Nevíš, jestli tomu věříš ty.
+    </div>
+    <div class="block">
+      <span class="label">Co vidí okolí</span>
+      <p>Okolí často vidí stažení, vyhýbání se, rušení schůzek. Může to číst jako nezájem. Málokdo tuší, že za stažením je stud, ne odmítnutí.</p>
     </div>
     <div class="block">
       <span class="label">Tangneyová</span>
-      <p>Psycholožka June Tangneyová rozlišuje vinu a stud. Vina říká „udělal jsem něco špatně“ a vede k nápravě. Stud říká „jsem špatně“ a vede ke skrývání a stažení.</p>
+      <p>Psycholožka June Tangneyová rozlišuje vinu a stud. Vina říká „udělal jsem něco špatně“, týká se činu a vede k nápravě. Stud říká „jsem špatně“, týká se celé osoby a vede ke skrývání, stažení a touze zmizet. Vina je bolestivá, ale užitečná. Stud je bolestivý a paralyzuje.</p>
     </div>
     <div class="block">
       <span class="label">Winnicott</span>
-      <p>Pediatr a psychoanalytik Donald Winnicott popsal pravé a falešné já. Falešné já chrání to pravé, ale pak tě lidé znají jen přes ochranu. Přesně to vystihuje tvoje věta o schránce.</p>
+      <p>Pediatr a psychoanalytik Donald Winnicott popsal pravé a falešné já. Falešné já vzniká jako ochrana pravého, když prostředí není bezpečné pro to, kým člověk skutečně je. Problém je, že pak tě lidé znají jen přes ochranu. Přesně to vystihuje tvoje věta o schránce.</p>
     </div>
     <div class="block">
       <span class="label">Jung</span>
-      <p>Stud patří ke stínu, k tomu, co nechceme vidět ani ukázat. Persona drží stín za zády.</p>
+      <p>Stud patří ke stínu, k tomu, co nechceme vidět ani ukázat. Persona drží stín za zády. Jenže stín, který se skrývá, nezmizí. Jung by řekl, že světlo vzniká tam, kde se stín uvědomí, ne tam, kde se schová.</p>
     </div>
     <div class="block">
       <span class="label">Výzkum</span>
       <ul>
-        <li>Metaanalýza (Kim, Thibodeau a Jorgensen, 2011): stud souvisí s depresí silněji než vina.</li>
-        <li>Gilbert rozlišuje vnitřní stud (jak vidím sám sebe) a vnější stud (jak si myslím, že existuji v myslích druhých). Tvoje „blízcí znají schránku“ je vnější stud.</li>
-        <li>Brené Brownová popisuje, že stud potřebuje tajemství, mlčení a soud. Empatie ho rozpouští.</li>
+        <li><strong>Metaanalýza</strong> (Kim, Thibodeau a Jorgensen, 2011): stud souvisí s depresí silněji než vina.</li>
+        <li><strong>Gilbert</strong> rozlišuje vnitřní stud (jak vidím sám sebe) a vnější stud (jak si myslím, že existuji v myslích druhých). Tvoje „blízcí znají schránku“ je vnější stud.</li>
+        <li><strong>Brené Brownová</strong> popisuje, že stud potřebuje tři věci: tajemství, mlčení a soud. Empatie ho rozpouští. Když stud sdílíš s někým, kdo odpoví pochopením, ztrácí sílu.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <span class="label">Co pomáhá</span>
+      <ul>
+        <li>Pojmenovat stud nahlas, aspoň jednomu člověku.</li>
+        <li>Odlišit „udělal jsem“ od „jsem“.</li>
+        <li>Pamatovat, že deprese je nemoc. Za chřipku se nikdo nestydí.</li>
       </ul>
     </div>
     <div class="block insight">
       <span class="label">Náhled</span>
-      <p>Možná tvoji blízcí znají víc tebe, než si myslíš. Vidí i člověka, který pořád pracuje, trénuje a teď staví galerii. Schránka není prázdná. A stud je jediné téma, kde je odpovědí samotná existence galerie: stud chce schovat, galerie ukazuje.</p>
-    </div>
-    <div class="block question">
-      <span class="label">Otázka pro tebe</span>
-      Co by se stalo, kdyby tuhle galerii viděl jeden člověk, kterého máš nejradši?
+      <p>Možná tvoji blízcí znají víc tebe, než si myslíš. Vidí i člověka, který pořád chodí do práce, trénuje a teď staví galerii o tom, co prožívá. Schránka není prázdná. Je v ní člověk, který bojuje, a to je taky skutečné já, ne jeho stín.</p>
+      <p>Stud je jediné téma, kde je odpovědí samotná existence galerie. Stud chce schovat, galerie ukazuje. Každý obraz je akt proti studu.</p>
     </div>
     <div class="block">
       <span class="label">Pro galerii</span>
       <p>Postava, která si zakrývá tvář, ale skrz prsty prosvítá světlo. Nebo prázdná skořápka a vedle ní, mimo zorné pole, skutečný člověk.</p>
+    </div>
+    <div class="block prompts">
+      <span class="label">Otázky k psaní</span>
+      <ol>
+        <li>Co by se stalo, kdyby tuhle galerii viděl jeden člověk, kterého máš nejradši?</li>
+        <li>Jakou verzi tebe znají tvoji blízcí? Jakou bys chtěl, aby znali?</li>
+        <li>Za co přesně se stydíš? Za čin, nebo za to, kdo jsi?</li>
+        <li>Co by ti řekl ten nejbližší, kdyby věděl, co cítíš?</li>
+      </ol>
     </div>
     <div class="block">
       <span class="label">Souvisí s</span>
@@ -506,51 +688,74 @@ a { color: var(--green); }
   <p class="thesis">Naučená trasa, která tě táhne dokola.</p>
   <div class="block">
     <span class="label">Co se děje</span>
-    <p>Mozek šetří energii: co se opakuje, to zautomatizuje. Platí to pro sportovní techniku i pro myšlení. Depresivní trasa má obvykle podobu: spouštěč, myšlenka, pocit, stažení se, a potvrzení původní myšlenky. Čím víc kol, tím hlubší vyjetá kolej.</p>
+    <p>Mozek šetří energii: co se opakuje, to zautomatizuje. Platí to pro sportovní techniku, řízení auta i pro myšlení a prožívání. Depresivní trasa má obvykle podobu: spouštěč, myšlenka, pocit, stažení se, a potvrzení původní myšlenky. Čím víc kol, tím hlubší vyjetá kolej, a tím snáz do ní mysl sjede příště.</p>
+    <p>Zvyková energie je proto silnější než vůle. Člověk ví, že by měl jít ven, zavolat, vstát. Ale ví to hlava a zvyk mezitím jede po své trase. To není lenost. To je fyzika naučeného.</p>
+  </div>
+  <div class="block inside">
+    <span class="label">Zevnitř</span>
+    Neděle večer. Ani nemusíš nic myslet a už to přichází: tíha, seznam, pocit, že týden bude stejný. Jako by tělo vědělo dřív než hlava, že je neděle.
+  </div>
+  <div class="block">
+    <span class="label">Co vidí okolí</span>
+    <p>Okolí vidí opakování: „Zase jsi doma.“ „Zase jsi to zrušil.“ Snadno to přičte vůli. Ale vůle proti zvyku prohrává u všech lidí, nejen u těch s depresí.</p>
   </div>
   <div class="block">
     <span class="label">Thich Nhat Hanh</span>
-    <p>Vietnamský zenový mistr převzal z buddhismu pojem zvyková energie. Jeho rada nezní „bojuj“, ale „poznej ji“. Pozdrav ji jménem, usměj se na ni. Co je viděné, ztrácí část moci.</p>
+    <p>Vietnamský zenový mistr převzal z buddhismu pojem zvyková energie (v sanskrtu vásaná, otisk minulých činů). Jeho rada nezní „bojuj“, ale „poznej ji“. Pozdrav ji jménem: „Ahoj, zvyková energie, znám tě.“ Usměj se na ni. Co je viděné, ztrácí část moci, protože už to nejsi ty, ale něco, co se v tobě děje.</p>
   </div>
   <div class="block">
     <span class="label">Adler</span>
-    <p>Každý si v dětství vytvoří životní styl, vzorec, jak svět funguje a jak v něm přežít. Ten pak opakujeme, i když už neslouží. Životní styl se dá změnit, ale nejdřív ho musí člověk uvidět.</p>
+    <p>Každý si v dětství vytvoří životní styl, vzorec, jak svět funguje a jak v něm přežít. Ten pak opakujeme, i když už neslouží. Adler věřil, že životní styl se dá změnit, ale nejdřív ho musí člověk uvidět a pochopit, k čemu kdysi sloužil.</p>
   </div>
   <div class="block">
     <span class="label">Jung</span>
-    <p>Komplexy fungují jako samostatné bytosti v psychice. Spouštějí se samy a „žijí nás“. Jungovi se připisuje myšlenka: dokud si nevědomé neuvědomíš, bude řídit tvůj život a ty mu budeš říkat osud.</p>
+    <p>Komplexy fungují jako samostatné bytosti v psychice. Spouštějí se samy, mají vlastní energii a „žijí nás“. Jungovi se připisuje myšlenka: dokud si nevědomé neuvědomíš, bude řídit tvůj život a ty mu budeš říkat osud.</p>
   </div>
   <div class="block">
     <span class="label">Výzkum</span>
     <ul>
-      <li>Hebbovo pravidlo: neurony, které spolu pálí, se spolu propojují.</li>
-      <li>Watkins a Nolen-Hoeksemová (2014) popsali ruminaci jako zvyk: spouští se automaticky podněty, ne rozhodnutím.</li>
-      <li>Nolen-Hoeksemová dlouhodobě ukázala, že ruminace prodlužuje a prohlubuje depresi.</li>
-      <li>Wendy Woodová a kolegové (2002): zhruba 40 % každodenního chování probíhá ze zvyku, bez vědomého rozhodnutí.</li>
+      <li><strong>Hebbovo pravidlo:</strong> neurony, které spolu pálí, se spolu propojují. Opakovaná cesta se stává silnější.</li>
+      <li><strong>Ruminace jako zvyk</strong> (Watkins a Nolen-Hoeksemová, 2014): spouští se automaticky podněty, ne rozhodnutím.</li>
+      <li><strong>Wendy Woodová</strong> a kolegové (2002): zhruba 40 % každodenního chování probíhá ze zvyku, bez vědomého rozhodnutí.</li>
+      <li><strong>Naučená bezmoc</strong> (Seligman). Nová verze teorie (Maier a Seligman, 2016) obrátila původní myšlenku: pasivita při dlouhodobém stresu je výchozí reakce mozku. Co se učíme, je <strong>kontrola</strong>. Bezmoc tedy není vada, ale výchozí stav, ze kterého se dá vyučit.</li>
+    </ul>
+  </div>
+  <div class="block">
+    <span class="label">Co pomáhá</span>
+    <ul>
+      <li>Najít spouštěč. Zvyk se nedá změnit uprostřed, ale na začátku.</li>
+      <li>Nahradit, ne vymazat. Zvyk se nemaže, přepisuje se jiným, který začíná stejným spouštěčem.</li>
+      <li>Malé kroky opakovaně. Behaviorální aktivace pracuje přesně takhle.</li>
     </ul>
   </div>
   <div class="block insight">
     <span class="label">Náhled</span>
-    <p>Jako sportovec znáš přeučování techniky. Nejdřív to jde hůř, než to začne jít líp, a stará technika se pod tlakem vrací. S depresivní trasou je to stejné. Změnit se dá jen trasa, kterou vidíš. Proto je nadhled v galerii první krok: uvidět kruh shora.</p>
-  </div>
-  <div class="block question">
-    <span class="label">Otázka pro tebe</span>
-    Jaký je tvůj nejčastější spouštěč? A jaká je úplně první myšlenka hned po něm?
+    <p>Jako sportovec znáš přeučování techniky. Nejdřív to jde hůř, než to začne jít líp. Stará technika se pod tlakem a v únavě vrací. A až po stovkách opakování je nová technika automatická. S depresivní trasou je to stejné, a stejně tak to jde.</p>
+    <p>Změnit se dá jen trasa, kterou vidíš. Proto je nadhled v galerii první krok: uvidět kruh shora. Zvyková energie stojí na východě, kde vychází slunce. I to je obraz: místo, kde se kruh točí, je i místo, kde může začít nový den.</p>
   </div>
   <div class="block">
     <span class="label">Pro galerii</span>
-    <p>Celá místnost je zvyková energie. Divák, který se točí dokola, ji fyzicky zažívá. Obraz: vyjeté koleje, vyšlapaný kruh v podlaze.</p>
+    <p>Celá místnost je zvyková energie a divák ji fyzicky zažívá. Obraz: vyjeté koleje, vyšlapaný kruh v podlaze, stopa, která se překrývá sama se sebou.</p>
+  </div>
+  <div class="block prompts">
+    <span class="label">Otázky k psaní</span>
+    <ol>
+      <li>Jaký je tvůj nejčastější spouštěč? A jaká je úplně první myšlenka hned po něm?</li>
+      <li>Kdy a kde se ti trasa spouští nejspolehlivěji?</li>
+      <li>Kdy ses naučil reagovat takhle? K čemu ti to tehdy sloužilo?</li>
+      <li>Co by mohlo být první krok jiné trasy, i kdyby byl směšně malý?</li>
+    </ol>
   </div>
   <div class="block">
     <span class="label">Souvisí s</span>
-    <div class="links"><a href="#autopilot">Autopilot</a><a href="#cas">Čas</a><a href="#telo">Tělo</a></div>
+    <div class="links"><a href="#ruminace">Ruminace</a><a href="#autopilot">Autopilot</a><a href="#cas">Čas</a><a href="#telo">Tělo</a></div>
   </div>
 </article>
 
 <!-- ================= TROJICE MECHANISMUS ================= -->
 <section class="part" id="mechanismus">
   <h2>Trojice Mechanismus</h2>
-  <p class="intro">Jak kruh běží. Opakování vede k nepřítomnosti a ta ke ztrátě sebe.</p>
+  <p class="intro">Jak kruh běží. Opakování vede k nepřítomnosti a ta ke ztrátě sebe. Čas uprostřed je Beckův negativní pohled na budoucnost.</p>
 
   <article class="topic" id="autopilot">
     <p class="pos">Trojice Mechanismus · 1 ze 3</p>
@@ -558,31 +763,56 @@ a { color: var(--green); }
     <p class="thesis">Funguješ, ale nežiješ.</p>
     <div class="block">
       <span class="label">Co se děje</span>
-      <p>Autopilot má dvě podoby. První je úsporný režim: mozek šetří energii, kterou nemá. Druhá je odosobnění, pocit, že se díváš na vlastní život z dálky. Autopilot tě drží v chodu: práce, trénink, povinnosti. Proto lidé říkají „vůbec nevypadáš, že máš depresi“.</p>
+      <p>Autopilot má dvě podoby. První je úsporný režim: mozek šetří energii, kterou nemá, a dělá jen to nejnutnější, automaticky. Druhá je odosobnění: pocit, že se díváš na vlastní život z dálky, jako ve filmu, a nejsi v něm.</p>
+      <p>Autopilot tě drží v chodu: práce, trénink, povinnosti, úsměvy. Proto lidé říkají „vůbec nevypadáš, že máš depresi“. Venku všechno funguje. Uvnitř nikdo není doma.</p>
+    </div>
+    <div class="block inside">
+      <span class="label">Zevnitř</span>
+      Dojedeš domů z práce a nevíš, jak jsi jel. Nevzpomeneš si na jedinou křižovatku. Den se stal, ale ty u toho nebyl.
+    </div>
+    <div class="block">
+      <span class="label">Co vidí okolí</span>
+      <p>Okolí vidí fungujícího člověka. Možná trochu tiššího, trochu vzdálenějšího. Autopilot je nejlepší kamufláž deprese, protože vypadá jako normálnost.</p>
     </div>
     <div class="block">
       <span class="label">Fromm</span>
-      <p>V knize <em>Útěk od svobody</em> popisuje automatickou konformitu: člověk funguje podle očekávání a přestane prožívat. V <em>Zdravé společnosti</em> píše zhruba toto: nebezpečím minulosti bylo, že se lidé stanou otroky, nebezpečím budoucnosti je, že se stanou roboty. Popisuje i tržní orientaci, kdy člověk prožívá svou hodnotu jako cenu na trhu, podle výkonu.</p>
+      <p>V knize <em>Útěk od svobody</em> popisuje automatickou konformitu: člověk funguje podle očekávání a přestane prožívat sám sebe. V <em>Zdravé společnosti</em> píše zhruba toto: nebezpečím minulosti bylo, že se lidé stanou otroky, nebezpečím budoucnosti je, že se stanou roboty.</p>
+      <p>Popisuje i tržní orientaci: člověk prožívá svou hodnotu jako cenu na trhu, podle toho, jak výkonný a prodejný je. Autopilot je pak způsob, jak udržet cenu, i když uvnitř nic nezbylo.</p>
     </div>
     <div class="block">
       <span class="label">Výzkum</span>
       <ul>
-        <li>Killingsworth a Gilbert (2010): mysl bloudí jinde zhruba polovinu bdělého času, a bloudící mysl je méně šťastná.</li>
-        <li>Terapie MBCT, vyvinutá přímo pro opakovanou depresi, má první setkání nazvané <strong>„Uvědomění a automatický pilot“</strong>. Začíná se pomalým jedením jedné rozinky.</li>
-        <li>Mihály Csíkszentmihályi popsal flow: plné ponoření do činnosti. Flow je také automatické, ale s plnou přítomností. Autopilot je jeho prázdný dvojník.</li>
+        <li><strong>Killingsworth a Gilbert</strong> (2010): mysl bloudí jinde zhruba polovinu bdělého času, a bloudící mysl je méně šťastná, bez ohledu na to, co člověk dělá.</li>
+        <li><strong>MBCT</strong>, terapie vyvinutá přímo pro opakovanou depresi, má první setkání nazvané „Uvědomění a automatický pilot“. Začíná se pomalým jedením jedné rozinky, všemi smysly.</li>
+        <li><strong>Mihály Csíkszentmihályi</strong> popsal flow: plné ponoření do činnosti, kdy čas mizí a člověk je v tom celý. Flow je také automatické, ale s plnou přítomností. Autopilot je jeho prázdný dvojník.</li>
+        <li><strong>Odosobnění</strong> (depersonalizace) se u deprese objevuje často a bývá chápáno jako ochranný mechanismus mozku při přetížení.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <span class="label">Co pomáhá</span>
+      <ul>
+        <li>Malé chvíle ručního řízení: jedna činnost denně udělaná pomalu a celým tělem.</li>
+        <li>Smysly: co teď slyším, cítím, vidím. Pět vteřin stačí.</li>
+        <li>Pro sportovce: trénink s plnou pozorností místo odbíhání v hlavě.</li>
       </ul>
     </div>
     <div class="block insight">
       <span class="label">Náhled</span>
-      <p>Autopilot není nepřítel. Je to to, co tě drželo v chodu, když nic jiného nešlo. Cílem není ho vypnout, ale mít chvíle ručního řízení. Jako sportovec flow znáš, víš, jak chutná opak autopilota. To je cenná paměť.</p>
-    </div>
-    <div class="block question">
-      <span class="label">Otázka pro tebe</span>
-      Kdy jsi byl naposledy v něčem celý, tělem i hlavou?
+      <p>Autopilot není nepřítel. Je to to, co tě drželo v chodu, když nic jiného nešlo. Zaslouží si spíš poděkování než nenávist. Cílem není ho vypnout, ale mít chvíle ručního řízení.</p>
+      <p>Jako sportovec flow znáš. Víš, jak chutná opak autopilota: plná přítomnost, kdy tělo i hlava jsou na jednom místě. To je cenná paměť, a důkaz, že to umíš.</p>
     </div>
     <div class="block">
       <span class="label">Pro galerii</span>
-      <p>Postava za sklem, která vykonává pohyby, a za ní stín, který jen stojí.</p>
+      <p>Postava za sklem, která vykonává pohyby, a za ní stín, který jen stojí. Nebo prázdná ulice viděná z auta, rozmazaná.</p>
+    </div>
+    <div class="block prompts">
+      <span class="label">Otázky k psaní</span>
+      <ol>
+        <li>Kdy jsi byl naposledy v něčem celý, tělem i hlavou?</li>
+        <li>Jak vypadá tvůj den na autopilotu? Popiš ho od rána, bez hodnocení.</li>
+        <li>Kdo nebo co tě dokáže vytrhnout z autopilota?</li>
+        <li>Co by ti chtěl autopilot říct, kdyby mohl mluvit?</li>
+      </ol>
     </div>
     <div class="block">
       <span class="label">Souvisí s</span>
@@ -596,42 +826,66 @@ a { color: var(--green); }
     <p class="thesis">Stojí a utíká zároveň.</p>
     <div class="block">
       <span class="label">Co se děje</span>
-      <p>Čas nevnímáš a zároveň ho vnímáš bolestně. Dny splývají, budoucnost jako by neexistovala, a přitom víš, že život jde dál bez tebe. Tyhle dva postoje jdou proti sobě a bolí právě tím rozporem.</p>
+      <p>Čas nevnímáš a zároveň ho vnímáš bolestně. Dny splývají, týdny nemají tvar, budoucnost jako by neexistovala. A přitom víš, že život jde dál bez tebe: ostatní se posouvají, plánují, stárnou, a ty stojíš. Tyhle dva postoje jdou proti sobě a bolí právě tím rozporem.</p>
+      <p>Deprese navíc rozbíjí i denní rytmus. Spánek, chuť k jídlu, energie, nálada. U mnoha lidí je nejhorší ráno a k večeru se trochu uleví. Čas uvnitř dne pak taky přestane být rovný.</p>
+    </div>
+    <div class="block inside">
+      <span class="label">Zevnitř</span>
+      Je čtvrtek, nebo už pátek? Nevíš a je ti to jedno. Pak vidíš fotku od kamaráda, který se odstěhoval, oženil, něco dokázal, a najednou cítíš všechny ty měsíce naráz.
+    </div>
+    <div class="block">
+      <span class="label">Co vidí okolí</span>
+      <p>Okolí vidí zastavení: „Už to trvá dlouho.“ „Kdy se zase dáš dohromady?“ Netuší, že pro člověka uvnitř čas buď neplyne vůbec, nebo plyne jako ztráta.</p>
     </div>
     <div class="block">
       <span class="label">Fenomenologie</span>
-      <p>Francouzský psychiatr Eugène Minkowski popsal v roce 1933, že v melancholii je budoucnost zablokovaná. Čas neteče dopředu. Německý psychiatr Thomas Fuchs mluví o desynchronizaci: svět běží, ty stojíš. Matthew Ratcliffe popisuje depresi jako ztrátu možností. Svět přestane nabízet „mohl bych“.</p>
+      <p>Francouzský psychiatr <strong>Eugène Minkowski</strong> popsal v roce 1933 v knize <em>Prožívaný čas</em>, že v melancholii je budoucnost zablokovaná. Čas neteče dopředu, nic nečeká za rohem.</p>
+      <p>Německý psychiatr <strong>Thomas Fuchs</strong> mluví o desynchronizaci: svět běží, ty stojíš, a mezera mezi vašimi časy roste. <strong>Matthew Ratcliffe</strong> popisuje depresi jako ztrátu možností. Svět přestane nabízet „mohl bych“, všechno je buď nemožné, nebo bezvýznamné.</p>
     </div>
     <div class="block">
       <span class="label">Frankl</span>
-      <p>Z koncentračního tábora popsal provizorní existenci: život bez viditelného konce a cíle. Lidé, kteří ztratili budoucnost, ztráceli i sílu.</p>
+      <p>Z koncentračního tábora popsal provizorní existenci: život bez viditelného konce a cíle. Pozoroval, že lidé, kteří ztratili budoucnost, ztráceli i sílu přežít. A naopak, kdo měl něco, kvůli čemu chtěl vydržet, měl větší šanci.</p>
     </div>
     <div class="block">
       <span class="label">Adler</span>
-      <p>Pro Adlera nás nehýbe minulost, ale cíl, ke kterému míříme, i když je jen představou. Když se budoucí cíl zhroutí, pohyb se zastaví.</p>
+      <p>Pro Adlera nás nehýbe minulost, ale cíl, ke kterému míříme, i když je jen představou (fiktivní finální cíl). Když se budoucí cíl zhroutí, pohyb se zastaví. Deprese pak není jen smutek z minulosti, ale ztráta směru.</p>
     </div>
     <div class="block">
       <span class="label">Výzkum</span>
       <ul>
-        <li>Bschor a kol. (2004): lidé s depresí prožívají čas jako zpomalený.</li>
-        <li>Behaviorální aktivace, jedna z nejlépe ověřených terapií deprese, pracuje s malými plánovanými činnostmi. Nepřímo tím vrací malou budoucnost.</li>
+        <li><strong>Bschor a kol.</strong> (2004): lidé s depresí prožívají čas jako zpomalený.</li>
+        <li><strong>Denní rytmus:</strong> deprese často narušuje spánek a cirkadiánní rytmus. Typické je brzké probouzení a horší nálada ráno.</li>
+        <li><strong>Behaviorální aktivace</strong> pracuje s malými plánovanými činnostmi. Nepřímo tím vrací malou budoucnost a strukturu do času.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <span class="label">Co pomáhá</span>
+      <ul>
+        <li>Stálý rytmus: vstávání a světlo ráno ve stejnou dobu.</li>
+        <li>Malá budoucnost: jedna věc, na kterou se dá těšit, v nejbližších dnech.</li>
+        <li>Označit čas: zapisovat si dny, aby nesplývaly.</li>
       </ul>
     </div>
     <div class="block insight">
       <span class="label">Náhled</span>
-      <p>Představ si dvoje hodiny. Vnitřní stojí, vnější běží. Bolest je mezera mezi nimi. Uzdravování často nezačíná velkým cílem, ale malou budoucností: „zítra ráno udělám tohle“. Vnitřní hodiny se rozběhnou krok po kroku.</p>
-    </div>
-    <div class="block question">
-      <span class="label">Otázka pro tebe</span>
-      Na co se můžeš v příštím týdnu těšit, i kdyby to byla úplná maličkost?
+      <p>Představ si dvoje hodiny. Vnitřní stojí, vnější běží. Bolest je mezera mezi nimi. Uzdravování často nezačíná velkým cílem, ale malou budoucností: „zítra ráno udělám tohle“. Vnitřní hodiny se rozběhnou krok po kroku, a mezera se pomalu zmenšuje.</p>
     </div>
     <div class="block">
       <span class="label">Pro galerii</span>
-      <p>Dvoje hodiny vedle sebe. Jedny zastavené, druhé s ručičkami rozmazanými rychlostí.</p>
+      <p>Dvoje hodiny vedle sebe. Jedny zastavené, druhé s ručičkami rozmazanými rychlostí. Nebo kalendář, kde jsou všechny dny stejné.</p>
+    </div>
+    <div class="block prompts">
+      <span class="label">Otázky k psaní</span>
+      <ol>
+        <li>Na co se můžeš v příštím týdnu těšit, i kdyby to byla úplná maličkost?</li>
+        <li>Kdy čas stojí a kdy utíká? Popiš jednu chvíli od každého.</li>
+        <li>Kolik času ti deprese vzala? Co v tom čase mělo být?</li>
+        <li>Jaká je nejhorší část tvého dne a jaká nejlehčí?</li>
+      </ol>
     </div>
     <div class="block">
       <span class="label">Souvisí s</span>
-      <div class="links"><a href="#zvykova-energie">Zvyková energie</a><a href="#ztracena-duse">Ztracená duše</a><a href="#smysl">Smysl</a></div>
+      <div class="links"><a href="#zvykova-energie">Zvyková energie</a><a href="#ztracena-duse">Ztracená duše</a><a href="#sebelitost">Sebelítost</a><a href="#smysl">Smysl</a></div>
     </div>
   </article>
 
@@ -641,38 +895,61 @@ a { color: var(--green); }
     <p class="thesis">Spojení se sebou se přetrhlo.</p>
     <div class="block">
       <span class="label">Co se děje</span>
-      <p>Ztráta kontaktu s tím, co tě dřív dělalo tebou. Věci, které tě oživovaly, jsou pořád tady, ale nic s tebou nedělají. Je to výsledek dlouhého autopilota: když dlouho nejsi přítomný, přestaneš se poznávat.</p>
+      <p>Ztráta kontaktu s tím, co tě dřív dělalo tebou. Věci, které tě oživovaly, jsou pořád tady, ale nic s tebou nedělají. Oblíbená hudba zní jako zvuk odvedle. Sport, který byl radostí, je povinnost. Lidé, které máš rád, jsou daleko, i když sedí vedle.</p>
+      <p>Je to výsledek dlouhého autopilota: když dlouho nejsi přítomný, přestaneš se poznávat. A s tím přichází otázka, která je možná nejděsivější ze všech: kdo vlastně jsem, když nejsem ten, kým jsem býval?</p>
+    </div>
+    <div class="block inside">
+      <span class="label">Zevnitř</span>
+      Pustíš si písničku, při které jsi kdysi brečel štěstím. Posloucháš ji a čekáš. Nic. Jako bys poslouchal záznam někoho jiného.
+    </div>
+    <div class="block">
+      <span class="label">Co vidí okolí</span>
+      <p>Okolí vidí, že člověk „ztratil jiskru“. Navrhuje věci, které ho dřív bavily, a nechápe, proč nefungují. Netuší, že problém není v těch věcech, ale ve spojení, které se přerušilo.</p>
     </div>
     <div class="block">
       <span class="label">Jung</span>
-      <p>V knize <em>Moderní člověk hledá duši</em> převzal z etnologie pojem ztráta duše: náhle odejde životní energie. A když v roce 1913 sám začal psát Červenou knihu, jedna z prvních vět zněla zhruba: „Má duše, kde jsi? Slyšíš mě?“ Duši nehledal jako věc, ale jako hlas, se kterým je třeba znovu mluvit.</p>
+      <p>V knize <em>Moderní člověk hledá duši</em> převzal z etnologie pojem ztráta duše: náhle odejde životní energie a člověk zůstane prázdný. A když v roce 1913 sám začal psát Červenou knihu, jedna z prvních vět zněla zhruba: „Má duše, kde jsi? Slyšíš mě?“ Uvědomil si, že úspěch, kariéra a uznání ho od duše odvedly.</p>
+      <p>Duši nehledal jako věc, ale jako hlas, se kterým je třeba znovu mluvit. A celá Červená kniha je ten rozhovor.</p>
     </div>
     <div class="block">
       <span class="label">Fromm a Frankl</span>
-      <p>Fromm mluví o odcizení: člověk prožívá sám sebe jako cizí věc. Frankl o existenciálním vakuu, prázdnotě po ztraceném smyslu.</p>
+      <p>Fromm mluví o odcizení: člověk prožívá sám sebe jako cizí věc, jako stroj, který má fungovat. Frankl o existenciálním vakuu, prázdnotě po ztraceném smyslu, kterou lidé zaplňují mocí, požitky nebo otupěním.</p>
     </div>
     <div class="block">
       <span class="label">Výzkum</span>
       <ul>
-        <li>Anhedonie (ztráta radosti) zasahuje hlavně chuť a motivaci, tedy „chci“, méně samotný požitek, „líbí se mi“ (Treadway a Zald, 2011; rozlišení Kenta Berridge).</li>
-        <li>Prakticky to znamená: radost často přijde až během činnosti, ne předem. Chuť nepřichází jako pozvánka.</li>
+        <li><strong>Anhedonie</strong> (ztráta radosti) zasahuje hlavně chuť a motivaci, tedy „chci“, méně samotný požitek, „líbí se mi“ (Treadway a Zald, 2011; rozlišení Kenta Berridge).</li>
+        <li>Prakticky to znamená: radost často přijde až během činnosti, ne předem. Chuť nepřichází jako pozvánka. Na tom stojí behaviorální aktivace: jednat podle plánu, ne podle chuti.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <span class="label">Co pomáhá</span>
+      <ul>
+        <li>Dělat věci, které tě kdysi oživovaly, bez čekání, že budou fungovat hned.</li>
+        <li>Všímat si i malé radosti, deset procent, ne sto.</li>
+        <li>Mluvit s „duší“ jako Jung: psát jí, ptát se jí.</li>
       </ul>
     </div>
     <div class="block insight">
       <span class="label">Náhled</span>
-      <p>Duše není věc, kterou jsi ztratil. Je to vztah, který se přerušil. Vztahy se obnovují malými kontakty, ne velkými odpověďmi. Jung svou duši nenašel, ale začal s ní mluvit. Tvoje galerie je možná přesně takový rozhovor.</p>
-    </div>
-    <div class="block question">
-      <span class="label">Otázka pro tebe</span>
-      Co tě opravdu oživovalo, když ti bylo dvanáct až patnáct let?
+      <p>Duše není věc, kterou jsi ztratil. Je to vztah, který se přerušil. Vztahy se obnovují malými kontakty, ne velkými odpověďmi. Jung svou duši nenašel jedním objevem, začal s ní mluvit, každý den, roky. Tvoje galerie je možná přesně takový rozhovor.</p>
     </div>
     <div class="block">
       <span class="label">Pro galerii</span>
-      <p>Konec trojice Mechanismus. Postava, ze které odchází světlo nebo stín, který se od ní odpojuje.</p>
+      <p>Konec trojice Mechanismus. Postava, ze které odchází světlo, nebo stín, který se od ní odpojuje a odchází jiným směrem.</p>
+    </div>
+    <div class="block prompts">
+      <span class="label">Otázky k psaní</span>
+      <ol>
+        <li>Co tě opravdu oživovalo, když ti bylo dvanáct až patnáct let?</li>
+        <li>Kdy ses naposledy poznal? Kde jsi byl?</li>
+        <li>Kdyby tvoje duše mohla napsat dopis, co by ti řekla?</li>
+        <li>Co z toho, co jsi býval, chceš zpátky? A co už ne?</li>
+      </ol>
     </div>
     <div class="block">
       <span class="label">Souvisí s</span>
-      <div class="links"><a href="#autopilot">Autopilot</a><a href="#smysl">Smysl</a><a href="#ego">Ego</a></div>
+      <div class="links"><a href="#autopilot">Autopilot</a><a href="#smysl">Smysl</a><a href="#ego">Ego</a><a href="#cas">Čas</a></div>
     </div>
   </article>
 </section>
@@ -682,50 +959,63 @@ a { color: var(--green); }
   <p class="pos">Hlavní plakát · jih · naproti dveřím</p>
   <h3>Sebevražda</h3>
   <p class="thesis">Chceš konec bolesti, ne konec života.</p>
+  <div class="care">
+    <strong>Než začneš číst:</strong> tohle téma u tebe není teorie. Kdykoli to zhoustne, Linka první psychické pomoci <strong>116 123</strong> je tam nonstop a zdarma. Volat se dá, i když to ještě není akutní. A tuhle část klidně čti v dobrý den.
+  </div>
   <div class="block">
     <span class="label">Co se děje</span>
-    <p>Vyčerpání tak velké, že konec vypadá jako jediné východisko. A zároveň toho nejsi schopný. Ten rozpor není slabost ani nerozhodnost. Je to vnitřní konflikt mezi bolestí a životem, a život v něm pořád drží svou pozici.</p>
+    <p>Vyčerpání tak velké, že konec vypadá jako jediné východisko. Ne proto, že by člověk chtěl zemřít, ale protože nevidí, jak by mohl dál žít takhle. A zároveň toho nejsi schopný.</p>
+    <p>Ten rozpor není slabost ani nerozhodnost. Je to vnitřní konflikt mezi bolestí a životem, a život v něm pořád drží svou pozici. Myšlenky na smrt jsou u těžké deprese běžné. Většina lidí, kteří je mají, se o život nepokusí. Ale jsou to signál, že bolest přesáhla to, co se dá nést samo.</p>
+  </div>
+  <div class="block">
+    <span class="label">Co vidí okolí</span>
+    <p>Často nic. Lidé, kteří o tom přemýšlejí, to obvykle skrývají právě před těmi, které mají nejraději, aby je nezatěžovali. Proto blízcí po tragédiích tak často říkají: „Netušili jsme.“</p>
   </div>
   <div class="block">
     <span class="label">Shneidman</span>
-    <p>Zakladatel suicidologie Edwin Shneidman dal do středu psychickou bolest (psychache) a zúžení vidění. Mysl v krizi vidí jen dvě možnosti: takhle dál, nebo konec. Všechno mezi tím zmizí. A zdůrazňoval ambivalenci: téměř každý, kdo o sebevraždě uvažuje, zároveň chce žít.</p>
+    <p>Zakladatel suicidologie Edwin Shneidman dal do středu psychickou bolest (psychache), nesnesitelnou bolest duše. A zúžení vidění: mysl v krizi vidí jen dvě možnosti, takhle dál, nebo konec. Všechno mezi tím zmizí, jako by se pole vidění zúžilo do tunelu.</p>
+    <p>A zdůrazňoval ambivalenci: téměř každý, kdo o sebevraždě uvažuje, zároveň chce žít. Ta druhá část je vždycky přítomná.</p>
   </div>
   <div class="block">
     <span class="label">Joiner a teorie tří kroků</span>
-    <p>Thomas Joiner ukazuje, že myšlenky na sebevraždu živí dva pocity: nepatřím nikam a jsem přítěží. Oba najdeš v tématech <a href="#osamelost">Osamělost</a> a <a href="#empatie">Empatie</a>. Klonsky a May (teorie tří kroků) dodávají: bolest a beznaděj vedou k myšlenkám, propojenost s lidmi a smyslem chrání, a přechod k činu vyžaduje ještě další krok. To, že toho „nejsi schopný“, je ochrana.</p>
+    <p>Thomas Joiner ukazuje, že myšlenky na sebevraždu živí dva pocity: <strong>nepatřím nikam</strong> a <strong>jsem přítěží</strong>. Oba najdeš v tématech <a href="#osamelost">Osamělost</a> a <a href="#empatie">Empatie</a>. Oba jsou ale vnímání, ne fakta. Lidé, kteří tě mají rádi, tě nevnímají jako přítěž.</p>
+    <p>Klonsky a May (teorie tří kroků) dodávají: bolest a beznaděj vedou k myšlenkám. Propojenost s lidmi a se smyslem chrání. A přechod od myšlenek k činu vyžaduje ještě další krok. To, že toho „nejsi schopný“, je ochrana.</p>
   </div>
   <div class="block">
     <span class="label">Jungiánská tradice</span>
-    <p>James Hillman v knize <em>Sebevražda a duše</em> (1964) čte touhu zemřít často jako touhu po proměně: něco ve mně musí skončit, ne já. Zlehčovat riziko to nesmí. Ale dává té touze jiný směr: hledat, co má skončit.</p>
+    <p>James Hillman v knize <em>Sebevražda a duše</em> (1964) čte touhu zemřít často jako touhu po proměně: něco ve mně musí skončit, ne já. Starý způsob života, stará identita, stará bolest. Zlehčovat riziko to nesmí. Ale dává té touze jiný směr: hledat, co má skončit, a nechat to skončit symbolicky.</p>
   </div>
   <div class="block">
     <span class="label">Camus</span>
-    <p>Albert Camus začíná <em>Mýtus o Sisyfovi</em> větou, že existuje jen jeden opravdu vážný filozofický problém, a to sebevražda. Sisyfos valí kámen do kopce znovu a znovu, v kruhu. Camusova odpověď je vzdor a život: „Sisyfa si musíme představit šťastného.“ Kruh a otázka smyslu jsou spojené už od začátku moderní filozofie.</p>
+    <p>Albert Camus začíná <em>Mýtus o Sisyfovi</em> větou, že existuje jen jeden opravdu vážný filozofický problém, a to sebevražda. Sisyfos valí kámen do kopce znovu a znovu, v kruhu, navěky. Camusova odpověď je vzdor a život: „Sisyfa si musíme představit šťastného.“ Kruh a otázka smyslu jsou spojené od začátku moderní filozofie.</p>
   </div>
   <div class="block">
     <span class="label">Výzkum</span>
     <ul>
       <li>Myšlenky na sebevraždu obvykle přicházejí ve vlnách a vrchol krize bývá krátký. Proto má smysl mít připravené kroky na chvíle, kdy vlna přijde.</li>
-      <li>Bezpečnostní plán (Stanley a Brown) je ověřený postup: varovné signály, co mi pomáhá, komu zavolat, jak si udělat bezpečné prostředí. Vytváří se ideálně s odborníkem.</li>
-      <li>Marsha Linehanová vytvořila dotazník <em>Důvody žít</em>. Důvody, proč zůstat, jsou měřitelný ochranný faktor.</li>
+      <li><strong>Bezpečnostní plán</strong> (Stanley a Brown) je ověřený postup: varovné signály, co mi pomáhá, kam jít, komu zavolat, jak si udělat bezpečné prostředí. Studie ukazují, že výrazně snižuje sebevražedné chování. Vytváří se ideálně s odborníkem.</li>
+      <li><strong>Marsha Linehanová</strong> vytvořila dotazník <em>Důvody žít</em>. Důvody, proč zůstat, jsou měřitelný ochranný faktor.</li>
     </ul>
   </div>
   <div class="block insight">
     <span class="label">Náhled</span>
-    <p>Píšeš o tomhle tématu z vlastní zkušenosti. Vyčerpání, které vidí konec jako východisko, potřebuje odpočinek a léčbu, ne verdikt. A ta část tebe, která to nedokáže, nestojí proti tobě. Stojí na straně života. V galerii visí naproti dveřím: dva východy, jeden končí všechno, druhý mění.</p>
-  </div>
-  <div class="block question">
-    <span class="label">Otázka pro tebe</span>
-    Co tě drží? Klidně i malé důvody. Stojí za to si je napsat.
+    <p>Vyčerpání, které vidí konec jako východisko, potřebuje odpočinek a léčbu, ne verdikt. Je to stav, ne pravda o tvém životě. A ta část tebe, která to nedokáže, nestojí proti tobě. Stojí na straně života a drží se ho, i když je unavená.</p>
+    <p>V galerii visí naproti dveřím. Dva východy, jeden končí všechno, druhý mění. A mezi nimi stojí divák.</p>
   </div>
   <div class="block">
     <span class="label">Pro galerii</span>
-    <p>Kontakt na pomoc přímo v detailu plakátu. Bez obrazů metod, bez romantizace. Do budoucna možná zeď „důvodů žít“ od návštěvníků.</p>
+    <p>Kontakt na pomoc přímo v detailu plakátu. Bez obrazů metod, bez romantizace, bez estetizace smrti. Obraz může ukazovat vyčerpání a tunel, ale i světlo na jeho okraji. Do budoucna možná zeď „důvodů žít“ od návštěvníků.</p>
   </div>
-  <div class="care">
-    <strong>Kdykoli to zhoustne:</strong> Linka první psychické pomoci 116 123 (nonstop, zdarma). Volat se dá, i když to ještě není akutní.
+  <div class="block prompts">
+    <span class="label">Otázky k psaní (v dobrý den)</span>
+    <ol>
+      <li>Co tě drží? Klidně i malé důvody. Stojí za to si je napsat a nechat si je.</li>
+      <li>Co ve tvém životě má skončit, aby mohl pokračovat?</li>
+      <li>Komu bys mohl zavolat, když přijde vlna?</li>
+      <li>Co bys chtěl, aby věděl člověk, který teď stojí na stejném místě?</li>
+    </ol>
   </div>
-  <div class="block" style="margin-top:1.15rem">
+  <div class="block">
     <span class="label">Souvisí s</span>
     <div class="links"><a href="#osamelost">Osamělost</a><a href="#empatie">Empatie</a><a href="#dvere">Dveře</a><a href="#smysl">Smysl</a></div>
   </div>
@@ -734,7 +1024,7 @@ a { color: var(--green); }
 <!-- ================= TROJICE DRUZÍ ================= -->
 <section class="part" id="druzi">
   <h2>Trojice Druzí</h2>
-  <p class="intro">Vztah ke světu. Ochrana druhých vede k předstírání a předstírání k samotě. Tělo je mezi nimi to, co druzí vidí a co nejde skrýt.</p>
+  <p class="intro">Vztah ke světu. Beckův negativní pohled na svět a lidi. Ochrana druhých vede k předstírání a předstírání k samotě. Tělo je mezi nimi to, co druzí vidí a co nejde skrýt.</p>
 
   <article class="topic" id="empatie">
     <p class="pos">Trojice Druzí · 1 ze 3</p>
@@ -742,38 +1032,61 @@ a { color: var(--green); }
     <p class="thesis">Cítíš druhé a chráníš je před sebou.</p>
     <div class="block">
       <span class="label">Co se děje</span>
-      <p>Vysoká emoční inteligence znamená, že neustále čteš stavy druhých. V depresi se to obrací proti tobě: cítíš jejich starost o tebe, vinu za to, že jim ji působíš, a tak je před sebou chráníš. Empatie, která nezahrnuje tebe samotného, vyčerpává.</p>
+      <p>Vysoká emoční inteligence znamená, že neustále čteš stavy druhých: náladu v místnosti, napětí v hlase, únavu v očích. Je to dar, ale i stálá práce. V depresi se obrací proti tobě: cítíš jejich starost o tebe, vinu za to, že jim ji působíš, a tak je před sebou chráníš.</p>
+      <p>Empatie, která nezahrnuje tebe samotného, vyčerpává. Dáváš ven, co uvnitř chybí.</p>
+    </div>
+    <div class="block inside">
+      <span class="label">Zevnitř</span>
+      Máma se ptá, jak se máš, a ty v jejím hlase slyšíš strach. Řekneš „dobrý“, protože víc nemůžeš unést: svou bolest i její strach dohromady.
+    </div>
+    <div class="block">
+      <span class="label">Co vidí okolí</span>
+      <p>Okolí vidí citlivého, pozorného člověka, který se o druhé zajímá. Málokdo tuší, že ten samý člověk sám nikoho k sobě nepustí.</p>
     </div>
     <div class="block">
       <span class="label">Adler</span>
-      <p>Pocit sounáležitosti (Gemeinschaftsgefühl) považoval Adler za měřítko duševního zdraví. Ty ho máš silný. Deprese ho ale přesměrovala: místo „patřím k vám“ říká „nechci vás zatěžovat“.</p>
+      <p>Pocit sounáležitosti (Gemeinschaftsgefühl) považoval Adler za měřítko duševního zdraví: schopnost cítit se součástí lidstva a přispívat. Ty ho máš silný. Deprese ho ale přesměrovala: místo „patřím k vám“ říká „nechci vás zatěžovat“.</p>
     </div>
     <div class="block">
       <span class="label">Fromm</span>
-      <p>Láska je pro Fromma aktivní dávání, ale dávání z plnosti, ne z vyprázdnění. Kdo dává z prázdné nádoby, dává svůj nedostatek.</p>
+      <p>Láska je pro Fromma aktivní dávání, ale dávání z plnosti, ne z vyprázdnění. Kdo dává z prázdné nádoby, dává svůj nedostatek a vyčerpává se.</p>
     </div>
     <div class="block">
       <span class="label">Výzkum</span>
       <ul>
-        <li>Tania Singerová a Olga Klimecká (2014) rozlišují empatickou úzkost (cítím tvou bolest a ničí mě) a soucit (cítím tvou bolest a přeju ti dobro). Aktivují jiné mozkové sítě. Trénink soucitu snižuje vyčerpání.</li>
-        <li>Lynn O'Connorová popsala interpersonální vinu: pocit, že druhým působím starosti, nebo že se mám lépe, než mám právo. Souvisí s depresí.</li>
+        <li><strong>Tania Singerová a Olga Klimecká</strong> (2014) rozlišují empatickou úzkost (cítím tvou bolest a ničí mě) a soucit (cítím tvou bolest a přeju ti dobro). Aktivují jiné mozkové sítě. Trénink soucitu snižuje vyčerpání a zvyšuje pozitivní emoce.</li>
+        <li><strong>Lynn O'Connorová</strong> popsala interpersonální vinu: pocit, že druhým působím starosti, nebo že mám lépe, než mám právo. Souvisí s depresí.</li>
+        <li><strong>Diferenciální citlivost</strong> (Belsky a Pluess; Boyce: „orchideje a pampelišky“). Citlivější lidé víc trpí ve špatném prostředí, ale také víc vzkvétají v dobrém. Citlivost není slabost, je to zesilovač na obě strany.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <span class="label">Co pomáhá</span>
+      <ul>
+        <li>Přidat sebe na seznam lidí, o které pečuješ.</li>
+        <li>Rozlišit „cítím s tebou“ a „nesu to za tebe“.</li>
+        <li>Dovolit druhým, aby pečovali o tebe. I to je dar pro ně.</li>
       </ul>
     </div>
     <div class="block insight">
       <span class="label">Náhled</span>
-      <p>Tvoje empatie je zdroj, ne vada. Je to přesně ta schopnost, ze které vzniká galerie, která má lidem pomoct cítit. Úkol není cítit méně, ale přesunout empatii z úzkosti do soucitu a zahrnout do ní i sebe.</p>
-    </div>
-    <div class="block question">
-      <span class="label">Otázka pro tebe</span>
-      Komu dáváš péči, kterou nedáváš sobě?
+      <p>Tvoje empatie je zdroj, ne vada. Je to přesně ta schopnost, ze které vzniká galerie, která má lidem pomoct cítit. Úkol není cítit méně, ale přesunout empatii z úzkosti do soucitu a zahrnout do ní i sebe. Jsi orchidej: v dobrém prostředí vykvete víc než kdokoli jiný.</p>
     </div>
     <div class="block">
       <span class="label">Pro galerii</span>
       <p>Postava, která drží v dlaních cizí světla, a její vlastní hruď je tmavá.</p>
     </div>
+    <div class="block prompts">
+      <span class="label">Otázky k psaní</span>
+      <ol>
+        <li>Komu dáváš péči, kterou nedáváš sobě?</li>
+        <li>Před kým se nejvíc chráníš? A proč právě před ním?</li>
+        <li>Co cítíš, když se o tebe někdo stará?</li>
+        <li>Kdy je pro tebe citlivost dar a kdy břemeno?</li>
+      </ol>
+    </div>
     <div class="block">
       <span class="label">Souvisí s</span>
-      <div class="links"><a href="#maska">Maska</a><a href="#osamelost">Osamělost</a><a href="#sebevrazda">Sebevražda</a></div>
+      <div class="links"><a href="#maska">Maska</a><a href="#osamelost">Osamělost</a><a href="#sebevrazda">Sebevražda</a><a href="#inteligence">Inteligence</a></div>
     </div>
   </article>
 
@@ -783,35 +1096,57 @@ a { color: var(--green); }
     <p class="thesis">Nejméně bolestivá varianta. Ale drahá.</p>
     <div class="block">
       <span class="label">Co se děje</span>
-      <p>Zbytek energie jde na předstírání normálního fungování. Masku nemáš rád, ale je to nejméně bolestivá možnost. Chrání druhé, chrání tebe, chrání vztahy. A stojí obrovské množství energie, kterou deprese už nemá.</p>
+      <p>Zbytek energie jde na předstírání normálního fungování. Masku nemáš rád, ale je to nejméně bolestivá možnost. Chrání druhé před starostí, chrání tebe před otázkami, chrání vztahy před napětím. A stojí obrovské množství energie, kterou deprese už nemá.</p>
+      <p>Po celém dni v masce přichází zhroucení doma, kde už ji držet nemusíš, nebo nemůžeš.</p>
+    </div>
+    <div class="block inside">
+      <span class="label">Zevnitř</span>
+      Celý den se směješ, vtipkuješ, jsi v pohodě. Zavřeš za sebou dveře auta a dvacet minut se nehneš. Obličej bolí od úsměvu.
+    </div>
+    <div class="block">
+      <span class="label">Co vidí okolí</span>
+      <p>Okolí vidí masku a věří jí. Proto jsou blízcí tak často překvapení. V angličtině se tomu hovorově říká „kachní syndrom“: na hladině klidná kachna, pod vodou zběsile pádluje.</p>
     </div>
     <div class="block">
       <span class="label">Jung</span>
-      <p>Persona je kompromis mezi tím, kým jsem, a tím, co ode mě svět čeká. Jung ji považoval za nutnou. Nebezpečí je, když s ní člověk splyne, nebo když ho stojí všechnu sílu.</p>
+      <p>Persona je kompromis mezi tím, kým jsem, a tím, co ode mě svět čeká. Jung ji považoval za nutnou, bez ní nejde žít ve společnosti. Nebezpečí je, když s ní člověk splyne a zapomene, kdo je pod ní, nebo když ho stojí všechnu sílu.</p>
     </div>
     <div class="block">
       <span class="label">Goffman a Winnicott</span>
-      <p>Sociolog Erving Goffman popsal přední a zadní scénu: kde hrajeme a kde odpočíváme. V depresi zadní scéna mizí, hraje se pořád. Winnicott by řekl, že falešné já převzalo službu nadobro.</p>
+      <p>Sociolog <strong>Erving Goffman</strong> popsal život jako divadlo s přední a zadní scénou: na přední hrajeme, na zadní odpočíváme. V depresi zadní scéna mizí, hraje se pořád, i doma. <strong>Winnicott</strong> by řekl, že falešné já převzalo službu nadobro.</p>
     </div>
     <div class="block">
       <span class="label">Výzkum</span>
       <ul>
-        <li>Gross a John (2003): potlačování emocí zhoršuje pohodu i blízkost ve vztazích.</li>
-        <li>Srivastava a kol. (2009): studenti, kteří potlačovali emoce, dostávali méně opory a cítili méně blízkosti. <strong>Maska prokazatelně vede k osamělosti.</strong></li>
-        <li>Arlie Hochschildová popsala emoční práci, tedy cenu za předvádění pocitů, které neprožíváme.</li>
+        <li><strong>Gross a John</strong> (2003): potlačování emocí zhoršuje pohodu i blízkost ve vztazích.</li>
+        <li><strong>Srivastava a kol.</strong> (2009): studenti, kteří potlačovali emoce, dostávali méně opory a cítili méně blízkosti. Maska prokazatelně vede k osamělosti.</li>
+        <li><strong>Arlie Hochschildová</strong> popsala emoční práci, tedy cenu za předvádění pocitů, které neprožíváme. Vede k vyčerpání a odcizení od vlastních pocitů.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <span class="label">Co pomáhá</span>
+      <ul>
+        <li>Jeden člověk a jedno místo bez masky.</li>
+        <li>Částečná upřímnost: „Dnes to není ono.“ Stačí, nemusí to být všechno.</li>
+        <li>Zadní scéna: chvíle během dne, kdy nemusíš hrát nikomu.</li>
       </ul>
     </div>
     <div class="block insight">
       <span class="label">Náhled</span>
-      <p>Maska krátkodobě chrání vztahy a dlouhodobě je oslabuje, protože lidé pak mají rádi masku, ne tebe. Střední cesta nemusí znamenat strhnout ji všude. Stačí jeden člověk a jedno místo, kde ji můžeš sundat.</p>
-    </div>
-    <div class="block question">
-      <span class="label">Otázka pro tebe</span>
-      Před kým by sis mohl masku sundat aspoň na pět minut?
+      <p>Maska krátkodobě chrání vztahy a dlouhodobě je oslabuje, protože lidé pak mají rádi masku, ne tebe. A ty to víš, a proto se cítíš sám i mezi nimi. Střední cesta nemusí znamenat strhnout ji všude. Stačí jeden člověk a jedno místo, kde ji můžeš sundat.</p>
     </div>
     <div class="block">
       <span class="label">Pro galerii</span>
-      <p>Maska visí vedle Těla. Obličej lže, tělo ne.</p>
+      <p>Maska visí vedle Těla. Obličej lže, tělo ne. Obraz: maska s úsměvem a pod ní, na okraji, únava.</p>
+    </div>
+    <div class="block prompts">
+      <span class="label">Otázky k psaní</span>
+      <ol>
+        <li>Před kým by sis mohl masku sundat aspoň na pět minut?</li>
+        <li>Jak vypadá tvoje maska? Co říká, jak se tváří?</li>
+        <li>Kdy ji nasazuješ a kdy sundáváš? Kde je tvoje zadní scéna?</li>
+        <li>Co by se stalo, kdyby ji někdo viděl spadnout?</li>
+      </ol>
     </div>
     <div class="block">
       <span class="label">Souvisí s</span>
@@ -825,36 +1160,60 @@ a { color: var(--green); }
     <p class="thesis">Výkon jako upřímné zrcadlo. Tělo nelže.</p>
     <div class="block">
       <span class="label">Co se děje</span>
-      <p>Jako sportovec máš měřitelný důkaz toho, jak se cítíš. Výkon odpovídá rozpoložení. Masku nasadíš na obličej, ale ne do výkonu. Proto Tělo patří do trojice Druzí: je to ta část tebe, kterou ostatní vidí a která se nedá zahrát.</p>
+      <p>Jako sportovec máš měřitelný důkaz toho, jak se cítíš. Výkon odpovídá rozpoložení. Masku nasadíš na obličej, ale ne do výkonu. Čísla, časy, váhy, pocit z pohybu: tělo mluví pravdu, i když ústa říkají „v pohodě“.</p>
+      <p>Proto Tělo patří do trojice Druzí. Je to ta část tebe, kterou ostatní vidí (trenér, spoluhráči, soupeři) a která se nedá zahrát.</p>
+    </div>
+    <div class="block inside">
+      <span class="label">Zevnitř</span>
+      Rozcvička, která obvykle trvá deset minut, trvá věčnost. Nohy jsou z olova. Hlava říká „dneska to bude dobrý“ a tělo se jen tiše směje.
+    </div>
+    <div class="block">
+      <span class="label">Co vidí okolí</span>
+      <p>Trenér vidí pokles formy a hledá fyzickou příčinu: únava, přetrénování, zranění. Málokdo se zeptá na hlavu. A sportovec sám to často řeší dalším tréninkem.</p>
     </div>
     <div class="block">
       <span class="label">Fenomenologie</span>
-      <p>Thomas Fuchs popisuje, že v depresi se prožívané tělo (Leib), které nás nese do světa, mění v těžké tělo-věc (Körper). Místo nástroje je to břemeno, které musíš táhnout.</p>
+      <p>Thomas Fuchs popisuje, že v depresi se prožívané tělo (Leib), které nás nese do světa a se kterým jsme jedno, mění v těžké tělo-věc (Körper). Místo nástroje je to břemeno, které musíš táhnout. Člověk přestane být tělem a začne ho mít, jako těžký kufr.</p>
     </div>
     <div class="block">
       <span class="label">Výzkum</span>
       <ul>
-        <li>Pohyb má prokazatelný antidepresivní účinek (metaanalýzy Schuch a kol., 2016; Noetel a kol., 2024).</li>
-        <li>Deprese často zpomaluje pohyb i řeč (psychomotorické zpomalení).</li>
-        <li>Syndrom přetrénování má s depresí řadu společných příznaků (Meeusen a kol., 2013). Výkon a nálada se ovlivňují oběma směry.</li>
-        <li>Sportovní identita (Brewer): když je sebehodnota navázaná na výkon, každý pokles výkonu zasáhne i ji.</li>
+        <li><strong>Pohyb</strong> má prokazatelný antidepresivní účinek (metaanalýzy Schuch a kol., 2016; Noetel a kol., 2024).</li>
+        <li><strong>Psychomotorické zpomalení:</strong> deprese často zpomaluje pohyb, řeč i reakce.</li>
+        <li><strong>Syndrom přetrénování</strong> má s depresí řadu společných příznaků: únava, poruchy spánku, ztráta motivace, pokles výkonu (Meeusen a kol., 2013). Výkon a nálada se ovlivňují oběma směry.</li>
+        <li><strong>Sportovní identita</strong> (Brewer): když je sebehodnota navázaná na výkon, každý pokles výkonu zasáhne i ji.</li>
+        <li><strong>Sportovci nejsou imunní:</strong> metaanalýza (Gouttebarge a kol., 2019) našla příznaky úzkosti nebo deprese zhruba u třetiny elitních sportovců.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <span class="label">Co pomáhá</span>
+      <ul>
+        <li>Tréninkový deník s jednou větou o náladě.</li>
+        <li>Rozlišit trénink jako péči a trénink jako trest.</li>
+        <li>Mluvit s trenérem i o hlavě, ne jen o nohách.</li>
       </ul>
     </div>
     <div class="block insight">
       <span class="label">Náhled</span>
-      <p>Tělo můžeš použít jako upřímný deník. Tréninková data a jedna věta o náladě denně ti za pár týdnů ukážou vzorce, které hlava neuvidí. Jen pozor na rozdíl: pohyb jako péče, ne jako trest.</p>
-    </div>
-    <div class="block question">
-      <span class="label">Otázka pro tebe</span>
-      Jak poznáš den, kdy ti trénink pomáhá, od dne, kdy tě jen trestá?
+      <p>Tělo můžeš použít jako upřímný deník. Tréninková data a jedna věta o náladě denně ti za pár týdnů ukážou vzorce, které hlava neuvidí. Kdy výkon padá, co tomu předchází, co pomáhá.</p>
+      <p>Jen pozor na rozdíl: pohyb jako péče, ne jako trest. Deprese ráda převezme i sport a udělá z něj další místo, kde selháváš.</p>
     </div>
     <div class="block">
       <span class="label">Pro galerii</span>
-      <p>Tělo, ze kterého jde čitelné světlo, zatímco obličej nad ním je zakrytý.</p>
+      <p>Tělo, ze kterého jde čitelné světlo, zatímco obličej nad ním je zakrytý. Nebo křivka výkonu, která kopíruje křivku nálady.</p>
+    </div>
+    <div class="block prompts">
+      <span class="label">Otázky k psaní</span>
+      <ol>
+        <li>Jak poznáš den, kdy ti trénink pomáhá, od dne, kdy tě jen trestá?</li>
+        <li>Co tvoje tělo ví, co hlava odmítá přiznat?</li>
+        <li>Kdy ses naposledy cítil v těle doma?</li>
+        <li>Kým jsi bez výkonu?</li>
+      </ol>
     </div>
     <div class="block">
       <span class="label">Souvisí s</span>
-      <div class="links"><a href="#maska">Maska</a><a href="#zvykova-energie">Zvyková energie</a><a href="#autopilot">Autopilot</a></div>
+      <div class="links"><a href="#maska">Maska</a><a href="#zvykova-energie">Zvyková energie</a><a href="#autopilot">Autopilot</a><a href="#ego">Ego</a></div>
     </div>
   </article>
 </section>
@@ -866,40 +1225,63 @@ a { color: var(--green); }
   <p class="thesis">Lidi jsou tady. Spojení ne.</p>
   <div class="block">
     <span class="label">Co se děje</span>
-    <p>Máš kolem sebe nejlepší lidi, a přesto jsi sám. Lidé bez deprese tomu rozumí nejhůř („vždyť máš přátele“), a proto je to téma, které je k nim nejsilnějším mostem.</p>
+    <p>Máš kolem sebe nejlepší lidi, a přesto jsi sám. Nejsou to špatní přátelé, nejsou to chladní blízcí. Jsou tady, slyšíš je, smějí se. A mezi tebou a nimi je sklo.</p>
+    <p>Lidé bez deprese tomu rozumí nejhůř („vždyť máš přátele“), a proto je to téma, které je k nim nejsilnějším mostem. Osamělost mezi lidmi bolí víc než osamělost o samotě, protože ukazuje, že problém není v tom, kdo chybí.</p>
+  </div>
+  <div class="block inside">
+    <span class="label">Zevnitř</span>
+    Narozeninová oslava, plný stůl, všichni se smějí. Ty se směješ taky, ve správných chvílích. A celou dobu se díváš na tu scénu jako přes výlohu.
+  </div>
+  <div class="block">
+    <span class="label">Co vidí okolí</span>
+    <p>Okolí vidí člověka mezi lidmi a myslí si, že je v pořádku. Když se pak stáhne, bere to osobně: „Co jsme udělali?“ Nic. Deprese nebere lidi, bere pocit spojení s nimi.</p>
   </div>
   <div class="block">
     <span class="label">Jung</span>
-    <p>Ve <em>Vzpomínkách, snech, myšlenkách</em> píše zhruba toto: osamělost nevzniká z toho, že kolem nemáme lidi, ale z toho, že nemůžeme sdělit věci, které jsou pro nás důležité. Přesně tvoje situace.</p>
+    <p>Ve <em>Vzpomínkách, snech, myšlenkách</em> píše zhruba toto: osamělost nevzniká z toho, že kolem nemáme lidi, ale z toho, že nemůžeme sdělit věci, které jsou pro nás důležité, nebo že máme názory, které druzí nepřijímají. Přesně tvoje situace.</p>
   </div>
   <div class="block">
     <span class="label">Fromm</span>
-    <p>Vědomí vlastní oddělenosti je podle <em>Umění milovat</em> zdrojem veškeré úzkosti. Láska je způsob, jak ji překonat. Deprese ale bere schopnost spojení prožít, i když je fyzicky přítomné.</p>
+    <p>Vědomí vlastní oddělenosti je podle <em>Umění milovat</em> zdrojem veškeré úzkosti. Člověk je jediný tvor, který ví, že je sám. Láska je způsob, jak tuto oddělenost překonat, aniž by člověk ztratil sám sebe. Deprese ale bere schopnost spojení prožít, i když je fyzicky přítomné.</p>
   </div>
   <div class="block">
     <span class="label">Yalom</span>
-    <p>Existenciální psychoterapeut Irvin Yalom rozlišuje tři osamělosti. Mezilidskou (chybí lidé), vnitřní (odpojení od částí sebe) a existenciální (nikdo nemůže být úplně uvnitř mého prožitku). Osamělost mezi blízkými je hlavně ta třetí.</p>
+    <p>Existenciální psychoterapeut Irvin Yalom rozlišuje tři osamělosti. <strong>Mezilidskou</strong> (chybí lidé), <strong>vnitřní</strong> (odpojení od částí sebe) a <strong>existenciální</strong> (nikdo nemůže být úplně uvnitř mého prožitku, a nikdo za mě nemůže žít ani umřít). Osamělost mezi blízkými je hlavně ta druhá a třetí.</p>
   </div>
   <div class="block">
     <span class="label">Výzkum</span>
     <ul>
-      <li>John Cacioppo: osamělost je vnímaná izolace, ne počet lidí. Mozek přepne do ostražitosti, víc vnímá odmítnutí a stahuje se, a tím osamělost posiluje.</li>
+      <li><strong>John Cacioppo:</strong> osamělost je vnímaná izolace, ne počet lidí. Mozek přepne do ostražitosti, víc vnímá odmítnutí a hrozby, stahuje se, a tím osamělost posiluje. Další kruh.</li>
       <li>Osamělost a depresivní příznaky se navzájem předpovídají v čase (Cacioppo a kol., 2010).</li>
-      <li>Metaanalýza zásahů proti osamělosti (Masi a kol., 2011): nejvíc pomáhá změna myšlení o vztazích, ne jen víc kontaktu.</li>
-      <li>Joiner: zmařená sounáležitost je jeden ze dvou hlavních pocitů za myšlenkami na sebevraždu.</li>
+      <li><strong>Metaanalýza zásahů</strong> (Masi a kol., 2011): proti osamělosti nejvíc pomáhá změna myšlení o vztazích, ne jen víc kontaktu.</li>
+      <li><strong>Joiner:</strong> zmařená sounáležitost je jeden ze dvou hlavních pocitů za myšlenkami na sebevraždu.</li>
+    </ul>
+  </div>
+  <div class="block">
+    <span class="label">Co pomáhá</span>
+    <ul>
+      <li>Hloubka místo šířky: jeden opravdový rozhovor má větší cenu než deset setkání.</li>
+      <li>Sdílet něco důležitého, i malého. Zkusit to sklo jednou proťuknout.</li>
+      <li>Všímat si, kdy mysl čte odmítnutí tam, kde žádné není.</li>
     </ul>
   </div>
   <div class="block insight">
     <span class="label">Náhled</span>
-    <p>Tvoje osamělost není o lidech, ale o sdělitelnosti. A galerie je pokus to důležité konečně sdělit. Ne slovy u kávy, ale prostorem, do kterého může člověk vstoupit. Je to most přes sklo.</p>
-  </div>
-  <div class="block question">
-    <span class="label">Otázka pro tebe</span>
-    Co důležitého nemůžeš nikomu sdělit? Možná je to přesně zpráva, kterou nese galerie.
+    <p>Tvoje osamělost není o lidech, ale o sdělitelnosti. Máš uvnitř věci, které jsou pro tebe důležité: vhledy, vzorce, bolest, myšlenky, a nemáš jak je předat. A galerie je pokus to důležité konečně sdělit. Ne slovy u kávy, ale prostorem, do kterého může člověk vstoupit a cítit to.</p>
+    <p>Je to most přes sklo. A každý, kdo přejde, je jedna osamělost méně, tvoje i jeho.</p>
   </div>
   <div class="block">
     <span class="label">Pro galerii</span>
-    <p>Lidé za sklem. Stůl plný lidí a jedna postava, kolem které je ticho.</p>
+    <p>Lidé za sklem. Stůl plný lidí a jedna postava, kolem které je ticho. Nebo dvě ruce, mezi kterými je tenká skleněná deska.</p>
+  </div>
+  <div class="block prompts">
+    <span class="label">Otázky k psaní</span>
+    <ol>
+      <li>Co důležitého nemůžeš nikomu sdělit? Možná je to přesně zpráva, kterou nese galerie.</li>
+      <li>Kdy ses naposledy cítil opravdu pochopený? Co se tehdy stalo?</li>
+      <li>Jak vypadá to sklo mezi tebou a ostatními? Je tlusté, tenké, matné?</li>
+      <li>Komu bys chtěl galerii ukázat jako prvnímu?</li>
+    </ol>
   </div>
   <div class="block">
     <span class="label">Souvisí s</span>
@@ -918,31 +1300,46 @@ a { color: var(--green); }
     <p class="thesis">Vidím vzorce. Nemůžu je dokázat ani změnit.</p>
     <div class="block">
       <span class="label">Co se děje</span>
-      <p>Chytrá mysl je výkonnější motor na přemýšlení dokola. Postaví přesvědčivější argumenty proti tobě. Vidíš vzorce u sebe i u blízkých, ale nemůžeš je ověřit ani sdílet, protože je to „jen v tvé hlavě“. A pochopení samo nic nezmění. To frustruje víc než nevědomost.</p>
+      <p>Chytrá mysl je výkonnější motor na přemýšlení dokola. Postaví přesvědčivější argumenty proti tobě, najde víc souvislostí, víc rizik, víc důvodů. Vidíš vzorce u sebe i u blízkých, ale nemůžeš je ověřit ani sdílet, protože je to „jen v tvé hlavě“.</p>
+      <p>A pochopení samo nic nezmění. Víš přesně, co se děje, víš, co bys měl dělat, a stejně to nejde. To frustruje víc než nevědomost, protože chybí i výmluva.</p>
+    </div>
+    <div class="block inside">
+      <span class="label">Zevnitř</span>
+      Vidíš, jak se kamarád chová k partnerce, a víš přesně, odkud to má a kam to povede. Nemůžeš to říct. A večer si uvědomíš, že ten samý vzorec máš ty.
+    </div>
+    <div class="block">
+      <span class="label">Co vidí okolí</span>
+      <p>Okolí vidí chytrého, přemýšlivého člověka. Někdy „moc přemýšlíš“. Málokdo tuší, že ta schopnost je zároveň zdroj trápení.</p>
     </div>
     <div class="block">
       <span class="label">Jung</span>
-      <p>Ve své typologii odlišuje funkci myšlení a cítění. Myšlení neumí vyřešit problém citu. Inteligence pochopí, ale nemusí prožít. A jeho věta o osamělosti (viz <a href="#osamelost">Osamělost</a>) platí pro chytré lidi dvojnásob.</p>
+      <p>Ve své typologii odlišuje funkci myšlení a cítění. Myšlení neumí vyřešit problém citu, tak jako cit neumí vyřešit matematickou úlohu. Inteligence pochopí, ale nemusí prožít. A jeho věta o osamělosti (viz <a href="#osamelost">Osamělost</a>) platí pro chytré lidi dvojnásob.</p>
     </div>
     <div class="block">
       <span class="label">Dąbrowski</span>
-      <p>Polský psychiatr Kazimierz Dąbrowski vytvořil teorii pozitivní dezintegrace. U citlivých a nadaných lidí mohou být psychické krize cestou k vyššímu vývoji. Teorie je spíš filozofická než ověřená, ale nabízí jiný rámec: krize jako přestavba, ne jen porucha.</p>
+      <p>Polský psychiatr Kazimierz Dąbrowski vytvořil teorii pozitivní dezintegrace. Popsal, že citliví a nadaní lidé mají „nadměrnou vzrušivost“: intenzivněji myslí, cítí a vnímají. A že jejich psychické krize mohou být cestou k vyššímu vývoji: stará struktura se rozpadne, aby mohla vzniknout nová. Teorie je spíš filozofická než ověřená, ale nabízí jiný rámec: krize jako přestavba, ne jen porucha.</p>
     </div>
     <div class="block">
       <span class="label">Výzkum</span>
       <ul>
-        <li>Studie členů Mensy (Karpinski a kol., 2018) našla vyšší výskyt poruch nálady u lidí s vysokým IQ. Je ale založená na sebehodnocení, takže opatrně.</li>
-        <li>Hypotéza analytické ruminace (Andrews a Thomson, 2009): deprese jako evoluční mechanismus pro hluboké přemýšlení o problému. Kontroverzní.</li>
-        <li>Depresivní realismus: starší výzkum (Alloy a Abramson, 1979) tvrdil, že lidé s depresí vidí svět přesněji. Novější metaanalýzy ukazují, že efekt je malý a nestálý.</li>
+        <li><strong>Studie členů Mensy</strong> (Karpinski a kol., 2018) našla vyšší výskyt poruch nálady u lidí s vysokým IQ. Je ale založená na sebehodnocení, takže opatrně.</li>
+        <li><strong>Iluze vhledu</strong> (Lyubomirsky a Nolen-Hoeksemová): ruminace dává pocit, že člověk chápe víc, ale ve skutečnosti řeší problémy hůř.</li>
+        <li><strong>Hypotéza analytické ruminace</strong> (Andrews a Thomson, 2009): deprese jako evoluční mechanismus pro hluboké přemýšlení o problému. Kontroverzní.</li>
+        <li><strong>Depresivní realismus:</strong> starší výzkum (Alloy a Abramson, 1979) tvrdil, že lidé s depresí vidí svět přesněji. Novější metaanalýzy ukazují, že efekt je malý a nestálý.</li>
       </ul>
     </div>
     <div class="block insight">
       <span class="label">Náhled</span>
       <p>Ruminace je inteligence bez hranic, analýza bez těla. Vzorce, které vidíš, často opravdu existují, a deprese jim zároveň dává temnější barvu. Výplod hlavy se dá ověřit: řekni ho nahlas někomu, komu věříš, nebo terapeutovi. Co se vysloví, přestane být jen v hlavě.</p>
+      <p>A tvoje inteligence je teď v galerii zaměstnaná dobře: místo aby stavěla argumenty proti tobě, staví most k ostatním.</p>
     </div>
-    <div class="block question">
-      <span class="label">Otázka pro tebe</span>
-      Který vzorec u sebe vidíš nejjasněji? Zkusil sis ho někdy ověřit s někým druhým?
+    <div class="block prompts">
+      <span class="label">Otázky k psaní</span>
+      <ol>
+        <li>Který vzorec u sebe vidíš nejjasněji? Zkusil sis ho někdy ověřit s někým druhým?</li>
+        <li>Kdy ti inteligence pomáhá a kdy ti škodí?</li>
+        <li>Co víš, ale neumíš to prožít?</li>
+      </ol>
     </div>
   </article>
 </section>
@@ -954,23 +1351,33 @@ a { color: var(--green); }
   <p class="thesis">Nadhled se dá zahlédnout. Udržet ho je jiná práce.</p>
   <div class="block">
     <span class="label">Co se děje</span>
-    <p>Látky, alkohol, cokoli, co na chvíli vypne kruh. Některé cesty mohou otevřít obzory a dát zážitek nadhledu. Jiné jen otupí. A každá může pohltit. Je to hra na tenkém ledě.</p>
+    <p>Látky, alkohol, cokoli, co na chvíli vypne kruh. Některé cesty mohou otevřít obzory a dát zážitek nadhledu: na chvíli je vidět, že kruh je kruh. Jiné jen otupí. A každá může pohltit. Je to hra na tenkém ledě.</p>
+    <p>Únik ale není jen chemický. Práce do noci, telefon, trénink do vyčerpání, seriály. Všechno, co vypne kruh, ale nezmění ho.</p>
   </div>
   <div class="block">
     <span class="label">Jung</span>
-    <p>V roce 1961 napsal dopis Billu Wilsonovi, spoluzakladateli Anonymních alkoholiků. Touhu po alkoholu v něm popisuje jako touhu po celistvosti na nižší úrovni. Navrhuje formuli <em>spiritus contra spiritum</em>, duch proti lihu. Únik je často hledání smyslu špatnou cestou.</p>
+    <p>V roce 1961 napsal dopis Billu Wilsonovi, spoluzakladateli Anonymních alkoholiků. Touhu po alkoholu v něm popisuje jako touhu po celistvosti, po spojení s něčím větším, jen na nižší úrovni. Navrhuje formuli <em>spiritus contra spiritum</em>, duch proti lihu. Únik je často hledání smyslu špatnou cestou.</p>
   </div>
   <div class="block">
     <span class="label">Výzkum</span>
     <ul>
-      <li>Psilocybin se zkoumá u deprese odolné vůči léčbě (např. Goodwin a kol., 2022; Carhart-Harris a kol., 2021). Výsledky jsou nadějné, ale smíšené, s riziky. Hodně záleží na prostředí, odborném vedení a následném zpracování zážitku.</li>
-      <li>Alkohol a mnohé další látky depresi dlouhodobě prohlubují.</li>
-      <li>Pokusy Bruce Alexandra (Rat Park): krysy v bohatém prostředí s ostatními krysami braly drogu mnohem méně než krysy v izolaci.</li>
+      <li><strong>Psilocybin</strong> se zkoumá u deprese odolné vůči léčbě (např. Goodwin a kol., 2022; Carhart-Harris a kol., 2021). Výsledky jsou nadějné, ale smíšené, s riziky. Hodně záleží na prostředí, odborném vedení a následném zpracování zážitku (integraci).</li>
+      <li><strong>Alkohol</strong> a mnohé další látky depresi dlouhodobě prohlubují. Mezi závislostí na alkoholu a depresí je silné vzájemné propojení.</li>
+      <li><strong>Pokusy Bruce Alexandra</strong> (Rat Park): krysy v bohatém prostředí s ostatními krysami braly drogu mnohem méně než krysy v izolaci.</li>
     </ul>
   </div>
   <div class="block insight">
     <span class="label">Náhled</span>
     <p>Otázka dveří nezní „jak utéct“, ale „co si odnesu zpátky“. V galerii se dveře otevřou až po obejití kruhu. Nejdřív musíš kruh vidět zevnitř, pak teprve dává nadhled smysl. Bez zpracování nadhled vybledne a zbyde jen další kolo.</p>
+    <p>A dveře jsou pod pozorovatelem. Ne náhodou: jestli únik pomůže, nebo pohltí, záleží na tom, kdo jimi prochází. Soudce hledá útěk. Svědek hledá pohled.</p>
+  </div>
+  <div class="block prompts">
+    <span class="label">Otázky k psaní</span>
+    <ol>
+      <li>Jaké jsou tvoje dveře? Chemické i nechemické.</li>
+      <li>Co jsi někdy uviděl „shora“ a co z toho zůstalo?</li>
+      <li>Kdy únik pomohl a kdy vzal víc, než dal?</li>
+    </ol>
   </div>
   <div class="block">
     <span class="label">Souvisí s</span>
@@ -985,33 +1392,75 @@ a { color: var(--green); }
   <p class="thesis">Opak závislosti není abstinence, ale smysl.</p>
   <div class="block">
     <span class="label">Frankl</span>
-    <p>Kdo má proč žít, snese téměř každé jak. Frankl popsal tři cesty ke smyslu: <strong>tvorbu</strong> (co dávám světu), <strong>prožitek</strong> (láska, krása, příroda, druzí) a <strong>postoj</strong> k utrpení, které se nedá změnit.</p>
+    <p>Kdo má proč žít, snese téměř každé jak. Frankl prošel čtyřmi koncentračními tábory a z té zkušenosti vytvořil logoterapii. Popsal tři cesty ke smyslu: <strong>tvorbu</strong> (co dávám světu), <strong>prožitek</strong> (láska, krása, příroda, druzí) a <strong>postoj</strong> k utrpení, které se nedá změnit. Ta třetí cesta je nejtěžší, ale zůstává, i když ostatní selžou.</p>
   </div>
   <div class="block">
     <span class="label">Jung, Adler, Fromm</span>
-    <p>Jung: <em>spiritus contra spiritum</em>, smysl jako protiváha úniku. Adler: smysl vzniká v přispění druhým. Fromm: smysl je v bytí, ne v mít.</p>
+    <p>Jung: <em>spiritus contra spiritum</em>, smysl jako protiváha úniku. Adler: smysl vzniká v přispění druhým, v tom, co člověk dá společenství. Fromm: smysl je v bytí, ne v mít, v tom, jak člověk žije, ne co vlastní.</p>
   </div>
   <div class="block">
     <span class="label">Výzkum</span>
     <ul>
-      <li>Michael Steger: prožívaný smysl života souvisí s nižší mírou deprese.</li>
-      <li>Behaviorální aktivace, která vrací smysluplné činnosti, patří k nejlépe ověřeným terapiím deprese.</li>
-      <li>Johann Hari a Bruce Alexander: opak závislosti je spojení. Tvoje verze, smysl, a jejich verze, spojení, jsou dvě strany téže věci. Smysl obvykle vzniká ve spojení.</li>
+      <li><strong>Michael Steger:</strong> prožívaný smysl života souvisí s nižší mírou deprese.</li>
+      <li><strong>Behaviorální aktivace</strong>, která vrací smysluplné činnosti, patří k nejlépe ověřeným terapiím deprese.</li>
+      <li><strong>Posttraumatický růst</strong> (Tedeschi a Calhoun): někteří lidé po velké krizi popisují hlubší vztahy, nové možnosti a jiný pohled na život. Není to povinnost ani podmínka. Ale je to možnost.</li>
+      <li><strong>Johann Hari a Bruce Alexander:</strong> opak závislosti je spojení. Tvoje verze, smysl, a jejich verze, spojení, jsou dvě strany téže věci. Smysl obvykle vzniká ve spojení.</li>
     </ul>
   </div>
   <div class="block insight">
     <span class="label">Náhled</span>
-    <p>Všechny tři Franklovy cesty jsou v tvém projektu. Tvorba je galerie samotná. Prožitek jsou lidé, tělo a pohyb. Postoj je to, jak neseš to, co se změnit nedá. Napsal jsi, že když tvoříš, deprese ustoupí stranou. To není útěk. To je smysl v praxi.</p>
+    <p>Všechny tři Franklovy cesty jsou v tvém projektu. Tvorba je galerie samotná. Prožitek jsou lidé, tělo a pohyb. Postoj je to, jak neseš to, co se změnit nedá, a že z toho děláš něco pro druhé.</p>
+    <p>Napsal jsi, že když tvoříš, deprese ustoupí stranou. To není útěk. To je smysl v praxi. A je správně, že je nahoře, jako světlo: nedá se k němu dojít, dá se k němu podívat.</p>
   </div>
-  <div class="block question">
-    <span class="label">Otázka pro tebe</span>
-    Kdyby galerie pomohla jedinému člověku, co bys mu chtěl, aby si odnesl?
+  <div class="block prompts">
+    <span class="label">Otázky k psaní</span>
+    <ol>
+      <li>Kdyby galerie pomohla jedinému člověku, co bys mu chtěl, aby si odnesl?</li>
+      <li>Proč tahle galerie vzniká? Napiš to tak, jak bys to řekl příteli.</li>
+      <li>Kdy jsi naposledy cítil, že to, co děláš, má smysl?</li>
+    </ol>
   </div>
   <div class="block">
     <span class="label">Souvisí s</span>
     <div class="links"><a href="#ztracena-duse">Ztracená duše</a><a href="#cas">Čas</a><a href="#osamelost">Osamělost</a><a href="#dvere">Dveře</a></div>
   </div>
 </article>
+
+<!-- ================= JAK PSÁT ================= -->
+<section class="part" id="psani">
+  <h2>Jak psát</h2>
+  <p class="intro">Pracovní postup pro texty i obrazy.</p>
+  <div class="lens">
+    <div>
+      <h3>Konkrétně, ne abstraktně</h3>
+      <p>„Jsem unavený z existence“ je pravda, ale čtenář ji jen přečte. „Úterý ráno, sedím na kraji postele s jednou ponožkou v ruce a dvacet minut se nehnu“ si prožije. Konkrétní scény, místa, časy, tělo, smysly. A konkrétní myšlení zároveň přerušuje ruminaci.</p>
+    </div>
+    <div>
+      <h3>Tři vrstvy</h3>
+      <p><strong>Surové:</strong> vysyp všechno, neuhlazeně, bez cenzury. <strong>Obraz:</strong> jak to vypadá, jaká metafora, scéna, barva. <strong>Jedna věta:</strong> to nejhutnější, co zůstane na plakátu. Destilace: z hodně materiálu málo silného.</p>
+    </div>
+    <div>
+      <h3>Svědek, ne soudce</h3>
+      <p>Zkus o sobě občas psát „on“ místo „já“. Výzkum Ethana Krosse ukazuje, že takový odstup snižuje emoční zahlcení a ruminaci. A sedí to přímo na pozorovatele.</p>
+    </div>
+    <div>
+      <h3>Dvě publika</h3>
+      <p>U každého textu se zeptej: co si odnese člověk bez deprese, a co člověk s depresí? Nejlepší texty fungují pro oba.</p>
+    </div>
+    <div>
+      <h3>Hodně malých skic</h3>
+      <p>Ve vizuální tvorbě množství předchází kvalitu, jako opakování v tréninku. Omez si paletu a dej barvám význam. Moodboard sbírej průběžně a nehodnoť hned.</p>
+    </div>
+    <div>
+      <h3>Sbírej ve tmě, tvaruj ve světle</h3>
+      <p>Nápady ze špatných chvil si zapiš do mobilu, zpracovávej je, až je ti líp. Psaní ohranič na 20 až 30 minut a pak udělej něco pro tělo. Těžká témata piš v dobrý den. A když tě psaní stáhne dolů, přestaň. Hotové je lepší než dokonalé.</p>
+    </div>
+    <div>
+      <h3>Pět otázek k jakémukoli tématu</h3>
+      <p>Kdy jsem to cítil naposledy, a kde? Kde to cítím v těle? Jak to vypadá zvenku a jak zevnitř? Co by o tom řekl můj pozorovatel jako svědek? Co bych chtěl, aby věděl člověk, který mě má rád?</p>
+    </div>
+  </div>
+</section>
 
 </main>
 
