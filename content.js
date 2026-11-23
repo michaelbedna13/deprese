@@ -76,8 +76,20 @@ window.GALLERY = {
     ]
   },
 
+  /* Kopule nahoře: 13 segmentů. Každý otevřený plakát odklopí jeden. */
+  dome: {
+    first: "Nahoře se něco pohnulo. Do tmy padl první paprsek.",
+    half: "Kopule je napůl otevřená.",
+    full: "Kopule je otevřená. Podívej se nahoru."
+  },
+
   /* Světlo nahoře – podívej se vzhůru */
   light: {
+    closedTitle: "Kopule",
+    closedLines: [
+      "Nad tebou je zavřená kopule. Světlem prosvítají jen skuliny.",
+      "Každý obraz, který si opravdu prohlédneš, odklopí jeden z třinácti dílů. Světlo se neotevře přeskočením kruhu, ale jeho obejitím."
+    ],
     title: "Smysl",
     lines: [
       "Opak závislosti není abstinence, ale smysl.",

@@ -20,8 +20,11 @@
   const CEIL = -950;
   const FLOOR = 560;
   const SEGMENTS = 40;
-  const PITCH_MIN = -55, PITCH_MAX = 78;
-  const LIGHT_PITCH = 46;      // od tohoto úhlu nahoru se díváš do světla
+  const PITCH_MIN = -55;
+  let PITCH_MAX = 70;          // přepočítá se podle zorného pole, aby se nedívalo „za záda“
+  let LIGHT_PITCH = 46;        // od tohoto úhlu nahoru se díváš do světla
+  const DOME_R = 430;          // poloměr otvoru v kopuli
+  const PETALS = 13;           // počet dílů kopule
 
   /* ---------- Stav ---------- */
   let P = 700;
@@ -29,6 +32,8 @@
   let travelled = 0, doorReady = false, moved = false;
   let away = false, started = false;
   const targets = [];          // na co se dá zamířit
+  const petals = [];           // díly kopule {el, angle, open}
+  const seen = new Set();      // otevřené plakáty
   let current = null;
 
   /* ---------- Pomocníci ---------- */
@@ -79,6 +84,7 @@
     ceil.id = "ceiling";
     size(ceil, 2 * R, 2 * R);
     flat(ceil, CEIL, false);
+    buildDome();
 
     // Plakáty
     G.posters.forEach((p) => {
@@ -152,10 +158,89 @@
     board.addEventListener("focus", () => lookAt(B.angle, 4));
   }
 
+  /* ---------- Kopule ---------- */
+  function buildDome() {
+    // světlo nad kopulí
+    const sky = el("div", "sky", room);
+    size(sky, DOME_R * 4, DOME_R * 4);
+    flat(sky, CEIL - 380, false);
+    // mosazný prstenec kolem otvoru
+    const rim = el("div", "rim", room);
+    size(rim, DOME_R * 2 + 90, DOME_R * 2 + 90);
+    flat(rim, CEIL + 1, false);
+    // světlo na podlaze
+    const fl = el("div", "floorlight", room);
+    size(fl, 1100, 1100);
+    flat(fl, FLOOR - 2);
+    // 13 dílů: každý visí na pantu na vnějším okraji otvoru
+    const w = 2 * DOME_R * Math.sin(Math.PI / PETALS) * 0.985;
+    for (let i = 0; i < PETALS; i++) {
+      const angle = (i * 360) / PETALS;
+      const hinge = el("div", "hinge", room);
+      hinge.style.transform =
+        `translateY(${CEIL + 3}px) rotateY(${-angle}deg) translateZ(${-DOME_R}px) rotateX(-90deg)`;
+      const p = document.createElement("div");
+      p.className = "petal";
+      p.style.width = w + "px";
+      p.style.height = DOME_R + "px";
+      p.style.left = -w / 2 + "px";
+      p.style.top = -DOME_R + "px";
+      hinge.appendChild(p);
+      petals.push({ el: p, angle, open: false });
+    }
+    renderDomeHud();
+  }
+  function openPetalNear(angle) {
+    let best = null, bestD = Infinity;
+    for (const pt of petals) {
+      if (pt.open) continue;
+      const d = Math.abs(angDiff(pt.angle, angle));
+      if (d < bestD) { best = pt; bestD = d; }
+    }
+    if (!best) return;
+    best.open = true;
+    setTimeout(() => { best.el.classList.add("open"); sound.mech(); }, 700);
+  }
+  function domeOpen() { return petals.filter((p) => p.open).length; }
+  function updateDomeLight() {
+    const n = domeOpen();
+    document.documentElement.style.setProperty("--open", (n / PETALS).toFixed(3));
+    document.body.classList.toggle("dome-full", n === PETALS);
+    renderDomeHud();
+  }
+  function renderDomeHud() {
+    const n = domeOpen();
+    const hud = $("#domeHud");
+    let dots = "";
+    for (let i = 0; i < PETALS; i++) {
+      const a = (i / PETALS) * Math.PI * 2 - Math.PI / 2;
+      const x = 20 + Math.cos(a) * 14, y = 20 + Math.sin(a) * 14;
+      dots += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2.6" class="${i < n ? "on" : ""}"/>`;
+    }
+    hud.innerHTML = `<svg viewBox="0 0 40 40" width="40" height="40" aria-hidden="true"><circle cx="20" cy="20" r="6" class="core"/>${dots}</svg>`;
+    hud.setAttribute("aria-label", `Otevřeno ${n} ze ${PETALS} dílů kopule`);
+  }
+  function markSeen(p) {
+    if (seen.has(p.id)) return;
+    seen.add(p.id);
+    openPetalNear(p.angle);
+    setTimeout(() => {
+      updateDomeLight();
+      const n = domeOpen();
+      if (n === 1) whisper(G.dome.first);
+      else if (n === 7) whisper(G.dome.half);
+      else if (n === PETALS) whisper(G.dome.full);
+    }, 900);
+  }
+
   /* ---------- Kamera ---------- */
   function fitPerspective() {
     P = Math.round(Math.max(innerWidth * 0.5, innerHeight * 0.55));
     scene.style.perspective = P + "px";
+    const halfV = Math.atan(innerHeight / 2 / P) * 180 / Math.PI;
+    PITCH_MAX = Math.max(40, 88 - halfV);
+    LIGHT_PITCH = Math.min(46, PITCH_MAX - 6);
+    tPitch = Math.min(tPitch, PITCH_MAX);
   }
   const cam = (z, p, y) => `translateZ(${z}px) rotateX(${p}deg) rotateY(${y}deg)`;
 
@@ -294,6 +379,7 @@
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
   function openPoster(p) {
+    markSeen(p);
     $("#modalBody").innerHTML =
       `<p class="kicker">${String(p.number).padStart(2, "0")}${p.group ? " · " + esc(p.group) : ""}</p>` +
       (p.image ? `<img src="${p.image}" alt="">` : "") +
@@ -313,6 +399,14 @@
   }
   function openLight() {
     const L = G.light;
+    const n = domeOpen();
+    if (n < PETALS) {
+      $("#modalBody").innerHTML =
+        `<p class="kicker">Otevřeno ${n} ze ${PETALS}</p><h2 id="modalTitle">${esc(L.closedTitle)}</h2>` +
+        L.closedLines.map((t, i) => `<p class="${i ? "" : "lead"}">${esc(t)}</p>`).join("");
+      openOverlay("#modal");
+      return;
+    }
     $("#modalBody").innerHTML =
       `<h2 id="modalTitle">${esc(L.title)}</h2>` + L.lines.map((t, i) => `<p class="${i ? "" : "lead"}">${esc(t)}</p>`).join("");
     openOverlay("#modal");
@@ -436,6 +530,30 @@
         master.gain.linearRampToValueAtTime(on ? 0.9 : 0, ctx.currentTime + 1.5);
         return on;
       },
+      mech() {
+        if (!on) return;
+        const t = ctx.currentTime;
+        [180, 240, 120].forEach((f, i) => {
+          const o = ctx.createOscillator(), g = ctx.createGain();
+          o.type = "triangle";
+          o.frequency.setValueAtTime(f, t + i * 0.12);
+          g.gain.setValueAtTime(0.0001, t + i * 0.12);
+          g.gain.exponentialRampToValueAtTime(0.03, t + i * 0.12 + 0.01);
+          g.gain.exponentialRampToValueAtTime(0.0001, t + i * 0.12 + 0.18);
+          o.connect(g).connect(ctx.destination);
+          o.start(t + i * 0.12);
+          o.stop(t + i * 0.12 + 0.2);
+        });
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = "sine";
+        o.frequency.value = 523;
+        g.gain.setValueAtTime(0.0001, t + 0.5);
+        g.gain.exponentialRampToValueAtTime(0.03, t + 0.6);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + 3);
+        o.connect(g).connect(ctx.destination);
+        o.start(t + 0.5);
+        o.stop(t + 3.1);
+      },
       chime() {
         if (!on) return;
         const t = ctx.currentTime, o = ctx.createOscillator(), g = ctx.createGain();
@@ -473,6 +591,7 @@
   addEventListener("resize", fitPerspective);
   build();
   setCamera(cam(P, pitch, yaw));
+  updateDomeLight();
   requestAnimationFrame(render);
   $("#enterBtn").focus();
 })();
