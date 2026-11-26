@@ -189,6 +189,21 @@ main { padding-block: 1rem 4rem; }
 .prompts ol { font-family: var(--display); font-size: 20.5px; line-height: 1.35; font-style: italic; }
 .prompts li { margin-bottom: .55rem; }
 
+.sub {
+  font-family: var(--label);
+  font-size: 12px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin: .6rem 0 .3rem !important;
+}
+.imgs {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--off-white);
+}
 .create {
   border: 1px solid var(--green-dim);
   padding: 1rem 1.1rem;
@@ -227,7 +242,7 @@ a { color: var(--green); }
     <p class="eyebrow">Začarovaný kruh · rozbor témat</p>
     <h1>Mapa kruhu</h1>
     <p class="lede">Třináct obrazů, nástěnka, dveře, světlo nahoře a místnost, která se točí. Ke každému tématu: co se děje, jak to vypadá zevnitř a zvenku, jak ho vidí Jung, Adler a Fromm, co říká výzkum, co pomáhá, a otázky, ze kterých můžeš psát.</p>
-    <p class="note">Pracovní text pro autora galerie. Jména, studie a citáty jsou uvedené zpaměti. Než se cokoli objeví v galerii jako citát nebo fakt, ověříme přesné znění. Krátké pasáže „Zevnitř“ jsou ilustrace, ne tvoje slova. Tvoje slova napíšeš ty.</p>
+    <p class="note">Pracovní text pro autora galerie. Jména, studie a citáty jsou uvedené zpaměti. Než se cokoli objeví v galerii jako citát nebo fakt, ověříme přesné znění. Krátké pasáže „Zevnitř“ a „Konkrétní obrazy“ jsou ilustrace a zásobník nápadů, ne tvoje vzpomínky. Tvoje slova napíšeš ty.</p>
 
     <figure class="map" aria-label="Rozložení galerie: čtyři hlavní plakáty na světových stranách, tři trojice mezi nimi, nástěnka a dveře.">
       <svg viewBox="0 0 360 360" role="img">
@@ -416,6 +431,24 @@ a { color: var(--green); }
     </ul>
   </div>
   <div class="block">
+    <span class="label">Pro blízké</span>
+    <p class="sub">Pomáhá</p>
+    <ul>
+      <li>Zeptat se „co by ti teď pomohlo?“ místo „proč to tak cítíš?“.</li>
+      <li>Když se rozhovor potřetí vrací ke stejné věci, navrhnout procházku nebo něco, co se dělá rukama.</li>
+      <li>Říct „slyším tě“ a nechat to chvíli být, bez dalšího rozebírání.</li>
+    </ul>
+    <p class="sub">Neříkat</p>
+    <ul>
+      <li>„Přestaň nad tím přemýšlet.“ Kdyby to šlo, dávno by to udělal.</li>
+      <li>„Proč tě to tak bere?“ Je to další proč do sbírky.</li>
+    </ul>
+  </div>
+  <div class="block">
+    <span class="label">Konkrétní obrazy</span>
+    <p class="imgs">strop ložnice ve tři ráno · stejná konverzace v telefonu otevřená podesáté · rozhovor přehrávaný ve sprše, dokud nevychladne voda · sluchátka v uších bez hudby · poznámka v mobilu, která se pořád jen přepisuje · cesta autem, ze které si člověk nepamatuje jedinou křižovatku</p>
+  </div>
+  <div class="block">
     <span class="label">Souvisí s</span>
     <div class="links"><a href="#zvykova-energie">Zvyková energie</a><a href="#nemam-se-rad">Nemám se rád</a><a href="#inteligence">Inteligence</a><a href="#cas">Čas</a></div>
   </div>
@@ -516,6 +549,24 @@ a { color: var(--green); }
       <li><strong>Text:</strong> dialog. Soudce mluví, svědek odpovídá. Stejná situace, dva hlasy.</li>
       <li><strong>Mimo galerii:</strong> týden psát jednu větu denně „jako svědek“ o tom, co se stalo. Bez hodnocení.</li>
     </ul>
+  </div>
+  <div class="block">
+    <span class="label">Pro blízké</span>
+    <p class="sub">Pomáhá</p>
+    <ul>
+      <li>Říct konkrétně, čeho si na něm vážíte. „Obdivuju, že chodíš trénovat, i když je ti takhle“ funguje líp než „jsi super“.</li>
+      <li>O jeho sebekritice se nehádat ani ji nepotvrzovat: „Slyším, že to tak vidíš. Já to vidím jinak.“</li>
+      <li>Připomenout, co zvládl i v těžkém období.</li>
+    </ul>
+    <p class="sub">Neříkat</p>
+    <ul>
+      <li>„Měl by ses mít víc rád.“ Zní to jako další úkol, ve kterém může selhat.</li>
+      <li>„Ty jsi na sebe moc přísný“ jako vtip s úsměvem.</li>
+    </ul>
+  </div>
+  <div class="block">
+    <span class="label">Konkrétní obrazy</span>
+    <p class="imgs">odraz ve výloze, kterému se člověk vyhne pohledem · vlastní hlas na nahrávce · fotka, na které se nepoznává · seznam úkolů s jedinou odškrtnutou položkou · zrcadlo v koupelně zamlžené po sprše, které nikdo neotře</p>
   </div>
   <div class="block">
     <span class="label">Souvisí s</span>
@@ -620,6 +671,23 @@ a { color: var(--green); }
       </ul>
     </div>
     <div class="block">
+      <span class="label">Pro blízké</span>
+      <p class="sub">Pomáhá</p>
+      <ul>
+        <li>Vzít ho někam, kde je něco většího než on: hory, koncert, moře, noční obloha.</li>
+        <li>Požádat ho o pomoc s něčím, co umí. Dát mu možnost přispět.</li>
+        <li>Mluvit i o vlastních starostech, aby rozhovor nebyl jen o něm pod lupou.</li>
+      </ul>
+      <p class="sub">Neříkat</p>
+      <ul>
+        <li>„Ty myslíš jen na sebe.“ V depresi za tím stojí bolest a výčitka ho zavře ještě víc.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <span class="label">Konkrétní obrazy</span>
+      <p class="imgs">hlava jako místnost s jedním křeslem · reflektor, který svítí jen na jednoho herce · ozvěna v prázdné hale · zrcadlová síň · noční obloha za městem, pod kterou je člověk malý</p>
+    </div>
+    <div class="block">
       <span class="label">Souvisí s</span>
       <div class="links"><a href="#nemam-se-rad">Nemám se rád</a><a href="#inteligence">Inteligence</a><a href="#dvere">Dveře</a><a href="#smysl">Světlo</a></div>
     </div>
@@ -720,6 +788,24 @@ a { color: var(--green); }
       </ul>
     </div>
     <div class="block">
+      <span class="label">Pro blízké</span>
+      <p class="sub">Pomáhá</p>
+      <ul>
+        <li>Uznat bolest nahlas („to je fakt těžký“) dřív, než přijde jakákoli rada.</li>
+        <li>Zeptat se, co přesně ztratil.</li>
+        <li>Krátce říct, že vy jste zažili něco podobného, bez přebíjení jeho příběhu tím svým.</li>
+      </ul>
+      <p class="sub">Neříkat</p>
+      <ul>
+        <li>„Přestaň se litovat.“</li>
+        <li>„Jiní to mají horší.“ Přidá jen stud.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <span class="label">Konkrétní obrazy</span>
+      <p class="imgs">deka přes hlavu v půl čtvrté odpoledne · seznam křivd v hlavě, který se sám doplňuje · déšť na okně, který člověk pozoruje místo toho, aby šel ven · zpráva „jak se máš?“, kterou mu nikdo nenapsal · prázdná židle u stolu</p>
+    </div>
+    <div class="block">
       <span class="label">Souvisí s</span>
       <div class="links"><a href="#stud">Stud</a><a href="#osamelost">Osamělost</a><a href="#cas">Čas</a><a href="#ztracena-duse">Ztracená duše</a></div>
     </div>
@@ -814,6 +900,24 @@ a { color: var(--green); }
         <li><strong>Text:</strong> dopis blízkému, který se nemusí poslat. „Tohle jsem já pod tím vším.“</li>
         <li><strong>Na nástěnku:</strong> karta „Kintsugi“. Praskliny jako zlato.</li>
       </ul>
+    </div>
+    <div class="block">
+      <span class="label">Pro blízké</span>
+      <p class="sub">Pomáhá</p>
+      <ul>
+        <li>Dát najevo, že se vztah nemění, i když je mu zle.</li>
+        <li>Neptat se na důvody zrušených schůzek a prostě pozvat znovu.</li>
+        <li>Říct mu, co na něm vidíte i teď, v tomhle stavu.</li>
+      </ul>
+      <p class="sub">Neříkat</p>
+      <ul>
+        <li>„Za co se stydíš? Deprese není ostuda.“ Myšleno dobře, ale stud se přes rozum vypnout nedá.</li>
+        <li>Vtipkovat o jeho stavu před ostatními.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <span class="label">Konkrétní obrazy</span>
+      <p class="imgs">kapuce stažená do čela · telefon položený displejem dolů · zrušená schůzka napsaná pět minut předem · rodinná fotka, na které se usmívá napůl · zavřené dveře pokoje, za kterými je slyšet televize</p>
     </div>
     <div class="block">
       <span class="label">Souvisí s</span>
@@ -915,6 +1019,24 @@ a { color: var(--green); }
     </ul>
   </div>
   <div class="block">
+    <span class="label">Pro blízké</span>
+    <p class="sub">Pomáhá</p>
+    <ul>
+      <li>Dělat něco spolu pravidelně ve stejný čas, třeba ranní procházku nebo trénink.</li>
+      <li>Nabídnout jiné prostředí: jinou kavárnu, jinou cestu, jiný večer v týdnu.</li>
+      <li>Navrhovat malé změny. Velký plán jen přidá tlak.</li>
+    </ul>
+    <p class="sub">Neříkat</p>
+    <ul>
+      <li>„Prostě to změň.“</li>
+      <li>„Zase?“</li>
+    </ul>
+  </div>
+  <div class="block">
+    <span class="label">Konkrétní obrazy</span>
+    <p class="imgs">vyšlapaná cestička přes trávník vedle chodníku · neděle večer a tíha v žaludku · pořád stejná cesta z práce domů · hrnek, který nechává na stole stejný kroužek · deska, na které jehla přeskakuje na stejné místo</p>
+  </div>
+  <div class="block">
     <span class="label">Souvisí s</span>
     <div class="links"><a href="#ruminace">Ruminace</a><a href="#autopilot">Autopilot</a><a href="#cas">Čas</a><a href="#telo">Tělo</a></div>
   </div>
@@ -1007,6 +1129,24 @@ a { color: var(--green); }
         <li><strong>Text:</strong> rozpis jednoho dne po hodinách, bez emocí, jen činnosti. Camusovský seznam. Na konci jedna věta, která se ptá.</li>
         <li><strong>Mimo galerii:</strong> jednou denně jedna činnost úplně vědomě. Káva, sprcha, rozcvička.</li>
       </ul>
+    </div>
+    <div class="block">
+      <span class="label">Pro blízké</span>
+      <p class="sub">Pomáhá</p>
+      <ul>
+        <li>Ptát se na něco konkrétního z jeho dne místo obecného „jak se máš“.</li>
+        <li>Dělat spolu něco, co vyžaduje celé tělo i hlavu: vaření, hru, sport.</li>
+        <li>Nebrat fungování jako důkaz, že je v pořádku.</li>
+      </ul>
+      <p class="sub">Neříkat</p>
+      <ul>
+        <li>„Vždyť funguješ normálně.“</li>
+        <li>„Nevypadáš, že máš depresi.“</li>
+      </ul>
+    </div>
+    <div class="block">
+      <span class="label">Konkrétní obrazy</span>
+      <p class="imgs">talíř dojedený bez chuti · díl seriálu, u kterého nevíš, o čem byl · ruce, které vykonávají pohyby samy · sklo mezi člověkem a světem · kancelářská židle, která se ještě točí, když z ní vstal</p>
     </div>
     <div class="block">
       <span class="label">Souvisí s</span>
@@ -1104,6 +1244,24 @@ a { color: var(--green); }
       </ul>
     </div>
     <div class="block">
+      <span class="label">Pro blízké</span>
+      <p class="sub">Pomáhá</p>
+      <ul>
+        <li>Plánovat spolu malé věci dopředu: zítra kafe, v sobotu výlet.</li>
+        <li>Připomenout, co se za poslední měsíc i tak stalo.</li>
+        <li>Nedávat termíny, do kdy by mu mělo být líp.</li>
+      </ul>
+      <p class="sub">Neříkat</p>
+      <ul>
+        <li>„Už je to dlouho, měl by ses dát dohromady.“</li>
+        <li>„Ztrácíš čas.“</li>
+      </ul>
+    </div>
+    <div class="block">
+      <span class="label">Konkrétní obrazy</span>
+      <p class="imgs">kalendář s prázdnými týdny · budík odložený podesáté · hodiny na zdi, které nikdo nenatáhl · narozeniny kamaráda, které proběhly bez něj · noc, která trvá věčnost, a týden, který zmizel</p>
+    </div>
+    <div class="block">
       <span class="label">Souvisí s</span>
       <div class="links"><a href="#zvykova-energie">Zvyková energie</a><a href="#ztracena-duse">Ztracená duše</a><a href="#sebelitost">Sebelítost</a><a href="#smysl">Smysl</a></div>
     </div>
@@ -1193,6 +1351,24 @@ a { color: var(--green); }
         <li><strong>Text:</strong> dopis duši, jako Jung. „Kde jsi? Slyšíš mě?“ A pak odpověď, kterou napíše ruka sama.</li>
         <li><strong>Na nástěnku:</strong> karta „Co mě oživovalo“, seznam z dětství.</li>
       </ul>
+    </div>
+    <div class="block">
+      <span class="label">Pro blízké</span>
+      <p class="sub">Pomáhá</p>
+      <ul>
+        <li>Připomenout, co ho dřív bavilo, bez tlaku, že ho to musí bavit i teď.</li>
+        <li>Dělat to spolu, ať do toho nemusí jít sám.</li>
+        <li>Všimnout si malé jiskry (zájem, úsměv) a nekomentovat ji hned.</li>
+      </ul>
+      <p class="sub">Neříkat</p>
+      <ul>
+        <li>„Vždyť tě to dřív bavilo.“</li>
+        <li>„Kde je ten starý ty?“</li>
+      </ul>
+    </div>
+    <div class="block">
+      <span class="label">Konkrétní obrazy</span>
+      <p class="imgs">kytara opřená o zeď s prachem na strunách · oblíbená písnička, která nic nedělá · fotky z doby, kdy se smál · sportovní taška zabalená a týden nevybalená · klíč od místa, kam už nechodí</p>
     </div>
     <div class="block">
       <span class="label">Souvisí s</span>
@@ -1288,6 +1464,26 @@ a { color: var(--green); }
       <li><strong>V místnosti:</strong> „Důvody žít“: drobné věty, které se objevují jedna po druhé, pomalu, ve tmě kolem plakátu. Od autora, později možná od návštěvníků (s moderací).</li>
       <li><strong>Text:</strong> seznam důvodů zůstat, jako Matt Haig. Velké i směšně malé. Stejnou váhu má „máma“ jako „vůně ranní kávy“.</li>
     </ul>
+  </div>
+  <div class="block">
+    <span class="label">Pro blízké</span>
+    <p class="sub">Pomáhá</p>
+    <ul>
+      <li>Zeptat se přímo: „Myslíš na to, že by sis ublížil?“ Přímá otázka riziko nezvyšuje.</li>
+      <li>Zůstat, poslouchat a nehodnotit.</li>
+      <li>Pomoct najít odbornou pomoc a jít tam s ním.</li>
+      <li>Při bezprostředním ohrožení volat 155 nebo 112 a nezůstávat s tím sám.</li>
+    </ul>
+    <p class="sub">Neříkat</p>
+    <ul>
+      <li>„Na to ani nemysli, máš tolik důvodů žít.“</li>
+      <li>„Neblázni.“</li>
+      <li>Slib, že to nikomu neřeknete. Jeho bezpečí je víc než tajemství.</li>
+    </ul>
+  </div>
+  <div class="block">
+    <span class="label">Konkrétní obrazy</span>
+    <p class="imgs">tunel, ve kterém je vidět jen dopředu · prst nad tlačítkem „volat“ u jména v telefonu · seznam důvodů na lednici · ranní světlo po noci, kterou člověk přečkal · natažená ruka na okraji obrazu</p>
   </div>
   <div class="block">
     <span class="label">Souvisí s</span>
@@ -1386,6 +1582,24 @@ a { color: var(--green); }
       </ul>
     </div>
     <div class="block">
+      <span class="label">Pro blízké</span>
+      <p class="sub">Pomáhá</p>
+      <ul>
+        <li>Zeptat se „a jak jsi na tom ty?“ a počkat na skutečnou odpověď.</li>
+        <li>Říct mu, že jeho péči o druhé vidíte a vážíte si jí.</li>
+        <li>Dát mu možnost aspoň chvíli nebýt ten silný.</li>
+      </ul>
+      <p class="sub">Neříkat</p>
+      <ul>
+        <li>„Neřeš pořád ostatní.“</li>
+        <li>„Jsi moc citlivý.“</li>
+      </ul>
+    </div>
+    <div class="block">
+      <span class="label">Konkrétní obrazy</span>
+      <p class="imgs">zprávy, na které odpovídá ostatním ve dvě ráno · plné ruce cizích věcí a prázdný vlastní talíř · houba nasáklá vodou · místnost, ve které cítí náladu všech · nit napnutá mezi dvěma lidmi</p>
+    </div>
+    <div class="block">
       <span class="label">Souvisí s</span>
       <div class="links"><a href="#maska">Maska</a><a href="#osamelost">Osamělost</a><a href="#sebevrazda">Sebevražda</a><a href="#inteligence">Inteligence</a></div>
     </div>
@@ -1477,6 +1691,24 @@ a { color: var(--green); }
       </ul>
     </div>
     <div class="block">
+      <span class="label">Pro blízké</span>
+      <p class="sub">Pomáhá</p>
+      <ul>
+        <li>Dát najevo, že s vámi hrát nemusí: „U mě můžeš být klidně mimo.“</li>
+        <li>Nevyčítat, když maska spadne.</li>
+        <li>Jednou za čas se zeptat vážně, mimo skupinu.</li>
+      </ul>
+      <p class="sub">Neříkat</p>
+      <ul>
+        <li>„Vždyť ses celý večer smál.“</li>
+        <li>„Tak proč jsi mi to neřekl dřív?“</li>
+      </ul>
+    </div>
+    <div class="block">
+      <span class="label">Konkrétní obrazy</span>
+      <p class="imgs">úsměv, který povolí, jakmile zaklapnou dveře auta · „jo, v pohodě“ napsané třikrát za den · obličej v zrcadle výtahu mezi patry · ticho v předsíni po večírku · selfie vyfocená na desátý pokus</p>
+    </div>
+    <div class="block">
       <span class="label">Souvisí s</span>
       <div class="links"><a href="#stud">Stud</a><a href="#telo">Tělo</a><a href="#osamelost">Osamělost</a><a href="#empatie">Empatie</a></div>
     </div>
@@ -1565,6 +1797,24 @@ a { color: var(--green); }
         <li><strong>V místnosti:</strong> plakát, který pulzuje pomalým rytmem dechu. Pod ním tichá výzva: „Dýchej s ním.“ Na chvíli se divák vrátí do vlastního těla.</li>
         <li><strong>Text:</strong> tréninkový deník, kde je u každého dne vedle času a vzdálenosti i jedna věta o tom, jak se cítila hlava.</li>
       </ul>
+    </div>
+    <div class="block">
+      <span class="label">Pro blízké</span>
+      <p class="sub">Pomáhá</p>
+      <ul>
+        <li>Brát pokles výkonu i jako signál psychiky, nejen formy.</li>
+        <li>Jít s ním na trénink a nechat ho určit tempo.</li>
+        <li>Ptát se nejdřív na spánek a jídlo, motivace přijde na řadu až potom.</li>
+      </ul>
+      <p class="sub">Neříkat</p>
+      <ul>
+        <li>„Zaber víc.“</li>
+        <li>„Hlava sem nepatří, jde o nohy.“</li>
+      </ul>
+    </div>
+    <div class="block">
+      <span class="label">Konkrétní obrazy</span>
+      <p class="imgs">nohy z olova při rozcvičce · hodinky ukazující čas o dvě minuty horší než loni · sportovní taška u dveří, která tam stojí třetí den · prázdná hala v šest ráno · pot bez endorfinů</p>
     </div>
     <div class="block">
       <span class="label">Souvisí s</span>
@@ -1666,6 +1916,24 @@ a { color: var(--green); }
     </ul>
   </div>
   <div class="block">
+    <span class="label">Pro blízké</span>
+    <p class="sub">Pomáhá</p>
+    <ul>
+      <li>Volit setkání ve dvou, ne velké skupiny.</li>
+      <li>Ptát se na věci, na kterých mu záleží, a nechat ho mluvit.</li>
+      <li>Ozvat se i bez důvodu.</li>
+    </ul>
+    <p class="sub">Neříkat</p>
+    <ul>
+      <li>„Vždyť máš kolem sebe lidi.“</li>
+      <li>„Měl bys víc chodit mezi lidi.“</li>
+    </ul>
+  </div>
+  <div class="block">
+    <span class="label">Konkrétní obrazy</span>
+    <p class="imgs">smích za zdí · skupinový chat, kde se nikdo na nic neptá · stůl plný talířů · výloha nočního baru · zpráva napsaná a smazaná</p>
+  </div>
+  <div class="block">
     <span class="label">Souvisí s</span>
     <div class="links"><a href="#maska">Maska</a><a href="#inteligence">Inteligence</a><a href="#sebevrazda">Sebevražda</a><a href="#smysl">Smysl</a></div>
   </div>
@@ -1748,6 +2016,24 @@ a { color: var(--green); }
         <li><strong>Text:</strong> vzorec, který vidíš, zapsaný jako vědecká hypotéza: pozorování, předpověď, jak bych ho ověřil. Inteligence zaměstnaná ve službách svědka, ne soudce.</li>
       </ul>
     </div>
+    <div class="block">
+      <span class="label">Pro blízké</span>
+      <p class="sub">Pomáhá</p>
+      <ul>
+        <li>Brát jeho postřehy vážně a nabídnout jiný úhel bez soutěžení, kdo má pravdu.</li>
+        <li>Nechat ho vzorec říct nahlas a zeptat se, jak by si ho ověřil.</li>
+        <li>Odpovídat i na pocit, který za argumentem stojí.</li>
+      </ul>
+      <p class="sub">Neříkat</p>
+      <ul>
+        <li>„Moc přemýšlíš.“</li>
+        <li>„Na to jsi moc chytrý.“</li>
+      </ul>
+    </div>
+    <div class="block">
+      <span class="label">Konkrétní obrazy</span>
+      <p class="imgs">nástěnka s nitěmi · dvacet otevřených záložek v prohlížeči · poznámky v mobilu psané ve tři ráno · šachovnice uprostřed partie · Dürerova Melancholie s mobilem v ruce</p>
+    </div>
   </article>
 </section>
 
@@ -1811,6 +2097,10 @@ a { color: var(--green); }
       <li><strong>V místnosti:</strong> po návratu ze dveří se objeví otázka: „Co sis odnesl?“ A možnost napsat si jednu větu, která zůstane jen pro diváka.</li>
       <li><strong>Text:</strong> dva krátké texty vedle sebe. Únik, který otevřel, a únik, který vzal. Bez moralizování, jen svědectví.</li>
     </ul>
+  </div>
+  <div class="block">
+    <span class="label">Konkrétní obrazy</span>
+    <p class="imgs">studená klika · proužek světla pod dveřmi · zvuk zámku · chodba delší, než vypadala · dveře, které se otevírají jen jedním směrem</p>
   </div>
   <div class="block">
     <span class="label">Souvisí s</span>
@@ -1880,6 +2170,10 @@ a { color: var(--green); }
       <li><strong>Text:</strong> tvoje „proč“. Krátce, osobně, bez patosu. Možná ta věta, kterou jsi napsal tady: že když tvoříš, deprese ustoupí stranou.</li>
       <li><strong>Na nástěnku:</strong> karta se třemi Franklovými cestami: tvorba, prožitek, postoj.</li>
     </ul>
+  </div>
+  <div class="block">
+    <span class="label">Konkrétní obrazy</span>
+    <p class="imgs">Pantheon za deště, kdy otvorem ve stropě padá voda i světlo · ranní světlo na podlaze · rozdělaná práce na stole · ruce, které něco tvoří · zpráva od cizího člověka: „Pomohlo mi to.“</p>
   </div>
   <div class="block">
     <span class="label">Souvisí s</span>
