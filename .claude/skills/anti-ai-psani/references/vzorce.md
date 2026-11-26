@@ -8,7 +8,7 @@ Každý vzorec: jak vypadá, proč škodí, čím ho nahradit. Příklady jsou i
 3. Slovník: prázdná slova a fráze
 4. Tón a postoj
 5. Formátování
-6. Texty o duševním zdraví
+6. Citlivá témata
 7. Rychlá tabulka náhrad
 
 ---
@@ -103,19 +103,9 @@ Ne každé je zakázané. Problém je, když se objevují bez obsahu nebo hustě
 
 ---
 
-## 6. Texty o duševním zdraví
+## 6. Citlivá témata
 
-**Útěšný kýč:** „na konci tunelu je vždycky světlo“ · „všechno se děje z nějakého důvodu“ · „buď k sobě laskavý“ jako koncovka · „nejsi sám“ přilepené na konec · „jsi silnější, než si myslíš“ · „každý den je nová šance“
-
-**Metaforická lavina:** tma + světlo + bouře + vlny + propast + tunel v jednom odstavci. Vyber jeden obraz, nebo žádný.
-
-**Brožurový žargon:** zpracovat · uzdravení jako cesta · pracovat na sobě · nastavit hranice · bezpečný prostor · toxický · trauma (u běžných situací) · self-care
-
-**Estetizace bolesti:** krásné věty o utrpení, které z něj dělají ozdobu.
-
-**Bezpečnost:** u sebevraždy nikdy metody, prostředky ani detaily způsobu. Bez senzace. Ukázat i cestu, která drží (Papagenův efekt). Kontakt na pomoc tam, kde se téma otevírá.
-
-**Co funguje místo toho:** konkrétní scéna, tělo, čas, předmět. Věta, kterou by řekl člověk kamarádovi v autě, ne řečník na konferenci.
+Viz `citliva-temata.md`.
 
 ---
 
@@ -126,8 +116,8 @@ Ne každé je zakázané. Problém je, když se objevují bez obsahu nebo hustě
 | „Je důležité si uvědomit, že X.“ | „X.“ |
 | „Není to X, je to Y.“ | „Je to Y.“ nebo konkrétní obraz |
 | „hraje klíčovou roli v“ | „ovlivňuje“, „rozhoduje o“, nebo konkrétně jak |
-| „cesta k uzdravení“ | co konkrétně člověk dělá |
-| „pocit prázdnoty“ | co se v tu chvíli děje, co člověk vidí, dělá, nedělá |
+| „cesta k (čemukoli)“ | co konkrétně člověk dělá |
+| „pocit (prázdnoty, štěstí, …)“ | co se v tu chvíli děje, co člověk vidí, dělá, nedělá |
 | „hluboce mě to zasáhlo“ | co přesně se stalo potom |
 | „Závěrem…“ | smaž, nebo skonči poslední věcnou větou |
 | tři přívlastky | jeden přesný |

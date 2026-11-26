@@ -1,6 +1,6 @@
 ---
 name: anti-ai-psani
-description: Psaní a revize českých textů tak, aby nezněly jako generované umělou inteligencí ("AI slop"). Použij vždy, když uživatel chce text "polidštit", odstranit AI styl, zkontrolovat, jestli text nezní uměle, učesat vlastní text bez ztráty hlasu, nebo když píšeš texty, které budou číst lidé jako umělecké dílo, osobní výpověď, článek, popisek, plakát či web. Platí i pro texty o duševním zdraví a depresi (galerie Začarovaný kruh). Triggers also on English requests like "remove AI slop", "make this sound human", "anti-AI writing", "de-AI this text".
+description: Psaní a revize českých textů tak, aby nezněly jako generované umělou inteligencí ("AI slop"). Použij vždy, když uživatel chce text "polidštit", odstranit AI styl, zkontrolovat, jestli text nezní uměle, učesat vlastní text bez ztráty hlasu, nebo když píšeš text, který budou číst lidé, například článek, e-mail, příspěvek na sítě, popisek, web, prezentaci, osobní výpověď, esej či umělecký text. Triggers also on English requests like "remove AI slop", "make this sound human", "anti-AI writing", "de-AI this text".
 ---
 
 # Anti-AI psaní
@@ -36,16 +36,13 @@ Když režim z požadavku není jasný a jde o autorův vlastní text, zvol A.
 8. **Struktura místo prózy.** Nadpisy, odrážky a tučné písmo tam, kde by člověk prostě napsal odstavec. Formátování ber jako nástroj, ne jako výchozí stav.
 9. **Tón asistenta.** Ujišťování, nadšení, servilní úvody, shrnutí na konci, opakování zadání, alibistické „do jisté míry“ u všeho.
 
-## Texty o depresi a duševním zdraví
+## Pravdivost a zkušenost
 
-Tady AI styl škodí nejvíc, protože z bolesti dělá kýč.
+**Nevymýšlej za autora.** Když v textu chybí konkrétní detail, zážitek, číslo nebo citát, zeptej se na něj, nebo nech viditelné prázdné místo. Vymyšlený detail je horší než žádný, protože text tváří jako svědectví něco, co se nestalo. Totéž platí pro fakta a zdroje: co nemáš ověřené, označ.
 
-- **Žádné útěšné fráze:** „na konci tunelu je světlo“, „všechno se děje z nějakého důvodu“, „buď silný“, „nejsi sám“ jako mechanická koncovka. Útěcha funguje, jen když je konkrétní a zasloužená.
-- **Jedna metafora a dotáhnout ji.** AI vrší tmu, světlo, vlny, bouři a propast do jednoho odstavce. Člověk si vybere jeden obraz a drží ho.
-- **Terapeutický žargon jen tam, kde je potřeba.** „Zpracovat trauma“, „nastavit hranice“, „pracovat na sobě“ znějí jako z brožury.
-- **Neromantizuj bolest** a nedělej z ní estetiku.
-- **Sebevražda:** nikdy metody ani detaily způsobu. Ukazuj bolest i to, co pomohlo nebo drží. Kontakt na pomoc (v ČR Linka první psychické pomoci 116 123) patří tam, kde se téma otevírá.
-- **Nevymýšlej zkušenost za autora.** Když chybí konkrétní detail, zeptej se na něj nebo nech prázdné místo. Vymyšlený detail je horší než žádný.
+## Citlivá a osobní témata
+
+Když je text o duševním zdraví, zármutku, nemoci, traumatu, sebepoškozování nebo sebevraždě, přečti `references/citliva-temata.md`. AI styl tam škodí nejvíc, protože z bolesti dělá kýč, a u některých témat platí i bezpečnostní pravidla.
 
 ## Revizní průchod (kontrolní seznam)
 
